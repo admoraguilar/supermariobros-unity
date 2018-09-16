@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1679633479116264}
+  m_IsPrefabParent: 1
+--- !u!1 &1679633479116264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4444237451532674}
+  - component: {fileID: 114685916286753960}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4444237451532674
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1679633479116264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114685916286753960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1679633479116264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e8963a267e2c714abe8ac558e0db677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingScreenTime: 2
+  mainCameraPrefab: {fileID: 20134601375352992, guid: 8bf91cf9a73109141b3e35849d2e2f4a,
+    type: 2}
+  playerPrefab: {fileID: 1349133219073804, guid: 418a96c8d57ba9441b60f715d944aa0b,
+    type: 2}
+  levels:
+  - 1-1
+  - 1-2
+  masterOverlayCanvasPrefab: {fileID: 223815798812520860, guid: f476906511e9c7745825bef94d2b6277,
+    type: 2}
+  eventSystemPrefab: {fileID: 114998433388220190, guid: 7a369725ec416ea429f27a6d86a99a3b,
+    type: 2}
+  loadingScreenUiPrefab: {fileID: 1270544197744494, guid: dd300767571ae774886084baea7a58d2,
+    type: 2}
+  mainMenuScreenUiPrefab: {fileID: 0}
+  playerStatsUiPrefab: {fileID: 1132834934039876, guid: 843c34e0fc1fbc942bbacf31fd38db26,
+    type: 2}
+  mainCamera: {fileID: 0}
+  player: {fileID: 0}
+  masterOverlayCanvas: {fileID: 0}
+  eventSystem: {fileID: 0}
+  loadingScreenUi: {fileID: 0}
+  mainMenuScreenUi: {fileID: 0}
+  playerStatsUi: {fileID: 0}
+  currentLevel: {fileID: 0}
+  currentLevelIndex: 0
