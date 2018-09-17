@@ -13,6 +13,7 @@ public class Character2D : MonoBehaviour {
     [SerializeField] private BoxCastInfo leftBoxCast;
     [SerializeField] private BoxCastInfo rightBoxCast;
 
+    private Vector2 moveDirection;
     private Vector2 inputAxis;
     private Vector2 lastPositionBeforeJumping;
     private bool isGrounded;
@@ -30,8 +31,21 @@ public class Character2D : MonoBehaviour {
         return boxCastInfo.Collider;
     }
 
+    public bool IsMoving(Direction direction) {
+        switch(direction) {
+            case Direction.Up: return moveDirection.y > 0f;
+            case Direction.Down: return moveDirection.y < 0f;
+            case Direction.Left: return moveDirection.x < 0f;
+            case Direction.Right: return moveDirection.x > 0f;
+            default: return false;
+        }
+    }
+
     public void Move(Vector2 direction) {
-        if(IsColliding(Direction.Up) && direction.y < 0) {
+        if(IsColliding(Direction.Up) && direction.y > 0) {
+            direction.y = 0f;
+        }
+        if(IsColliding(Direction.Down) && direction.y < 0) {
             direction.y = 0f;
         }
         if(IsColliding(Direction.Left) && direction.x < 0) {
@@ -41,7 +55,7 @@ public class Character2D : MonoBehaviour {
             direction.x = 0f;
         }
 
-        thisRigidbody2D.AddForce(direction, ForceMode2D.Force);
+        moveDirection += direction;
     }
 
     private BoxCastInfo MakeBoxCast(SpriteRenderer spriteRenderer, Direction direction) {
@@ -100,8 +114,6 @@ public class Character2D : MonoBehaviour {
            IsColliding(Direction.Up)) {
             isJumping = false;
         }
-
-        ClampVelocity();
     }
 
     private void FixedUpdate() {
@@ -113,6 +125,13 @@ public class Character2D : MonoBehaviour {
         if(isJumping) {
             Move(new Vector2(0f, 1f) * jumpSpeed * Time.fixedDeltaTime);
         }
+
+        if(moveDirection != Vector2.zero) {
+            thisRigidbody2D.AddForce(moveDirection, ForceMode2D.Force);
+            moveDirection = Vector2.zero;
+        }
+
+        ClampVelocity();
     }
 
     private void OnDrawGizmos() {
