@@ -2,41 +2,41 @@ fileFormatVersion: 2
 guid: 839c19fb28c86a8488bda5f52b79b585
 TextureImporter:
   fileIDToRecycleName:
-    21300000: mushroom_1up
-    21300002: mushroom_growup_normal
-    21300004: mushroom_growup_dark
-    21300006: pickup_coin0
+    21300000: Mushroom_1UP
+    21300002: Mushroom_Growup
+    21300004: Mushroom_Growup_Dark
+    21300006: Coin_Pickup0
     21300008: smb1_misc_sprites_4
     21300010: smb1_misc_sprites_5
     21300012: smb1_misc_sprites_6
     21300014: smb1_misc_sprites_7
     21300016: smb1_misc_sprites_8
-    21300018: flag_normal
+    21300018: Flagpole
     21300020: smb1_misc_sprites_10
     21300022: smb1_misc_sprites_11
     21300024: smb1_misc_sprites_12
-    21300026: brick_normal
+    21300026: Brick
     21300028: smb1_misc_sprites_14
     21300030: smb1_misc_sprites_15
-    21300032: pipe_upperhole_orange
-    21300034: pipe_upperhole_green
-    21300036: flower_normal0
-    21300038: flower_normal3
+    21300032: Pipe_Upperhole_Orange
+    21300034: Pipe_Upperhole_Green
+    21300036: Flower0
+    21300038: Flower3
     21300040: smb1_misc_sprites_20
     21300042: smb1_misc_sprites_21
     21300044: smb1_misc_sprites_22
     21300046: smb1_misc_sprites_23
     21300048: smb1_misc_sprites_24
-    21300050: powerbox_empty
+    21300050: Powerbox_Empty
     21300052: smb1_misc_sprites_26
     21300054: smb1_misc_sprites_27
     21300056: smb1_misc_sprites_28
     21300058: smb1_misc_sprites_29
     21300060: smb1_misc_sprites_30
-    21300062: flower_dark0
-    21300064: flower_dark1
-    21300066: flower_dark2
-    21300068: flower_dark3
+    21300062: Flower0_Dark
+    21300064: Flower1_Dark
+    21300066: Flower2_Dark
+    21300068: Flower3_Dark
     21300070: smb1_misc_sprites_35
     21300072: smb1_misc_sprites_36
     21300074: smb1_misc_sprites_37
@@ -44,51 +44,51 @@ TextureImporter:
     21300078: smb1_misc_sprites_39
     21300080: smb1_misc_sprites_40
     21300082: smb1_misc_sprites_41
-    21300084: smb1_misc_sprites_42
+    21300084: Flag
     21300086: smb1_misc_sprites_43
-    21300088: pipe_upperbody_orange
-    21300090: pipe_upperbody_green
-    21300092: star_normal0
-    21300094: star_normal1
-    21300096: star_normal2
-    21300098: star_normal3
+    21300088: Pipe_Upperbody_Orange
+    21300090: Pipe_Upperbody_Green
+    21300092: Star0
+    21300094: Star1
+    21300096: Star2
+    21300098: Star3
     21300100: smb1_misc_sprites_50
     21300102: smb1_misc_sprites_51
     21300104: smb1_misc_sprites_52
     21300106: smb1_misc_sprites_53
     21300108: smb1_misc_sprites_54
     21300110: smb1_misc_sprites_55
-    21300112: pipe_lefthole_orange
-    21300114: pipe_perpendicular_orange
-    21300116: pipe_lefthole_green
-    21300118: pipe_perpendicular_green
+    21300112: Pipe_Lefthole_Orange
+    21300114: Pipe_TShape_Orange
+    21300116: Pipe_Lefthole_Green
+    21300118: Pipe_TShape_Green
     21300120: smb1_misc_sprites_60
-    21300122: tile_ground_normal
+    21300122: Tile_Ground
     21300124: smb1_misc_sprites_62
-    21300126: ui_coin0
+    21300126: Coin_Ui0
     21300128: smb1_misc_sprites_64
     21300130: smb1_misc_sprites_65
     21300132: smb1_misc_sprites_66
     21300134: smb1_misc_sprites_67
-    21300136: powerbox_filled1
-    21300138: tile_metal_normal
+    21300136: Powerbox_Filled1
+    21300138: Tile_Metal
     21300140: smb1_misc_sprites_70
     21300142: smb1_misc_sprites_71
-    21300144: box_coin0
-    21300146: box_coin1
-    21300148: box_coin2
-    21300150: box_coin3
-    21300152: pipe_lowerhole_orange
-    21300154: pipe_lowerhole_green
-    21300156: hill_big
-    21300158: powerbox_filled0
-    21300160: powerbox_filled2
-    21300162: pickup_coin1
-    21300164: pickup_coin2
-    21300166: ui_coin1
-    21300168: ui_coin2
-    21300170: hill_small
-    21300172: cloud_normal0
+    21300144: Coin_Box0
+    21300146: Coin_Box1
+    21300148: Coin_Box2
+    21300150: Coin_Box3
+    21300152: Pipe_Lowerhole_Orange
+    21300154: Pipe_Lowerhole_Green
+    21300156: Hill_Big
+    21300158: Powerbox_Filled0
+    21300160: Powerbox_Filled2
+    21300162: Coin_Pickup1
+    21300164: Coin_Pickup2
+    21300166: Coin_Ui1
+    21300168: Coin_Ui2
+    21300170: Hill_Small
+    21300172: Cloud0
     21300174: smb1_misc_sprites_87
     21300176: smb1_misc_sprites_88
     21300178: smb1_misc_sprites_89
@@ -101,14 +101,14 @@ TextureImporter:
     21300192: smb1_misc_sprites_96
     21300194: smb1_misc_sprites_97
     21300196: smb1_misc_sprites_98
-    21300198: cloud_normal1
-    21300200: cloud_normal2
-    21300202: smb1_misc_sprites_101
-    21300204: flag
+    21300198: Cloud1
+    21300200: Cloud2
+    21300202: Castle_Dark
+    21300204: CastleFlag
     21300206: smb1_misc_sprites_103
     21300208: smb1_misc_sprites_104
     21300210: smb1_misc_sprites_105
-    21300212: castle_normal
+    21300212: Castle
     21300214: smb1_misc_sprites_107
     21300216: smb1_misc_sprites_108
     21300218: smb1_misc_sprites_109
@@ -121,16 +121,16 @@ TextureImporter:
     21300232: smb1_misc_sprites_116
     21300234: smb1_misc_sprites_117
     21300236: smb1_misc_sprites_118
-    21300238: bush0
+    21300238: Bush0
     21300240: smb1_misc_sprites_120
     21300242: smb1_misc_sprites_121
-    21300244: bush2
+    21300244: Bush2
     21300246: smb1_misc_sprites_123
     21300248: smb1_misc_sprites_124
     21300250: smb1_misc_sprites_125
     21300252: smb1_misc_sprites_126
     21300254: smb1_misc_sprites_127
-    21300256: bush1
+    21300256: Bush1
     21300258: smb1_misc_sprites_129
     21300260: smb1_misc_sprites_130
     21300262: smb1_misc_sprites_131
@@ -150,9 +150,9 @@ TextureImporter:
     21300290: smb1_misc_sprites_145
     21300292: smb1_misc_sprites_146
     21300294: smb1_misc_sprites_147
-    21300296: background_indigo
-    21300298: background_black
-    21300300: background_blue
+    21300296: Background_Indigo
+    21300298: Background_Black
+    21300300: Background_Blue
     21300302: smb1_misc_sprites_151
     21300304: smb1_misc_sprites_152
     21300306: smb1_misc_sprites_153
@@ -169,8 +169,8 @@ TextureImporter:
     21300328: smb1_misc_sprites_164
     21300330: smb1_misc_sprites_165
     21300332: smb1_misc_sprites_166
-    21300334: background_skyblue
-    21300336: background_red
+    21300334: Background_SkyBlue
+    21300336: Background_Red
     21300338: smb1_misc_sprites_169
     21300340: smb1_misc_sprites_170
     21300342: smb1_misc_sprites_171
@@ -200,10 +200,10 @@ TextureImporter:
     21300390: smb1_misc_sprites_195
     21300392: smb1_misc_sprites_196
     21300394: smb1_misc_sprites_197
-    21300396: mario_small_idle
-    21300398: mario_small_step0
-    21300400: mario_small_step2
-    21300402: mario_small_jump
+    21300396: Mario_Small_Idle
+    21300398: Mario_Small_Step0
+    21300400: Mario_Small_Step2
+    21300402: Mario_Small_Jump
     21300404: smb1_misc_sprites_202
     21300406: smb1_misc_sprites_203
     21300408: smb1_misc_sprites_204
@@ -214,9 +214,9 @@ TextureImporter:
     21300418: smb1_misc_sprites_209
     21300420: smb1_misc_sprites_210
     21300422: smb1_misc_sprites_211
-    21300424: mario_small_dead
-    21300426: mario_small_slide
-    21300428: mario_small_step1
+    21300424: Mario_Small_Dead
+    21300426: Mario_Small_Slide
+    21300428: Mario_Small_Step1
     21300430: smb1_misc_sprites_215
     21300432: smb1_misc_sprites_216
     21300434: smb1_misc_sprites_217
@@ -231,19 +231,19 @@ TextureImporter:
     21300452: smb1_misc_sprites_226
     21300454: smb1_misc_sprites_227
     21300456: smb1_misc_sprites_228
-    21300458: mario_small_flag
+    21300458: Mario_Small_FlagHold
     21300460: smb1_misc_sprites_230
     21300462: smb1_misc_sprites_231
     21300464: smb1_misc_sprites_232
     21300466: smb1_misc_sprites_233
     21300468: smb1_misc_sprites_234
     21300470: smb1_misc_sprites_235
-    21300472: mario_big_slide
-    21300474: mario_big_idle
-    21300476: mario_big_step0
-    21300478: mario_big_step1
-    21300480: mario_big_step2
-    21300482: mario_big_jump
+    21300472: Mario_Big_Slide
+    21300474: Mario_Big_Idle
+    21300476: Mario_Big_Step0
+    21300478: Mario_Big_Step1
+    21300480: Mario_Big_Step2
+    21300482: Mario_Big_Jump
     21300484: smb1_misc_sprites_242
     21300486: smb1_misc_sprites_243
     21300488: smb1_misc_sprites_244
@@ -252,7 +252,7 @@ TextureImporter:
     21300494: smb1_misc_sprites_247
     21300496: smb1_misc_sprites_248
     21300498: smb1_misc_sprites_249
-    21300500: mario_big_duck
+    21300500: Mario_Big_Duck
     21300502: smb1_misc_sprites_251
     21300504: smb1_misc_sprites_252
     21300506: smb1_misc_sprites_253
@@ -272,13 +272,13 @@ TextureImporter:
     21300534: smb1_misc_sprites_267
     21300536: smb1_misc_sprites_268
     21300538: smb1_misc_sprites_269
-    21300540: mario_power_duck
-    21300542: mario_power_idle
-    21300544: mario_power_slide
-    21300546: mario_power_step0
-    21300548: mario_power_step1
-    21300550: mario_power_step2
-    21300552: mario_power_jump
+    21300540: Mario_Power_Duck
+    21300542: Mario_Power_Idle
+    21300544: Mario_Power_Slide
+    21300546: Mario_Power_Step0
+    21300548: Mario_Power_Step1
+    21300550: Mario_Power_Step2
+    21300552: Mario_Power_Jump
     21300554: smb1_misc_sprites_277
     21300556: smb1_misc_sprites_278
     21300558: smb1_misc_sprites_279
@@ -390,8 +390,8 @@ TextureImporter:
     21300770: smb1_misc_sprites_385
     21300772: smb1_misc_sprites_386
     21300774: smb1_misc_sprites_387
-    21300776: flower_normal1
-    21300778: flower_normal2
+    21300776: Flower1
+    21300778: Flower2
     21300780: smb1_misc_sprites_390
     21300782: smb1_misc_sprites_391
     21300784: smb1_misc_sprites_392
@@ -469,8 +469,8 @@ TextureImporter:
     21300928: smb1_misc_sprites_464
     21300930: smb1_misc_sprites_465
     21300932: smb1_misc_sprites_466
-    21300934: goomba_normal0
-    21300936: goomba_normal1
+    21300934: Goomba_Step0
+    21300936: Goomba_Step1
     21300938: smb1_misc_sprites_469
     21300940: smb1_misc_sprites_470
     21300942: smb1_misc_sprites_471
@@ -482,7 +482,7 @@ TextureImporter:
     21300954: smb1_misc_sprites_477
     21300956: smb1_misc_sprites_478
     21300958: smb1_misc_sprites_479
-    21300960: goomba_normal2
+    21300960: Goomba_Stomped
     21300962: smb1_misc_sprites_481
     21300964: smb1_misc_sprites_482
     21300966: smb1_misc_sprites_483
@@ -510,16 +510,16 @@ TextureImporter:
     21301010: smb1_misc_sprites_505
     21301012: smb1_misc_sprites_506
     21301014: smb1_misc_sprites_507
-    21301016: ball_fire5
-    21301018: ball_fire6
+    21301016: Fireball5
+    21301018: Fireball6
     21301020: smb1_misc_sprites_510
     21301022: smb1_misc_sprites_511
     21301024: smb1_misc_sprites_512
-    21301026: ball_fire0
-    21301028: ball_fire1
-    21301030: ball_fire2
-    21301032: ball_fire3
-    21301034: ball_fire4
+    21301026: Fireball0
+    21301028: Fireball1
+    21301030: Fireball2
+    21301032: Fireball3
+    21301034: Fireball4
     21301036: smb1_misc_sprites_518
     21301038: smb1_misc_sprites_519
     21301040: smb1_misc_sprites_520
@@ -791,10 +791,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flag_normal
+      name: Flagpole
       rect:
         serializedVersion: 2
-        x: 260
+        x: 261
         y: 1038
         width: 24
         height: 168
@@ -871,7 +871,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: brick_normal
+      name: Brick
       rect:
         serializedVersion: 2
         x: 373
@@ -931,7 +931,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pipe_upperhole_orange
+      name: Pipe_Upperhole_Orange
       rect:
         serializedVersion: 2
         x: 537
@@ -951,7 +951,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pipe_upperhole_green
+      name: Pipe_Upperhole_Green
       rect:
         serializedVersion: 2
         x: 614
@@ -971,7 +971,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower_normal0
+      name: Flower0
       rect:
         serializedVersion: 2
         x: 52
@@ -991,7 +991,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower_normal3
+      name: Flower3
       rect:
         serializedVersion: 2
         x: 109
@@ -1071,7 +1071,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: powerbox_empty
+      name: Powerbox_Empty
       rect:
         serializedVersion: 2
         x: 373
@@ -1171,7 +1171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower_dark0
+      name: Flower0_Dark
       rect:
         serializedVersion: 2
         x: 52
@@ -1191,7 +1191,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower_dark1
+      name: Flower1_Dark
       rect:
         serializedVersion: 2
         x: 71
@@ -1211,7 +1211,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower_dark2
+      name: Flower2_Dark
       rect:
         serializedVersion: 2
         x: 90
@@ -1231,7 +1231,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower_dark3
+      name: Flower3_Dark
       rect:
         serializedVersion: 2
         x: 109
@@ -1391,7 +1391,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smb1_misc_sprites_42
+      name: Flag
       rect:
         serializedVersion: 2
         x: 432
@@ -1431,7 +1431,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pipe_upperbody_orange
+      name: Pipe_Upperbody_Orange
       rect:
         serializedVersion: 2
         x: 539
@@ -1451,7 +1451,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pipe_upperbody_green
+      name: Pipe_Upperbody_Green
       rect:
         serializedVersion: 2
         x: 616
@@ -1471,7 +1471,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: star_normal0
+      name: Star0
       rect:
         serializedVersion: 2
         x: 53
@@ -1491,7 +1491,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: star_normal1
+      name: Star1
       rect:
         serializedVersion: 2
         x: 72
@@ -1511,7 +1511,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: star_normal2
+      name: Star2
       rect:
         serializedVersion: 2
         x: 91
@@ -1531,7 +1531,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: star_normal3
+      name: Star3
       rect:
         serializedVersion: 2
         x: 110
@@ -1671,7 +1671,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pipe_lefthole_orange
+      name: Pipe_Lefthole_Orange
       rect:
         serializedVersion: 2
         x: 496
@@ -1691,7 +1691,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pipe_perpendicular_orange
+      name: Pipe_TShape_Orange
       rect:
         serializedVersion: 2
         x: 533
@@ -1711,7 +1711,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pipe_lefthole_green
+      name: Pipe_Lefthole_Green
       rect:
         serializedVersion: 2
         x: 573
@@ -1731,7 +1731,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pipe_perpendicular_green
+      name: Pipe_TShape_Green
       rect:
         serializedVersion: 2
         x: 610
@@ -1771,7 +1771,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tile_ground_normal
+      name: Tile_Ground
       rect:
         serializedVersion: 2
         x: 373
@@ -1831,7 +1831,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tile_metal_normal
+      name: Tile_Metal
       rect:
         serializedVersion: 2
         x: 373
@@ -1891,7 +1891,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: box_coin0
+      name: Coin_Box0
       rect:
         serializedVersion: 2
         x: 434
@@ -1911,7 +1911,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: box_coin1
+      name: Coin_Box1
       rect:
         serializedVersion: 2
         x: 440
@@ -1931,7 +1931,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: box_coin2
+      name: Coin_Box2
       rect:
         serializedVersion: 2
         x: 448
@@ -1951,7 +1951,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: box_coin3
+      name: Coin_Box3
       rect:
         serializedVersion: 2
         x: 461
@@ -1971,7 +1971,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pipe_lowerhole_orange
+      name: Pipe_Lowerhole_Orange
       rect:
         serializedVersion: 2
         x: 537
@@ -1991,7 +1991,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pipe_lowerhole_green
+      name: Pipe_Lowerhole_Green
       rect:
         serializedVersion: 2
         x: 614
@@ -2011,7 +2011,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hill_big
+      name: Hill_Big
       rect:
         serializedVersion: 2
         x: 99
@@ -2031,7 +2031,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: powerbox_filled0
+      name: Powerbox_Filled0
       rect:
         serializedVersion: 2
         x: 372
@@ -2051,7 +2051,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: powerbox_filled2
+      name: Powerbox_Filled2
       rect:
         serializedVersion: 2
         x: 408
@@ -2071,7 +2071,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pickup_coin1
+      name: Coin_Pickup1
       rect:
         serializedVersion: 2
         x: 439
@@ -2091,7 +2091,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pickup_coin2
+      name: Coin_Pickup2
       rect:
         serializedVersion: 2
         x: 451
@@ -2111,7 +2111,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui_coin1
+      name: Coin_Ui1
       rect:
         serializedVersion: 2
         x: 470
@@ -2131,7 +2131,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui_coin2
+      name: Coin_Ui2
       rect:
         serializedVersion: 2
         x: 477
@@ -2151,7 +2151,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hill_small
+      name: Hill_Small
       rect:
         serializedVersion: 2
         x: 48
@@ -2171,7 +2171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cloud_normal0
+      name: Cloud0
       rect:
         serializedVersion: 2
         x: 162
@@ -2431,7 +2431,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cloud_normal1
+      name: Cloud1
       rect:
         serializedVersion: 2
         x: 46
@@ -2451,7 +2451,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cloud_normal2
+      name: Cloud2
       rect:
         serializedVersion: 2
         x: 96
@@ -2471,7 +2471,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smb1_misc_sprites_101
+      name: Castle_Dark
       rect:
         serializedVersion: 2
         x: 360
@@ -2491,10 +2491,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flag
+      name: CastleFlag
       rect:
         serializedVersion: 2
-        x: 389
+        x: 388
         y: 1040
         width: 13
         height: 14
@@ -2571,7 +2571,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: castle_normal
+      name: Castle
       rect:
         serializedVersion: 2
         x: 268
@@ -2771,7 +2771,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bush0
+      name: Bush0
       rect:
         serializedVersion: 2
         x: 51
@@ -2831,7 +2831,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bush2
+      name: Bush2
       rect:
         serializedVersion: 2
         x: 85
@@ -2931,7 +2931,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bush1
+      name: Bush1
       rect:
         serializedVersion: 2
         x: 151
@@ -3211,7 +3211,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_indigo
+      name: Background_Indigo
       rect:
         serializedVersion: 2
         x: 274
@@ -3231,7 +3231,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_black
+      name: Background_Black
       rect:
         serializedVersion: 2
         x: 314
@@ -3251,7 +3251,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_blue
+      name: Background_Blue
       rect:
         serializedVersion: 2
         x: 353
@@ -3411,7 +3411,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_skyblue
+      name: Background_SkyBlue
       rect:
         serializedVersion: 2
         x: 274
@@ -3431,7 +3431,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_red
+      name: Background_Red
       rect:
         serializedVersion: 2
         x: 315
@@ -3751,7 +3751,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_small_idle
+      name: Mario_Small_Idle
       rect:
         serializedVersion: 2
         x: 23
@@ -3771,11 +3771,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_small_step0
+      name: Mario_Small_Step0
       rect:
         serializedVersion: 2
         x: 85
-        y: 729
+        y: 730
         width: 15
         height: 16
       alignment: 0
@@ -3791,7 +3791,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_small_step2
+      name: Mario_Small_Step2
       rect:
         serializedVersion: 2
         x: 117
@@ -3811,7 +3811,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_small_jump
+      name: Mario_Small_Jump
       rect:
         serializedVersion: 2
         x: 136
@@ -3971,7 +3971,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_small_dead
+      name: Mario_Small_Dead
       rect:
         serializedVersion: 2
         x: 45
@@ -3991,7 +3991,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_small_slide
+      name: Mario_Small_Slide
       rect:
         serializedVersion: 2
         x: 67
@@ -4011,7 +4011,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_small_step1
+      name: Mario_Small_Step1
       rect:
         serializedVersion: 2
         x: 100
@@ -4171,7 +4171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_small_flag
+      name: Mario_Small_FlagHold
       rect:
         serializedVersion: 2
         x: 48
@@ -4271,7 +4271,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_big_slide
+      name: Mario_Big_Slide
       rect:
         serializedVersion: 2
         x: 71
@@ -4291,7 +4291,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_big_idle
+      name: Mario_Big_Idle
       rect:
         serializedVersion: 2
         x: 48
@@ -4311,7 +4311,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_big_step0
+      name: Mario_Big_Step0
       rect:
         serializedVersion: 2
         x: 95
@@ -4331,7 +4331,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_big_step1
+      name: Mario_Big_Step1
       rect:
         serializedVersion: 2
         x: 115
@@ -4351,7 +4351,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_big_step2
+      name: Mario_Big_Step2
       rect:
         serializedVersion: 2
         x: 140
@@ -4371,7 +4371,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_big_jump
+      name: Mario_Big_Jump
       rect:
         serializedVersion: 2
         x: 167
@@ -4491,7 +4491,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_big_duck
+      name: Mario_Big_Duck
       rect:
         serializedVersion: 2
         x: 24
@@ -4811,7 +4811,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_power_duck
+      name: Mario_Power_Duck
       rect:
         serializedVersion: 2
         x: 95
@@ -4831,7 +4831,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_power_idle
+      name: Mario_Power_Idle
       rect:
         serializedVersion: 2
         x: 119
@@ -4851,7 +4851,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_power_slide
+      name: Mario_Power_Slide
       rect:
         serializedVersion: 2
         x: 142
@@ -4871,7 +4871,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_power_step0
+      name: Mario_Power_Step0
       rect:
         serializedVersion: 2
         x: 166
@@ -4891,7 +4891,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_power_step1
+      name: Mario_Power_Step1
       rect:
         serializedVersion: 2
         x: 186
@@ -4911,7 +4911,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_power_step2
+      name: Mario_Power_Step2
       rect:
         serializedVersion: 2
         x: 211
@@ -4931,7 +4931,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mario_power_jump
+      name: Mario_Power_Jump
       rect:
         serializedVersion: 2
         x: 238
@@ -7271,7 +7271,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goomba_normal0
+      name: Goomba_Step0
       rect:
         serializedVersion: 2
         x: 187
@@ -7291,7 +7291,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goomba_normal1
+      name: Goomba_Step1
       rect:
         serializedVersion: 2
         x: 208
@@ -7431,27 +7431,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smb1_misc_sprites_479
-      rect:
-        serializedVersion: 2
-        x: 172
-        y: 336
-        width: 8
-        height: 12
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c127bcddbf0acf24e8a7ee093b521635
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: goomba_normal2
+      name: Goomba_Stomped
       rect:
         serializedVersion: 2
         x: 228
@@ -7506,26 +7486,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: afb2ef060efffb244aa0645c68de53a9
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: smb1_misc_sprites_492
-      rect:
-        serializedVersion: 2
-        x: 172
-        y: 324
-        width: 4
-        height: 4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6626be12443e96242905378e0b8eaff5
       vertices: []
       indices: 
       edges: []
@@ -7691,7 +7651,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ball_fire5
+      name: Fireball5
       rect:
         serializedVersion: 2
         x: 372
@@ -7711,7 +7671,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ball_fire6
+      name: Fireball6
       rect:
         serializedVersion: 2
         x: 388
@@ -7771,7 +7731,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ball_fire0
+      name: Fireball0
       rect:
         serializedVersion: 2
         x: 313
@@ -7791,7 +7751,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ball_fire1
+      name: Fireball1
       rect:
         serializedVersion: 2
         x: 324
@@ -7811,7 +7771,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ball_fire2
+      name: Fireball2
       rect:
         serializedVersion: 2
         x: 336
@@ -7831,7 +7791,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ball_fire3
+      name: Fireball3
       rect:
         serializedVersion: 2
         x: 348
@@ -7851,7 +7811,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ball_fire4
+      name: Fireball4
       rect:
         serializedVersion: 2
         x: 360
@@ -8371,7 +8331,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mushroom_1up
+      name: Mushroom_1UP
       rect:
         serializedVersion: 2
         x: 52
@@ -8391,7 +8351,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mushroom_growup_normal
+      name: Mushroom_Growup
       rect:
         serializedVersion: 2
         x: 71
@@ -8411,7 +8371,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mushroom_growup_dark
+      name: Mushroom_Growup_Dark
       rect:
         serializedVersion: 2
         x: 98
@@ -8431,7 +8391,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower_normal1
+      name: Flower1
       rect:
         serializedVersion: 2
         x: 71
@@ -8451,7 +8411,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower_normal2
+      name: Flower2
       rect:
         serializedVersion: 2
         x: 90
@@ -8711,7 +8671,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: powerbox_filled1
+      name: Powerbox_Filled1
       rect:
         serializedVersion: 2
         x: 390
@@ -8911,7 +8871,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pickup_coin0
+      name: Coin_Pickup0
       rect:
         serializedVersion: 2
         x: 427
@@ -8951,7 +8911,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui_coin0
+      name: Coin_Ui0
       rect:
         serializedVersion: 2
         x: 463

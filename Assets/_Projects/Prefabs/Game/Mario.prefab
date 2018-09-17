@@ -22,7 +22,9 @@ GameObject:
   - component: {fileID: 212778604336931392}
   - component: {fileID: 50943198243694704}
   - component: {fileID: 61422458804345590}
+  - component: {fileID: 95629329414667678}
   - component: {fileID: 114954155112444220}
+  - component: {fileID: 114343611450159006}
   - component: {fileID: 114744534129089418}
   m_Layer: 2
   m_Name: Mario
@@ -89,6 +91,35 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.40625, y: 0.5}
   m_EdgeRadius: 0
+--- !u!95 &95629329414667678
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1349133219073804}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7d5649cd92f7eec41afb549e87cd5f07, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114343611450159006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1349133219073804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7f57d25f9e68141a5395f8a8ac5d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114744534129089418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,7 +143,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.7
+  moveSpeedMultiplier: 6
   airMoveSpeed: 0.5
+  airMoveSpeedMultiplier: 2
   jumpSpeed: 10
   maxJumpHeight: 2.4
   maxVelocity: {x: 5, y: 8}
@@ -144,6 +177,20 @@ MonoBehaviour:
     Collider: {fileID: 0}
     SizeMultiplier: 0.7
     Distance: 0.2
+  anyBoxCast:
+    Center: {x: -7.75, y: -3.558, z: 0}
+    Size: {x: 0.975, y: 1.2, z: 0.3}
+    Direction: {x: 0, y: 0}
+    Collider: {fileID: 0}
+    SizeMultiplier: 1.5
+    Distance: 1
+  moveDirection: {x: 0, y: 0}
+  inputAxis: {x: 0, y: 0}
+  lastPositionBeforeJumping: {x: 0, y: 0}
+  isGrounded: 0
+  isJumping: 0
+  isSprinting: 0
+  thisRigidbody2D: {fileID: 0}
 --- !u!212 &212778604336931392
 SpriteRenderer:
   m_ObjectHideFlags: 1

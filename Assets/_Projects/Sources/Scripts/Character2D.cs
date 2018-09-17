@@ -3,40 +3,53 @@ using System;
 
 
 public class Character2D : MonoBehaviour {
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float airMoveSpeed = 1f;
-    [SerializeField] private float jumpSpeed = 5f;
-    [SerializeField] private float maxJumpHeight = 5f;
-    [SerializeField] private Vector2 maxVelocity = new Vector2(4f, 14f);
+    [SerializeField] private float moveSpeed = .7f;
+    [SerializeField] private float moveSpeedMultiplier = 6f;
+    [SerializeField] private float airMoveSpeed = .5f;
+    [SerializeField] private float airMoveSpeedMultiplier = 1.5f;
+    [SerializeField] private float jumpSpeed = 10f;
+    [SerializeField] private float maxJumpHeight = 2.4f;
+    [SerializeField] public Vector2 maxVelocity = new Vector2(5f, 8f);
     [SerializeField] private BoxCastInfo upBoxCast;
     [SerializeField] private BoxCastInfo downBoxCast;
     [SerializeField] private BoxCastInfo leftBoxCast;
     [SerializeField] private BoxCastInfo rightBoxCast;
+    [SerializeField] private BoxCastInfo anyBoxCast;
 
-    private Vector2 moveDirection;
-    private Vector2 inputAxis;
-    private Vector2 lastPositionBeforeJumping;
-    private bool isGrounded;
-    private bool isJumping;
+    [Header("Debug")]
+    [SerializeField] private Vector2 moveDirection;
+    [SerializeField] private Vector2 inputAxis;
+    [SerializeField] private Vector2 lastPositionBeforeJumping;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private bool isJumping;
+    [SerializeField] private bool isSprinting;
 
     private SpriteRenderer thisSpriteRenderer;
     private Transform thisTransform;
-    private Rigidbody2D thisRigidbody2D;
+    public Rigidbody2D thisRigidbody2D;
 
 
     public Collider2D IsColliding(Direction direction) {
         BoxCastInfo boxCastInfo = MakeBoxCast(thisSpriteRenderer, direction);
-        RaycastHit2D hit = Physics2D.BoxCast(boxCastInfo.Center, boxCastInfo.Size, 0f, boxCastInfo.Direction, boxCastInfo.Distance);
-        boxCastInfo.Collider = hit.collider;
+
+        if(direction == Direction.Any) {
+            Collider2D hit = Physics2D.OverlapBox(boxCastInfo.Center, boxCastInfo.Size, 0);
+            boxCastInfo.Collider = hit;
+        } else {
+            RaycastHit2D hit = Physics2D.BoxCast(boxCastInfo.Center, boxCastInfo.Size, 0f, boxCastInfo.Direction, boxCastInfo.Distance);
+            boxCastInfo.Collider = hit.collider;
+        }
+
         return boxCastInfo.Collider;
     }
 
     public bool IsMoving(Direction direction) {
         switch(direction) {
-            case Direction.Up: return moveDirection.y > 0f;
-            case Direction.Down: return moveDirection.y < 0f;
-            case Direction.Left: return moveDirection.x < 0f;
-            case Direction.Right: return moveDirection.x > 0f;
+            case Direction.Up: return thisRigidbody2D.velocity.y > 0f;
+            case Direction.Down: return thisRigidbody2D.velocity.y < 0f;
+            case Direction.Left: return thisRigidbody2D.velocity.x < 0f;
+            case Direction.Right: return thisRigidbody2D.velocity.x > 0f;
+            case Direction.Any: return thisRigidbody2D.velocity != Vector2.zero;
             default: return false;
         }
     }
@@ -80,6 +93,11 @@ public class Character2D : MonoBehaviour {
                 rightBoxCast.Size = new Vector3(spriteRenderer.bounds.size.x * .2f, spriteRenderer.bounds.size.y * rightBoxCast.SizeMultiplier, 0f);
                 rightBoxCast.Direction = Vector2.right;
                 return rightBoxCast;
+            case Direction.Any:
+                anyBoxCast.Center = spriteRenderer.bounds.center;
+                anyBoxCast.Size = spriteRenderer.bounds.size * anyBoxCast.SizeMultiplier;
+                anyBoxCast.Direction = Vector3.zero;
+                return anyBoxCast;
             default:
                 return new BoxCastInfo();
         }
@@ -92,6 +110,11 @@ public class Character2D : MonoBehaviour {
             thisRigidbody2D.velocity = new Vector2(thisRigidbody2D.velocity.x, maxVelocity.y * Mathf.Sign(thisRigidbody2D.velocity.y));
     }
 
+    private void FlipSprite() {
+        if(inputAxis.x < 0f) thisSpriteRenderer.flipX = true;
+        if(inputAxis.x > 0f) thisSpriteRenderer.flipX = false;
+    }
+
     private void Awake() {
         thisSpriteRenderer = GetComponent<SpriteRenderer>();
         thisTransform = GetComponent<Transform>();
@@ -100,7 +123,8 @@ public class Character2D : MonoBehaviour {
 
     private void Update() {
         inputAxis = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        isGrounded = IsColliding(Direction.Down);
+        isGrounded = IsColliding(Direction.Down) && thisRigidbody2D.velocity.y == 0f;
+        isSprinting = Input.GetKey(KeyCode.LeftShift);
 
         if(isGrounded) {
             if(Input.GetKeyDown(KeyCode.Space)) {
@@ -114,11 +138,13 @@ public class Character2D : MonoBehaviour {
            IsColliding(Direction.Up)) {
             isJumping = false;
         }
+
+        FlipSprite();
     }
 
     private void FixedUpdate() {
         if(inputAxis != Vector2.zero) {
-            float speed = isGrounded ? moveSpeed : airMoveSpeed;
+            float speed = isGrounded ? (moveSpeed * (isSprinting ? moveSpeedMultiplier : 1f)) : airMoveSpeed * (isSprinting ? airMoveSpeedMultiplier : 1f);
             Move(new Vector2(inputAxis.x, 0f) * speed * Time.fixedDeltaTime);
         }
 
@@ -151,6 +177,9 @@ public class Character2D : MonoBehaviour {
 
         boxCastInfo = MakeBoxCast(sr, Direction.Right);
         Gizmos.DrawWireCube(boxCastInfo.Center, boxCastInfo.Size);
+
+        boxCastInfo = MakeBoxCast(sr, Direction.Any);
+        Gizmos.DrawWireCube(boxCastInfo.Center, boxCastInfo.Size);
     }
 
 
@@ -169,5 +198,6 @@ public class Character2D : MonoBehaviour {
         Down,
         Left,
         Right,
+        Any
     }
 }
