@@ -3,9 +3,11 @@
 
 public class Camera2DFollow : MonoBehaviour {
     [SerializeField] private Transform target;
+#pragma warning disable 0649 
     [SerializeField] private Vector2 minFollow, maxFollow;
     [SerializeField] private Vector2 minViewportBounds, maxViewportBounds;
     [SerializeField] private bool isFreezeXPos, isFreezeYPos, isFreezeZPos = false;
+#pragma warning restore 0649 
 
     private bool isFollowing;
     private Vector3 orgCameraPos;

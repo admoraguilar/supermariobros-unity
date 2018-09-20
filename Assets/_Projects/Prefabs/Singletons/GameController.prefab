@@ -54,7 +54,7 @@ MonoBehaviour:
   loadingScreenTime: 2
   mainCameraPrefab: {fileID: 20134601375352992, guid: 8bf91cf9a73109141b3e35849d2e2f4a,
     type: 2}
-  playerPrefab: {fileID: 1349133219073804, guid: 418a96c8d57ba9441b60f715d944aa0b,
+  playerPrefab: {fileID: 1652635735646800, guid: 680b36c2aa9ae5949b89ef38a97b273c,
     type: 2}
   levels:
   - 1-1

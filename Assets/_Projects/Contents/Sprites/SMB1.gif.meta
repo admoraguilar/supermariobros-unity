@@ -15,7 +15,7 @@ TextureImporter:
     21300020: smb1_misc_sprites_10
     21300022: smb1_misc_sprites_11
     21300024: smb1_misc_sprites_12
-    21300026: Brick
+    21300026: Box_Brick
     21300028: smb1_misc_sprites_14
     21300030: smb1_misc_sprites_15
     21300032: Pipe_Upperhole_Orange
@@ -26,7 +26,7 @@ TextureImporter:
     21300042: smb1_misc_sprites_21
     21300044: smb1_misc_sprites_22
     21300046: smb1_misc_sprites_23
-    21300048: smb1_misc_sprites_24
+    21300048: Box_Brick_Debri
     21300050: Powerbox_Empty
     21300052: smb1_misc_sprites_26
     21300054: smb1_misc_sprites_27
@@ -41,7 +41,7 @@ TextureImporter:
     21300072: smb1_misc_sprites_36
     21300074: smb1_misc_sprites_37
     21300076: smb1_misc_sprites_38
-    21300078: smb1_misc_sprites_39
+    21300078: Box_Power_Empty
     21300080: smb1_misc_sprites_40
     21300082: smb1_misc_sprites_41
     21300084: Flag
@@ -70,7 +70,7 @@ TextureImporter:
     21300130: smb1_misc_sprites_65
     21300132: smb1_misc_sprites_66
     21300134: smb1_misc_sprites_67
-    21300136: Powerbox_Filled1
+    21300136: Box_Power_Filled1
     21300138: Tile_Metal
     21300140: smb1_misc_sprites_70
     21300142: smb1_misc_sprites_71
@@ -81,8 +81,8 @@ TextureImporter:
     21300152: Pipe_Lowerhole_Orange
     21300154: Pipe_Lowerhole_Green
     21300156: Hill_Big
-    21300158: Powerbox_Filled0
-    21300160: Powerbox_Filled2
+    21300158: Box_Power_Filled0
+    21300160: Box_Power_Filled2
     21300162: Coin_Pickup1
     21300164: Coin_Pickup2
     21300166: Coin_Ui1
@@ -649,6 +649,7 @@ TextureImporter:
     21301288: smb1_misc_sprites_652
     21301290: smb1_misc_sprites_653
     21301292: smb1_misc_sprites_654
+    21301294: NULL
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -871,7 +872,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Brick
+      name: Box_Brick
       rect:
         serializedVersion: 2
         x: 373
@@ -1331,7 +1332,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smb1_misc_sprites_39
+      name: Box_Power_Empty
       rect:
         serializedVersion: 2
         x: 373
@@ -2031,7 +2032,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Powerbox_Filled0
+      name: Box_Power_Filled0
       rect:
         serializedVersion: 2
         x: 372
@@ -2051,7 +2052,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Powerbox_Filled2
+      name: Box_Power_Filled2
       rect:
         serializedVersion: 2
         x: 408
@@ -8631,7 +8632,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smb1_misc_sprites_24
+      name: Box_Brick_Debri
       rect:
         serializedVersion: 2
         x: 432
@@ -8671,7 +8672,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Powerbox_Filled1
+      name: Box_Power_Filled1
       rect:
         serializedVersion: 2
         x: 390
@@ -9070,6 +9071,26 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: NULL
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 1215
+        width: 21
+        height: 21
+      alignment: 9
+      pivot: {x: 1.0093166, y: 0.9608096}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f59288fb1776e26468336ec332a672c6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -9078,7 +9099,7 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-  spritePackingTag: 
+  spritePackingTag: SMB1_Tiles
   userData: 
   assetBundleName: 
   assetBundleVariant: 

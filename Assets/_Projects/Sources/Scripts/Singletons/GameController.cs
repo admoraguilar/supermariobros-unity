@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour {
     [SerializeField] private GameObject playerStatsUiPrefab;
 
     [Header("Debug")]
+#pragma warning disable 0414
     [SerializeField] private Camera mainCamera;
     [SerializeField] private GameObject player;
     [SerializeField] private Canvas masterOverlayCanvas;
@@ -27,12 +28,13 @@ public class GameController : MonoBehaviour {
     [SerializeField] private GameObject loadingScreenUi;
     [SerializeField] private GameObject mainMenuScreenUi;
     [SerializeField] private GameObject playerStatsUi;
+#pragma warning restore 0414
 
     [SerializeField] private Level currentLevel;
     [SerializeField] private Scene currentLoadedLevelScene;
     [SerializeField] private int currentLevelIndex;
 
-    private PlayerStats thisPlayerStats;
+    private PlayerStatsController thisPlayerStats;
 
 
     private IEnumerator LevelChanger() {
@@ -53,6 +55,12 @@ public class GameController : MonoBehaviour {
                     }
                 }
 
+                // Disable debug objects
+                GameObject goDebug = SceneManager.GetActiveScene().GetRootGameObjects().FirstOrDefault(go => {
+                    return go.name == "Debug";
+                });
+                goDebug.SetActive(false);
+
                 // Get level object
                 GameObject goLevel = SceneManager.GetActiveScene().GetRootGameObjects().FirstOrDefault(go => {
                     return go.GetComponent<Level>();
@@ -65,11 +73,11 @@ public class GameController : MonoBehaviour {
                     thisPlayerStats.LevelTimeLeft = currentLevel.Time;
 
                     // Setup player
-                    player = Spawn(playerPrefab, false);
+                    player = this.Spawn(playerPrefab);
                     player.GetComponent<Transform>().position = currentLevel.PlayerStart.position;
 
                     // Setup camera
-                    mainCamera = Spawn(mainCameraPrefab, false);
+                    mainCamera = this.Spawn(mainCameraPrefab);
                     mainCamera.GetComponent<Camera2DFollow>().SetTarget(player.GetComponent<Transform>());
                     mainCamera.backgroundColor = currentLevel.BackgroundColor;
 
@@ -89,38 +97,18 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    private T Spawn<T>(T toSpawn, bool dontDestroy, Transform parent = null) where T : UnityEngine.Object {
-        T obj = Instantiate(toSpawn);
-        obj.name = toSpawn.name;
-        if(dontDestroy) DontDestroyOnLoad(obj);
-
-        if(parent) {
-            Transform objT = null;
-
-            GameObject go = obj as GameObject;
-            if(go) objT = go.GetComponent<Transform>();
-
-            Behaviour bh = obj as Behaviour;
-            if(bh) objT = bh.GetComponent<Transform>();
-
-            objT.SetParent(parent, false);
-        }
-
-        return obj;
-    }
-
     private void Awake() {
-        thisPlayerStats = SingletonController.Get<PlayerStats>();
+        thisPlayerStats = SingletonController.Get<PlayerStatsController>();
     }
 
     private void Start() {
         // Spawn systems
-        masterOverlayCanvas = Spawn(masterOverlayCanvasPrefab, true);
-        eventSystem = Spawn(eventSystemPrefab, true);
+        masterOverlayCanvas = this.Spawn(masterOverlayCanvasPrefab, null, true);
+        eventSystem = this.Spawn(eventSystemPrefab, null, true);
 
         // Spawn uis
-        loadingScreenUi = Spawn(loadingScreenUiPrefab, true, masterOverlayCanvas.GetComponent<Transform>());
-        playerStatsUi = Spawn(playerStatsUiPrefab, true, masterOverlayCanvas.GetComponent<Transform>());
+        loadingScreenUi = this.Spawn(loadingScreenUiPrefab, masterOverlayCanvas.GetComponent<Transform>(), true);
+        playerStatsUi = this.Spawn(playerStatsUiPrefab, masterOverlayCanvas.GetComponent<Transform>(), true);
 
         // Start level changer behaviour
         StartCoroutine(LevelChanger());

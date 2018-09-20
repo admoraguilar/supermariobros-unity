@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1954395845681646}
+  m_RootGameObject: {fileID: 1424283068611830}
   m_IsPrefabParent: 1
---- !u!1 &1954395845681646
+--- !u!1 &1424283068611830
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4622635725713216}
-  - component: {fileID: 114348648567807112}
+  - component: {fileID: 4091156528002986}
+  - component: {fileID: 114090088491661364}
   m_Layer: 0
-  m_Name: PlayerStats
+  m_Name: InteractController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4622635725713216
+--- !u!4 &4091156528002986
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1954395845681646}
+  m_GameObject: {fileID: 1424283068611830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,21 +40,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114348648567807112
+--- !u!114 &114090088491661364
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1954395845681646}
+  m_GameObject: {fileID: 1424283068611830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d78f241fac671fc47a7d1ab407e0dbed, type: 3}
+  m_Script: {fileID: 11500000, guid: e809ec8534a1c6a44b573e0272b30104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCoins: 0
-  maxLives: 0
-  score: 0
-  coins: 0
-  lives: 0
-  levelTimeLeft: 0
-  currentLevelInfo: 

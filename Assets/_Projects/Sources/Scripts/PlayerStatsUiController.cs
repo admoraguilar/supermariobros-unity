@@ -8,11 +8,11 @@ public class PlayerStatsUiController : MonoBehaviour {
     [SerializeField] private Text currentLevelInfoText;
     [SerializeField] private Text timeValueText;
 
-    private PlayerStats thisPlayerStats;
+    private PlayerStatsController thisPlayerStats;
 
 
     private void Awake() {
-        thisPlayerStats = SingletonController.Get<PlayerStats>();
+        thisPlayerStats = SingletonController.Get<PlayerStatsController>();
     }
 
     private void Update() {

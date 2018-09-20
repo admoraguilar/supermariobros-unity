@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
+using System;
 
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class Interactable : MonoBehaviour {
-    [SerializeField] private InteractType interactType;
+    public event Action<Interactor> OnInteract = delegate { };
+
+    [SerializeField] private int maxInteract = 1;
+
+    [SerializeField] private int remainingInteract;
 
 
-    public void Interact(InteractType type) {
-        if(interactType != type) return;
-
-        Debug.Log("Interacted!");
+    public void Interact(Interactor interactor) {
+        if(remainingInteract <= 0) return;
+        OnInteract(interactor);
+        remainingInteract--;
     }
 
-    public enum InteractType {
-        FromAbove,
-        FromBelow,
-        Pickup
+    private void Start() {
+        remainingInteract = maxInteract;
     }
 }

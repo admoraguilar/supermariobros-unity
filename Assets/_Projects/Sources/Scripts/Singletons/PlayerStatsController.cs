@@ -2,7 +2,7 @@
 using System;
 
 
-public class PlayerStats : MonoBehaviour {
+public class PlayerStatsController : MonoBehaviour {
     public event Action OnCoinsReachedMax = delegate { };
     public event Action OnLevelTimeLeftZero = delegate { };
 
