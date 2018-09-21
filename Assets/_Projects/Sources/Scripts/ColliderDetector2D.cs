@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 
 public abstract class ColliderDetector2D : MonoBehaviour {
@@ -20,12 +21,12 @@ public abstract class ColliderDetector2D : MonoBehaviour {
 
     public Collider2D ReferenceCollider { get { return thisReferenceCollider; } }
 
-    [SerializeField] protected Collider2D[] toIgnore;
+    [SerializeField] protected List<Collider2D> toIgnore = new List<Collider2D>();
 
     [SerializeField] protected Collider2D thisReferenceCollider;
 
 
-    public abstract Collider2D IsColliding(Direction direction);
+    public abstract bool IsColliding(Direction direction, Collider2D collider = null);
     protected abstract void UpdateDetector();
 
     public void SetReferenceCollider(Collider2D collider) {

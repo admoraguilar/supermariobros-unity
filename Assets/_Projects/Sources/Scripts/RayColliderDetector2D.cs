@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 
 public class RayColliderDetector2D : ColliderDetector2D {
@@ -15,35 +17,54 @@ public class RayColliderDetector2D : ColliderDetector2D {
     [SerializeField] private RayInfo rightRay;
     [SerializeField] private RayInfo anyRay;
 
+    private int directionCount;
 
-    public override Collider2D IsColliding(Direction direction) {
-        switch(direction) {
-            case Direction.Up: return upRay.Collider;
-            case Direction.Down: return downRay.Collider;
-            case Direction.Left: return leftRay.Collider;
-            case Direction.Right: return rightRay.Collider;
-            case Direction.Any: return anyRay.Collider;
-            default: return null;
-        }
+
+    public override bool IsColliding(Direction direction, Collider2D collider = null) {
+        RayInfo rayInfo = GetRay(direction);
+        if(collider) return rayInfo.Colliders.FirstOrDefault(c => c == collider);
+        else return rayInfo.Colliders.Count != 0;
     }
 
     protected override void UpdateDetector() {
-        for(int i = 0; i < Enum.GetNames(typeof(Direction)).Length; i++) {
+        for(int i = 0; i < directionCount; i++) {
             Direction direction = (Direction)i;
             RayInfo rayInfo = MakeRay(thisReferenceCollider, direction);
             if(!rayInfo.IsEnable) continue;
 
-            Collider2D oldCollider = rayInfo.Collider;
+            // Raycast
+            RaycastHit2D[] rHits = Physics2D.RaycastAll(rayInfo.Origin, rayInfo.Direction, rayInfo.Distance);
 
-            RaycastHit2D hit = Physics2D.Raycast(rayInfo.Origin, rayInfo.Direction, rayInfo.Distance);
-            rayInfo.Collider = hit.collider;
+            // Assign and filter colliders
+            rayInfo.OldColliders.Clear();
+            rayInfo.OldColliders.AddRange(rayInfo.Colliders);
 
-            if(oldCollider != rayInfo.Collider) {
-                if(oldCollider) _OnColliderExit(direction, oldCollider);
-                if(rayInfo.Collider) _OnColliderEnter(direction, rayInfo.Collider);
-            } else {
-                if(rayInfo.Collider) _OnColliderStay(direction, rayInfo.Collider);
+            rayInfo.Colliders.Clear();
+            foreach(var rHit in rHits) {
+                if(toIgnore.Contains(rHit.collider)) continue;
+                rayInfo.Colliders.Add(rHit.collider);
             }
+
+            // Call events
+            foreach(var collider in rayInfo.OldColliders) {
+                if(!rayInfo.Colliders.Contains(collider)) _OnColliderExit(direction, collider);
+            }
+
+            foreach(var collider in rayInfo.Colliders) {
+                if(rayInfo.OldColliders.Contains(collider)) _OnColliderStay(direction, collider);
+                else _OnColliderEnter(direction, collider);
+            }
+        }
+    }
+
+    public RayInfo GetRay(Direction direction) {
+        switch(direction) {
+            case Direction.Up: return upRay;
+            case Direction.Down: return downRay;
+            case Direction.Left: return leftRay;
+            case Direction.Right: return rightRay;
+            case Direction.Any: return anyRay;
+            default: return null;
         }
     }
 
@@ -74,6 +95,10 @@ public class RayColliderDetector2D : ColliderDetector2D {
         }
     }
 
+    private void Start() {
+        directionCount = Enum.GetNames(typeof(Direction)).Length;
+    }
+
     private void OnDrawGizmos() {
         Collider2D rayCol = thisReferenceCollider;
         RayInfo rayInfo = new RayInfo();
@@ -95,8 +120,9 @@ public class RayColliderDetector2D : ColliderDetector2D {
     public class RayInfo {
         [HideInInspector] public Vector2 Origin;
         [HideInInspector] public Vector2 Direction;
+        [HideInInspector] public List<Collider2D> OldColliders = new List<Collider2D>();
+        public List<Collider2D> Colliders = new List<Collider2D>();
         public Vector2 Offset;
-        public Collider2D Collider;
         public float Distance = 1f;
         public bool IsEnable = true;
     }

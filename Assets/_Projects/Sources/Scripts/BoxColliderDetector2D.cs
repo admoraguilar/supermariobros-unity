@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 
 public class BoxColliderDetector2D : ColliderDetector2D {
@@ -15,40 +17,60 @@ public class BoxColliderDetector2D : ColliderDetector2D {
     [SerializeField] private BoxInfo rightBox;
     [SerializeField] private BoxInfo anyBox;
 
+    private int directionCount;
 
-    public override Collider2D IsColliding(Direction direction) {
-        switch(direction) {
-            case Direction.Up: return upBox.Collider;
-            case Direction.Down: return downBox.Collider;
-            case Direction.Left: return leftBox.Collider;
-            case Direction.Right: return rightBox.Collider;
-            case Direction.Any: return anyBox.Collider;
-            default: return null;
-        }
+
+    public override bool IsColliding(Direction direction, Collider2D collider = null) {
+        BoxInfo boxInfo = GetBox(direction);
+        if(collider) return boxInfo.Colliders.FirstOrDefault(c => c == collider);
+        else return boxInfo.Colliders.Count != 0;
     }
 
     protected override void UpdateDetector() {
-        for(int i = 0; i < Enum.GetNames(typeof(Direction)).Length; i++) {
+        for(int i = 0; i < directionCount; i++) {
             Direction direction = (Direction)i;
             BoxInfo boxInfo = MakeBox(thisReferenceCollider, direction);
             if(!boxInfo.IsEnable) continue;
 
-            Collider2D oldCollider = boxInfo.Collider;
+            // Assign and filter list
+            boxInfo.OldColliders.Clear();
+            boxInfo.OldColliders.AddRange(boxInfo.Colliders);
 
+            boxInfo.Colliders.Clear();
             if(direction == Direction.Any) {
-                Collider2D hit = Physics2D.OverlapBox(boxInfo.Center, boxInfo.Size, 0);
-                boxInfo.Collider = hit;
+                foreach(var hit in Physics2D.OverlapBoxAll(boxInfo.Center, boxInfo.Size, 0f)) {
+                    if(toIgnore.Contains(hit)) continue;
+                    boxInfo.Colliders.Add(hit);
+                }
             } else {
-                RaycastHit2D hit = Physics2D.BoxCast(boxInfo.Center, boxInfo.Size, 0f, boxInfo.Direction, boxInfo.Distance);
-                boxInfo.Collider = hit.collider;
+                RaycastHit2D[] rHits = Physics2D.BoxCastAll(boxInfo.Center, boxInfo.Size, 0f, boxInfo.Direction, boxInfo.Distance);
+                foreach(var rHit in rHits) {
+                    if(toIgnore.Contains(rHit.collider)) continue;
+                    boxInfo.Colliders.Add(rHit.collider);
+                }
+            }
+            
+
+            // Call events
+            foreach(var collider in boxInfo.OldColliders) {
+                if(!boxInfo.Colliders.Contains(collider)) _OnColliderExit(direction, collider);
             }
 
-            if(oldCollider != boxInfo.Collider) {
-                if(oldCollider) _OnColliderExit(direction, oldCollider);
-                if(boxInfo.Collider) _OnColliderEnter(direction, boxInfo.Collider);
-            } else {
-                if(boxInfo.Collider) _OnColliderStay(direction, boxInfo.Collider);
+            foreach(var collider in boxInfo.Colliders) {
+                if(boxInfo.OldColliders.Contains(collider)) _OnColliderStay(direction, collider);
+                else _OnColliderEnter(direction, collider);
             }
+        }
+    }
+
+    public BoxInfo GetBox(Direction direction) {
+        switch(direction) {
+            case Direction.Up: return upBox;
+            case Direction.Down: return downBox;
+            case Direction.Left: return leftBox;
+            case Direction.Right: return rightBox;
+            case Direction.Any: return anyBox;
+            default: return null;
         }
     }
 
@@ -84,6 +106,10 @@ public class BoxColliderDetector2D : ColliderDetector2D {
         }
     }
 
+    private void Start() {
+        directionCount = Enum.GetNames(typeof(Direction)).Length;
+    }
+
     private void OnDrawGizmos() {
         Collider2D boxCol = thisReferenceCollider;
         BoxInfo boxInfo = new BoxInfo();
@@ -106,7 +132,8 @@ public class BoxColliderDetector2D : ColliderDetector2D {
         [HideInInspector] public Vector2 Center;
         [HideInInspector] public Vector2 Size;
         [HideInInspector] public Vector2 Direction;
-        public Collider2D Collider;
+        [HideInInspector] public List<Collider2D> OldColliders = new List<Collider2D>();
+        public List<Collider2D> Colliders = new List<Collider2D>();
         public float SizeMultiplier = 1f;
         public float Distance = 1f;
         public bool IsEnable = true;

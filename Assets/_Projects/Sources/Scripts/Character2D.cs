@@ -22,7 +22,9 @@ public class Character2D : MonoBehaviour {
     [SerializeField] private Vector2 maxVelocity = new Vector2(5f, 8f);
     [SerializeField] private BoxCollider2D groundCollider;
     [SerializeField] private BoxCollider2D characterCollider;
+    [SerializeField] private bool isUpdateFaceAxisOnlyOnGround;
 
+    [Header("Debug")]
     [SerializeField] private Vector2 moveDirection;
     [SerializeField] private Vector2 faceAxis;
     [SerializeField] private bool isGrounded;
@@ -71,10 +73,13 @@ public class Character2D : MonoBehaviour {
     }
 
     private void ClampVelocity() {
-        if(Mathf.Abs(thisRigidbody2D.velocity.x) > maxVelocity.x)
+        if(Mathf.Abs(thisRigidbody2D.velocity.x) > maxVelocity.x) {
             thisRigidbody2D.velocity = new Vector2(maxVelocity.x * Mathf.Sign(thisRigidbody2D.velocity.x), thisRigidbody2D.velocity.y);
-        if(Mathf.Abs(thisRigidbody2D.velocity.y) > maxVelocity.y)
+        }
+
+        if(Mathf.Abs(thisRigidbody2D.velocity.y) > maxVelocity.y) {
             thisRigidbody2D.velocity = new Vector2(thisRigidbody2D.velocity.x, maxVelocity.y * Mathf.Sign(thisRigidbody2D.velocity.y));
+        }
     }
 
     private void Awake() {
@@ -101,10 +106,13 @@ public class Character2D : MonoBehaviour {
 
     private void FixedUpdate() {
         if(moveDirection != Vector2.zero) {
-            faceAxis.x = moveDirection.x < 0f ? -1f : moveDirection.x > 0f ? 1f : faceAxis.x;
-            faceAxis.y = moveDirection.y < 0f ? -1f : moveDirection.y > 0f ? 1f : faceAxis.y;
+            if(isUpdateFaceAxisOnlyOnGround && isGrounded) {
+                faceAxis.x = moveDirection.x < 0f ? -1f : moveDirection.x > 0f ? 1f : faceAxis.x;
+                faceAxis.y = moveDirection.y < 0f ? -1f : moveDirection.y > 0f ? 1f : faceAxis.y;
+            }
 
             thisRigidbody2D.AddForce(moveDirection, ForceMode2D.Force);
+            //thisRigidbody2D.velocity += moveDirection;
             moveDirection = Vector2.zero;
         }
 

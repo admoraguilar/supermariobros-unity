@@ -53,7 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4630863717698972}
   - component: {fileID: 61027105369885072}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: CharacterCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4644862300351164}
   - component: {fileID: 61875109429577386}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: GroundCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,11 +180,11 @@ Rigidbody2D:
   m_Mass: 0.001
   m_LinearDrag: 2
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &61027105369885072
 BoxCollider2D:
@@ -210,7 +210,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.65, y: 0.8}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.001
 --- !u!61 &61875109429577386
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -235,7 +235,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.65, y: 0.1}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.001
 --- !u!95 &95631879523681192
 Animator:
   serializedVersion: 3
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd79bf1718ca944baa79b65140b769b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.7
+  moveSpeed: 1
   moveSpeedMultiplier: 6
   airMoveSpeed: 0.5
   airMoveSpeedMultiplier: 1.5
@@ -329,6 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactables: []
+  thisColliderDetector2D: {fileID: 114984634983114684}
 --- !u!114 &114412820219922572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -354,6 +355,7 @@ MonoBehaviour:
   maxVelocity: {x: 5, y: 8}
   groundCollider: {fileID: 61875109429577386}
   characterCollider: {fileID: 61027105369885072}
+  isUpdateFaceAxisOnlyOnGround: 1
   moveDirection: {x: 0, y: 0}
   faceAxis: {x: 0, y: 0}
   isGrounded: 0
@@ -368,12 +370,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f70e7a2678d4a4f8af3147c6480954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toIgnore:
+  - {fileID: 61875109429577386}
+  - {fileID: 61027105369885072}
   thisReferenceCollider: {fileID: 61027105369885072}
   upBox:
     Center: {x: -7.75, y: -3.195}
     Size: {x: 0.6499996, y: 0.16000004}
     Direction: {x: 0, y: 1}
-    Collider: {fileID: 0}
+    OldColliders: []
+    Colliders: []
     SizeMultiplier: 1
     Distance: 0.2
     IsEnable: 1
@@ -381,7 +387,8 @@ MonoBehaviour:
     Center: {x: -7.75, y: -3.9950001}
     Size: {x: 0.6499996, y: 0.16000004}
     Direction: {x: 0, y: -1}
-    Collider: {fileID: 0}
+    OldColliders: []
+    Colliders: []
     SizeMultiplier: 1
     Distance: 0.2
     IsEnable: 1
@@ -389,7 +396,8 @@ MonoBehaviour:
     Center: {x: -8.075, y: -3.595}
     Size: {x: 0.12999992, y: 0.5600001}
     Direction: {x: -1, y: 0}
-    Collider: {fileID: 0}
+    OldColliders: []
+    Colliders: []
     SizeMultiplier: 0.7
     Distance: 0.2
     IsEnable: 1
@@ -397,7 +405,8 @@ MonoBehaviour:
     Center: {x: -7.425, y: -3.595}
     Size: {x: 0.12999992, y: 0.5600001}
     Direction: {x: 1, y: 0}
-    Collider: {fileID: 0}
+    OldColliders: []
+    Colliders: []
     SizeMultiplier: 0.7
     Distance: 0.2
     IsEnable: 1
@@ -405,7 +414,8 @@ MonoBehaviour:
     Center: {x: -7.75, y: -3.595}
     Size: {x: 0.9749994, y: 1.2000003}
     Direction: {x: 0, y: 0}
-    Collider: {fileID: 0}
+    OldColliders: []
+    Colliders: []
     SizeMultiplier: 1.5
     Distance: 1
     IsEnable: 1
@@ -420,42 +430,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d080310129dbb41b9dbb9be783263a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toIgnore:
+  - {fileID: 61875109429577386}
+  - {fileID: 61027105369885072}
   thisReferenceCollider: {fileID: 61027105369885072}
   upRay:
     Origin: {x: -7.65, y: -3.195}
     Direction: {x: 0, y: 1}
+    OldColliders: []
+    Colliders: []
     Offset: {x: 0.1, y: 0}
-    Collider: {fileID: 0}
     Distance: 0.2
     IsEnable: 1
   downRay:
     Origin: {x: -7.75, y: -3.9950001}
     Direction: {x: 0, y: -1}
+    OldColliders: []
+    Colliders: []
     Offset: {x: 0, y: 0}
-    Collider: {fileID: 0}
     Distance: 0.2
     IsEnable: 1
   leftRay:
     Origin: {x: -8.075, y: -3.595}
     Direction: {x: -1, y: 0}
+    OldColliders: []
+    Colliders: []
     Offset: {x: 0, y: 0}
-    Collider: {fileID: 0}
     Distance: 0.2
     IsEnable: 1
   rightRay:
     Origin: {x: -7.425, y: -3.595}
     Direction: {x: 1, y: 0}
+    OldColliders: []
+    Colliders: []
     Offset: {x: 0, y: 0}
-    Collider: {fileID: 0}
     Distance: 0.2
     IsEnable: 1
   anyRay:
     Origin: {x: -7.75, y: -3.595}
     Direction: {x: 0, y: 0}
+    OldColliders: []
+    Colliders: []
     Offset: {x: 0, y: 0}
-    Collider: {fileID: 0}
     Distance: 0.2
-    IsEnable: 1
+    IsEnable: 0
 --- !u!212 &212479984552997146
 SpriteRenderer:
   m_ObjectHideFlags: 1

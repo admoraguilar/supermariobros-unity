@@ -37,6 +37,8 @@ public static class SingletonController {
     private static void RunOnStartup() {
         SingletonConfig config = Resources.LoadAll<SingletonConfig>("")[0];
         foreach(var singleton in config.Singleton) {
+            if(!singleton) continue;
+
             GameObject go = singleton as GameObject;
             if(go) {
                 // Instantiate the object and put it on 

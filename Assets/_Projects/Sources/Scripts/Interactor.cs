@@ -10,7 +10,8 @@ public class Interactor : MonoBehaviour {
 
     [SerializeField] private List<Interactable> interactables = new List<Interactable>();
 
-    private Character2D thisCharacter2D;
+    [Header("References")]
+    [SerializeField] private ColliderDetector2D thisColliderDetector2D;
 
 
     public Interactable GetInteractable() {
@@ -45,7 +46,7 @@ public class Interactor : MonoBehaviour {
         Interactable interactable = collider.GetComponent<Interactable>();
         if(!interactable) return;
 
-        if(!thisCharacter2D.BoxColliderDetector.IsColliding(Direction.Any)) {
+        if(!thisColliderDetector2D.IsColliding(Direction.Any)) {
             interactables.Remove(interactable);
         }
 
@@ -53,12 +54,12 @@ public class Interactor : MonoBehaviour {
     }
 
     private void Awake() {
-        thisCharacter2D = GetComponent<Character2D>();
+        if(!thisColliderDetector2D) thisColliderDetector2D = GetComponent<ColliderDetector2D>();
     }
 
     private void Start() {
-        thisCharacter2D.RayColliderDetector.OnColliderEnter += OnColliderEnter;
-        thisCharacter2D.RayColliderDetector.OnColliderStay += OnColliderStay;
-        thisCharacter2D.RayColliderDetector.OnColliderExit += OnColliderExit;
+        thisColliderDetector2D.OnColliderEnter += OnColliderEnter;
+        thisColliderDetector2D.OnColliderStay += OnColliderStay;
+        thisColliderDetector2D.OnColliderExit += OnColliderExit;
     }
 }

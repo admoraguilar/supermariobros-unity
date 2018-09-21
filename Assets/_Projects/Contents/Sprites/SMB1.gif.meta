@@ -26,7 +26,7 @@ TextureImporter:
     21300042: smb1_misc_sprites_21
     21300044: smb1_misc_sprites_22
     21300046: smb1_misc_sprites_23
-    21300048: Box_Brick_Debri
+    21300048: Box_Brick_Debris
     21300050: Powerbox_Empty
     21300052: smb1_misc_sprites_26
     21300054: smb1_misc_sprites_27
@@ -8632,7 +8632,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Box_Brick_Debri
+      name: Box_Brick_Debris
       rect:
         serializedVersion: 2
         x: 432
