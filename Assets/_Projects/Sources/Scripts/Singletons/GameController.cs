@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour {
     [SerializeField] private GameObject mainMenuScreenUiPrefab;
     [SerializeField] private GameObject playerStatsUiPrefab;
 
+    [SerializeField] private bool isDebugMode;
+
     [Header("Debug")]
 #pragma warning disable 0414
     [SerializeField] private Camera mainCamera;
@@ -109,6 +111,11 @@ public class GameController : MonoBehaviour {
         // Spawn uis
         loadingScreenUi = this.Spawn(loadingScreenUiPrefab, masterOverlayCanvas.GetComponent<Transform>(), true);
         playerStatsUi = this.Spawn(playerStatsUiPrefab, masterOverlayCanvas.GetComponent<Transform>(), true);
+
+        if(isDebugMode) {
+            loadingScreenUi.SetActive(false);
+            return;
+        }
 
         // Start level changer behaviour
         StartCoroutine(LevelChanger());

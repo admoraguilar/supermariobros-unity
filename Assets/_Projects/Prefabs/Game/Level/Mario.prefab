@@ -197,7 +197,7 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: 2e13a9db8f2ed984a9cf77b6f7d9c21d, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,7 +222,7 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: 2e13a9db8f2ed984a9cf77b6f7d9c21d, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: -0.35}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -431,6 +431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toIgnore:
+  - {fileID: 0}
   - {fileID: 61875109429577386}
   - {fileID: 61027105369885072}
   thisReferenceCollider: {fileID: 61027105369885072}

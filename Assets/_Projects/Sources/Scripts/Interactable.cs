@@ -2,7 +2,6 @@
 using System;
 
 
-[RequireComponent(typeof(BoxCollider2D))]
 public class Interactable : MonoBehaviour {
     public event Action<Interactor> OnInteract = delegate { };
 

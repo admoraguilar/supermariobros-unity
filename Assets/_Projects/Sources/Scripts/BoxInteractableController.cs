@@ -99,6 +99,7 @@ public class BoxInteractableController : MonoBehaviour {
                 break;
             case Content.Coin:
                 // Add score
+
                 break;
             case Content.Powerup:
                 // Spawn powerup

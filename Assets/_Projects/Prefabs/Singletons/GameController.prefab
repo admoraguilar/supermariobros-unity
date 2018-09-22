@@ -68,6 +68,7 @@ MonoBehaviour:
   mainMenuScreenUiPrefab: {fileID: 0}
   playerStatsUiPrefab: {fileID: 1132834934039876, guid: 843c34e0fc1fbc942bbacf31fd38db26,
     type: 2}
+  isDebugMode: 1
   mainCamera: {fileID: 0}
   player: {fileID: 0}
   masterOverlayCanvas: {fileID: 0}
