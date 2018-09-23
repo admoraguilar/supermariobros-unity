@@ -100,6 +100,7 @@ public class Character2D : MonoBehaviour {
             }
 
             thisRigidbody2D.AddForce(moveDirection, ForceMode2D.Force);
+            //thisRigidbody2D.velocity += moveDirection;
             moveDirection = Vector2.zero;
         }
 

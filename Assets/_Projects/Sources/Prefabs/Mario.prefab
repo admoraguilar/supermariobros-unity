@@ -379,6 +379,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445cbd40c3421f741bfec7f9525d0bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateMachine:
+    CurrentStateText: 
+  marioStates:
+  - Transition:
+      TransitionSound: {fileID: 0}
+  - Transition:
+      TransitionSound: {fileID: 0}
+  - Transition:
+      TransitionSound: {fileID: 0}
   moveSpeed: 0.7
   moveSpeedMultiplier: 6
   airMoveSpeed: 0.5
@@ -387,71 +396,14 @@ MonoBehaviour:
   maxJumpHeight: 2.4
   isFlipX: 1
   isFlipY: 0
-  states:
-  - StateLabel: 0
-    ColliderInfo:
-      Offset: {x: 0, y: 0, z: 0}
-      Size: {x: 0.65, y: 0.8, z: 0}
-      GizmoColor: {r: 0, g: 1, b: 0, a: 1}
-    DuckColliderInfo:
-      Offset: {x: 0, y: 0.15, z: 0}
-      Size: {x: 0.8, y: 1.11, z: 0}
-      GizmoColor: {r: 0, g: 0, b: 0, a: 0}
-    JumpSound: {fileID: 0}
-    TransitionSound: {fileID: 0}
-    IsCanDuck: 0
-    IsCanFire: 0
-    IsStateAdditive: 0
-  - StateLabel: 1
-    ColliderInfo:
-      Offset: {x: 0, y: 0.4, z: 0}
-      Size: {x: 0.8, y: 1.6, z: 0}
-      GizmoColor: {r: 0, g: 0, b: 1, a: 1}
-    DuckColliderInfo:
-      Offset: {x: 0, y: 0.15, z: 0}
-      Size: {x: 0.8, y: 1.11, z: 0}
-      GizmoColor: {r: 0, g: 1, b: 1, a: 1}
-    JumpSound: {fileID: 0}
-    TransitionSound: {fileID: 0}
-    IsCanDuck: 1
-    IsCanFire: 0
-    IsStateAdditive: 0
-  - StateLabel: 2
-    ColliderInfo:
-      Offset: {x: 0, y: 0.4, z: 0}
-      Size: {x: 0.8, y: 1.6, z: 0}
-      GizmoColor: {r: 0, g: 0, b: 1, a: 1}
-    DuckColliderInfo:
-      Offset: {x: 0, y: 0.15, z: 0}
-      Size: {x: 0.8, y: 1.11, z: 0}
-      GizmoColor: {r: 0, g: 1, b: 1, a: 1}
-    JumpSound: {fileID: 0}
-    TransitionSound: {fileID: 0}
-    IsCanDuck: 1
-    IsCanFire: 0
-    IsStateAdditive: 0
-  overrideColliderInfo:
-    Offset: {x: 0, y: 0, z: 0}
-    Size: {x: 0, y: 0, z: 0}
-    GizmoColor: {r: 1, g: 1, b: 1, a: 1}
   inputAxis: {x: 0, y: 0}
-  lastPositionBeforeJumping: {x: 0, y: 0}
-  speed: 0
-  isJumping: 0
+  lastJumpPos: {x: 0, y: 0}
   isSprinting: 0
-  isTransitioning: 0
-  curStateIndex: 0
-  prevStateIndex: 0
+  isJumping: 0
+  curStateSetIndex: 0
   thisTransform: {fileID: 4238545032764632}
-  thisGroundCollider: {fileID: 61069897847529260}
-  thisCharacterCollider: {fileID: 61166962412978010}
-  thisRigidbody2D: {fileID: 50270306947926360}
-  thisBoxCastColliderDetector2D: {fileID: 114960788799116774}
-  thisRayCastColliderDetector2D: {fileID: 114268212758906398}
-  thisColliderDetector2DInteractor: {fileID: 114768119849815510}
   thisCharacter2D: {fileID: 114748388294441178}
   thisAnimator: {fileID: 95631879523681192}
-  thisCharacterObject: {fileID: 4201921909368800}
 --- !u!114 &114960788799116774
 MonoBehaviour:
   m_ObjectHideFlags: 1
