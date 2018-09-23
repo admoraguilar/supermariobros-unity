@@ -1,24 +1,30 @@
 ﻿using UnityEngine;
 
 
-public class AudioController : MonoBehaviour {
-    [SerializeField] private AudioSource worldAudioSourcePrefab;
+public class AudioController : MonoBehaviour, IAudioController {
+    [SerializeField] private AudioSource worldAudioSource;
 
-    private AudioSource worldAudioSource;
 
-    private Transform thisTransform;
-
+    public void Play(AudioClip audioClip, ulong delay = 0L) {
+        worldAudioSource.clip = audioClip;
+        worldAudioSource.Play(delay);
+    }
 
     public void PlayOneShot(AudioClip clip, float volumeScale = 1f) {
         worldAudioSource.PlayOneShot(clip, volumeScale);
     }
 
-    private void Awake() {
-        thisTransform = GetComponent<Transform>();
-    }
+    private void Reset() {
+        Transform tr = GetComponent<Transform>();
 
-    private void Start() {
-        // Spawn systemss
-        worldAudioSource = this.Spawn(worldAudioSourcePrefab, thisTransform, true);
+        worldAudioSource = this.AddComponentAsChildObject<AudioSource>(tr, "WorldAudioSource");
+        worldAudioSource.playOnAwake = false;
+        worldAudioSource.volume = .5f;
     }
+}
+
+
+public interface IAudioController {
+    void Play(AudioClip audioClip, ulong delay = 0L);
+    void PlayOneShot(AudioClip clip, float volumeScale = 1f);
 }

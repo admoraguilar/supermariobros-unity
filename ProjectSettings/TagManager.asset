@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - Ground
+  - 
   - 
   - 
   - 
@@ -38,9 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: References
-    uniqueID: 2450400277
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

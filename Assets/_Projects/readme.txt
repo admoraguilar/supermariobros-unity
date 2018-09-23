@@ -1,4 +1,12 @@
-
+WORKFLOW:
+* Objects should only have one "Controller" script which drives the whole thing.
+	* The "Controller" will have "Component" which could be shared with other "Controllers".
+	* This is a kind of similar approach to Unreal's Actor-Component system.
+	* Readings: http://slides.com/cratesmith/how-to-use-unity#/11/2
+* You should make objects of type "Controller" through the Scene view.
+	* Do not add "Controller" via the Project View as some controllers requires their components be their child object.
+* As much as possible everything should be a prefab to make changes easier.
+* References fields are exposed in the inspector in case some default reference values are missing, but it shouldn't be touched as much as possible.
 
 
 =========================================
