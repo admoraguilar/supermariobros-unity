@@ -113,11 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &563072 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4201921909368800, guid: de8512146f9acdb439fdefc30112dd8a,
-    type: 2}
-  m_PrefabInternal: {fileID: 526278796}
 --- !u!1001 &21368669
 Prefab:
   m_ObjectHideFlags: 0
@@ -762,7 +757,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 103806348}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.26, y: -2.07, z: 0}
+  m_LocalPosition: {x: -1.18, y: -0.77, z: 0}
   m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3691,11 +3686,6 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 61846779283115360, guid: 185a23028b16bac47a3113a36b27a86f,
     type: 2}
   m_PrefabInternal: {fileID: 370280424}
---- !u!61 &414336153 stripped
-BoxCollider2D:
-  m_PrefabParentObject: {fileID: 61069897847529260, guid: de8512146f9acdb439fdefc30112dd8a,
-    type: 2}
-  m_PrefabInternal: {fileID: 526278796}
 --- !u!1001 &423238894
 Prefab:
   m_ObjectHideFlags: 0
@@ -4315,11 +4305,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 50270306947926360, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 1325460813}
     - target: {fileID: 114960788799116774, guid: de8512146f9acdb439fdefc30112dd8a,
         type: 2}
       propertyPath: boxCastDetectors.Array.data[0].Center.y
@@ -4380,6 +4365,11 @@ Prefab:
       propertyPath: boxCastDetectors.Array.data[3].Size.y
       value: 0.8000002
       objectReference: {fileID: 0}
+    - target: {fileID: 50270306947926360, guid: de8512146f9acdb439fdefc30112dd8a,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 831427786}
     - target: {fileID: 114268212758906398, guid: de8512146f9acdb439fdefc30112dd8a,
         type: 2}
       propertyPath: raycastDetectors.Array.data[0].Origin.y
@@ -4399,76 +4389,6 @@ Prefab:
         type: 2}
       propertyPath: raycastDetectors.Array.data[3].Origin.x
       value: -6.775
-      objectReference: {fileID: 0}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: thisCharacterObject
-      value: 
-      objectReference: {fileID: 563072}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: thisGroundCollider
-      value: 
-      objectReference: {fileID: 414336153}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: thisCharacterCollider
-      value: 
-      objectReference: {fileID: 946660537}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: marioStates.Array.data[0].Jump.jumpSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 6a4b6ef914bcde040b68292465274dc6, type: 3}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: marioStates.Array.data[0].Dead.deathSound
-      value: 
-      objectReference: {fileID: 8300000, guid: db021b27e6a4cf54d9cb11c7994789ba, type: 3}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: marioStates.Array.data[0].Transition.transitionSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 4e07cd4b182f0cc47b87c00f119c304a, type: 3}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: marioStates.Array.data[1].Jump.jumpSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: marioStates.Array.data[1].Dead.deathSound
-      value: 
-      objectReference: {fileID: 8300000, guid: db021b27e6a4cf54d9cb11c7994789ba, type: 3}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: marioStates.Array.data[1].Transition.transitionSound
-      value: 
-      objectReference: {fileID: 8300000, guid: b399e2c5f4e71ba4e857bda4f0cd51be, type: 3}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: marioStates.Array.data[2].Jump.jumpSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: marioStates.Array.data[2].Dead.deathSound
-      value: 
-      objectReference: {fileID: 8300000, guid: db021b27e6a4cf54d9cb11c7994789ba, type: 3}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: marioStates.Array.data[2].Transition.transitionSound
-      value: 
-      objectReference: {fileID: 8300000, guid: b399e2c5f4e71ba4e857bda4f0cd51be, type: 3}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: marioStates.Array.data[1].IsCanDuck
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114934240042714120, guid: de8512146f9acdb439fdefc30112dd8a,
-        type: 2}
-      propertyPath: marioStates.Array.data[2].IsCanDuck
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de8512146f9acdb439fdefc30112dd8a, type: 2}
@@ -6158,6 +6078,14 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 61846779283115360, guid: 185a23028b16bac47a3113a36b27a86f,
     type: 2}
   m_PrefabInternal: {fileID: 829410389}
+--- !u!62 &831427786
+PhysicsMaterial2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Slippery
+  friction: 0.05
+  bounciness: 0
 --- !u!1001 &836160324
 Prefab:
   m_ObjectHideFlags: 0
@@ -6494,11 +6422,6 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 61846779283115360, guid: 185a23028b16bac47a3113a36b27a86f,
     type: 2}
   m_PrefabInternal: {fileID: 938132633}
---- !u!61 &946660537 stripped
-BoxCollider2D:
-  m_PrefabParentObject: {fileID: 61166962412978010, guid: de8512146f9acdb439fdefc30112dd8a,
-    type: 2}
-  m_PrefabInternal: {fileID: 526278796}
 --- !u!1001 &959161962
 Prefab:
   m_ObjectHideFlags: 0
@@ -8170,14 +8093,6 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 61846779283115360, guid: 185a23028b16bac47a3113a36b27a86f,
     type: 2}
   m_PrefabInternal: {fileID: 1313710497}
---- !u!62 &1325460813
-PhysicsMaterial2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Slippery
-  friction: 0.05
-  bounciness: 0
 --- !u!1001 &1373539317
 Prefab:
   m_ObjectHideFlags: 0

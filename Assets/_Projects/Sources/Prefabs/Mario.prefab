@@ -379,15 +379,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445cbd40c3421f741bfec7f9525d0bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateMachine:
-    CurrentStateText: 
   marioStates:
-  - Transition:
-      TransitionSound: {fileID: 0}
-  - Transition:
-      TransitionSound: {fileID: 0}
-  - Transition:
-      TransitionSound: {fileID: 0}
+  - IsCanDuck: 0
+    Jump:
+      JumpSound: {fileID: 8300000, guid: 6a4b6ef914bcde040b68292465274dc6, type: 3}
+    Dead:
+      DeathSound: {fileID: 8300000, guid: db021b27e6a4cf54d9cb11c7994789ba, type: 3}
+    Duck:
+      BoxColliderInfo:
+        Offset: {x: 0, y: 0.15}
+        Size: {x: 0.8, y: 1.11}
+        GizmoColor: {r: 1, g: 1, b: 1, a: 1}
+    Transition:
+      TransitionSound: {fileID: 8300000, guid: 4e07cd4b182f0cc47b87c00f119c304a, type: 3}
+      BoxColliderInfo:
+        Offset: {x: 0, y: 0}
+        Size: {x: 0.65, y: 0.8}
+        GizmoColor: {r: 0, g: 1, b: 0, a: 1}
+  - IsCanDuck: 0
+    Jump:
+      JumpSound: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
+    Dead:
+      DeathSound: {fileID: 8300000, guid: db021b27e6a4cf54d9cb11c7994789ba, type: 3}
+    Duck:
+      BoxColliderInfo:
+        Offset: {x: 0, y: 0.15}
+        Size: {x: 0.8, y: 1.11}
+        GizmoColor: {r: 0, g: 0, b: 1, a: 1}
+    Transition:
+      TransitionSound: {fileID: 8300000, guid: b399e2c5f4e71ba4e857bda4f0cd51be, type: 3}
+      BoxColliderInfo:
+        Offset: {x: 0, y: 0.4}
+        Size: {x: 0.8, y: 1.6}
+        GizmoColor: {r: 0, g: 0, b: 1, a: 1}
+  - IsCanDuck: 0
+    Jump:
+      JumpSound: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
+    Dead:
+      DeathSound: {fileID: 8300000, guid: db021b27e6a4cf54d9cb11c7994789ba, type: 3}
+    Duck:
+      BoxColliderInfo:
+        Offset: {x: 0, y: 0.15}
+        Size: {x: 0.8, y: 1.11}
+        GizmoColor: {r: 2, g: 0.92156863, b: 0.015686275, a: 2}
+    Transition:
+      TransitionSound: {fileID: 8300000, guid: b399e2c5f4e71ba4e857bda4f0cd51be, type: 3}
+      BoxColliderInfo:
+        Offset: {x: 0, y: 0.4}
+        Size: {x: 0.8, y: 1.6}
+        GizmoColor: {r: 2, g: 0.92156863, b: 0.015686275, a: 2}
   moveSpeed: 0.7
   moveSpeedMultiplier: 6
   airMoveSpeed: 0.5
@@ -399,11 +439,18 @@ MonoBehaviour:
   inputAxis: {x: 0, y: 0}
   lastJumpPos: {x: 0, y: 0}
   isSprinting: 0
-  isJumping: 0
+  isTransitioning: 0
   curStateSetIndex: 0
   thisTransform: {fileID: 4238545032764632}
+  thisGroundCollider: {fileID: 61069897847529260}
+  thisCharacterCollider: {fileID: 61166962412978010}
+  thisRigidbody2D: {fileID: 50270306947926360}
+  thisBoxCastColliderDetector2D: {fileID: 114960788799116774}
+  thisRayCastColliderDetector2D: {fileID: 114268212758906398}
+  thisColliderDetector2DInteractor: {fileID: 114768119849815510}
   thisCharacter2D: {fileID: 114748388294441178}
   thisAnimator: {fileID: 95631879523681192}
+  thisCharacterObject: {fileID: 4201921909368800}
 --- !u!114 &114960788799116774
 MonoBehaviour:
   m_ObjectHideFlags: 1
