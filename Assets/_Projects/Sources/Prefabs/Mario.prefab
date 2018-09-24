@@ -381,6 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   marioStates:
   - IsCanDuck: 0
+    IsCanBreakBrick: 0
     Jump:
       JumpSound: {fileID: 8300000, guid: 6a4b6ef914bcde040b68292465274dc6, type: 3}
     Dead:
@@ -397,6 +398,7 @@ MonoBehaviour:
         Size: {x: 0.65, y: 0.8}
         GizmoColor: {r: 0, g: 1, b: 0, a: 1}
   - IsCanDuck: 0
+    IsCanBreakBrick: 1
     Jump:
       JumpSound: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
     Dead:
@@ -413,6 +415,7 @@ MonoBehaviour:
         Size: {x: 0.8, y: 1.6}
         GizmoColor: {r: 0, g: 0, b: 1, a: 1}
   - IsCanDuck: 0
+    IsCanBreakBrick: 1
     Jump:
       JumpSound: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
     Dead:

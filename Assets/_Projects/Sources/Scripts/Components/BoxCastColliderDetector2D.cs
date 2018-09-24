@@ -11,7 +11,13 @@ public class BoxCastColliderDetector2D : ColliderDetector2D {
     [SerializeField] private List<BoxCastDetectorInfo> boxCastDetectors = new List<BoxCastDetectorInfo>();
 
 
-    public override bool IsColliding(Direction direction, Collider2D collider = null) {
+    /// <summary>
+    /// Use to query if a non-trigger or trigger collider is within bounds.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <param name="collider"></param>
+    /// <returns></returns>
+    public override bool IsColliderWithinBounds(Direction direction, Collider2D collider = null) {
         if(direction == Direction.Any) {
             for(int i = 0; i < boxCastDetectors.Count; i++) {
                 if(collider) {
@@ -29,6 +35,35 @@ public class BoxCastColliderDetector2D : ColliderDetector2D {
         } else {
             BoxCastDetectorInfo detectorInfo = GetDetector(direction);
             return collider ? detectorInfo.HitColliders.Contains(collider) : detectorInfo.HitColliders.Count != 0;
+        }
+    }
+
+    /// <summary>
+    /// Use to query if a non-trigger collider is within bounds.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <param name="collider"></param>
+    /// <returns></returns>
+    public override bool IsColliding(Direction direction, Collider2D collider = null) {
+        if(direction == Direction.Any) {
+            for(int i = 0; i < boxCastDetectors.Count; i++) {
+                IEnumerable<Collider2D> nonTriggerColliders = boxCastDetectors[i].HitColliders.Where(hit => hit.isTrigger == false);
+                if(collider) {
+                    if(nonTriggerColliders.Contains(collider)) {
+                        return true;
+                    }
+                } else {
+                    if(nonTriggerColliders.Count() != 0) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        } else {
+            BoxCastDetectorInfo detectorInfo = GetDetector(direction);
+            IEnumerable<Collider2D> nonTriggerColliders = detectorInfo.HitColliders.Where(hit => hit.isTrigger == false);
+            return collider ? nonTriggerColliders.Contains(collider) : nonTriggerColliders.Count() != 0;
         }
     }
 

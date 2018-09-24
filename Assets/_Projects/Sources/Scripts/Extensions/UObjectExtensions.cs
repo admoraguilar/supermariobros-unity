@@ -38,6 +38,7 @@ public static class UObjectExtensions {
             if(!obj) {
                 obj = new GameObject(p);
                 obj.GetComponent<Transform>().SetParent(objTr, false);
+                obj.GetComponent<Transform>().localPosition = Vector3.zero;
             }
 
             if(obj) {

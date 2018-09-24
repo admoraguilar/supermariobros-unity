@@ -34,7 +34,7 @@ public class ColliderDetector2DInteractor : Interactor {
         Interactable interactable = collider.GetComponent<Interactable>();
         if(!interactable) return;
 
-        if(!thisColliderDetector2D.IsColliding(ColliderDetector2D.Direction.Any, collider)) {
+        if(!thisColliderDetector2D.IsColliderWithinBounds(ColliderDetector2D.Direction.Any, collider)) {
             interactables.Remove(interactable);
             OnInteractExit(direction, interactable);
         }

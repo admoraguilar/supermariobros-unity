@@ -30,7 +30,21 @@ public abstract class ColliderDetector2D : MonoBehaviour {
     [SerializeField]  protected List<Collider2D>                toIgnores = new List<Collider2D>();
 
 
-    public      abstract bool                   IsColliding(Direction direction, Collider2D collider = null);
+    /// <summary>
+    /// Use to query if a non-trigger or trigger collider is within bounds.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <param name="collider"></param>
+    /// <returns></returns>
+    public abstract bool                        IsColliderWithinBounds(Direction direction, Collider2D collider = null);
+
+    /// <summary>
+    /// Use to query if a non-trigger collider is within bounds.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <param name="collider"></param>
+    /// <returns></returns>
+    public abstract bool                        IsColliding(Direction direction, Collider2D collider = null);
     public      abstract Collider2D[]           GetDetectedColliders(Direction direction);
     protected   abstract void                   UpdateDetector();
 

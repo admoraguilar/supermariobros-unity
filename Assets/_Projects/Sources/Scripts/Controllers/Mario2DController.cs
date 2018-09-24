@@ -4,7 +4,15 @@ using System.Linq;
 using System.Collections.Generic;
 
 
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCastColliderDetector2D))]
+[RequireComponent(typeof(RayCastColliderDetector2D))]
+[RequireComponent(typeof(ColliderDetector2DInteractor))]
+[RequireComponent(typeof(Character2D))]
 public class Mario2DController : MonoBehaviour {
+    public MarioStates CurrentStateSet { get { return marioStates[curStateSetIndex]; } }
+
     [Header("Controller")]
     [SerializeField] private MarioStateMachine                          stateMachine = new MarioStateMachine();
     [SerializeField] private MarioStates[]                              marioStates = new MarioStates[0];
@@ -44,7 +52,22 @@ public class Mario2DController : MonoBehaviour {
         stateMachine.PushState(marioStates[curStateSetIndex].Transition);
     }
 
-    public void SetDead(bool value) {
+    public void PowerUp(bool value) {
+        int index = curStateSetIndex;
+
+        if(value) {
+            //if(index++ == marioStates.Length - 1) index = 0;
+            if(index++ == marioStates.Length - 1) return;
+        } else {
+            //if(index++ == 0) index = marioStates.Length - 1;
+            if(index == 0) return;
+            else index = 0;
+        }
+
+        SetStateSetIndex(index);
+    }
+
+    public void Kill(bool value) {
         if(value) {
             stateMachine.PushState(marioStates[curStateSetIndex].Dead);
         } else {
@@ -57,7 +80,6 @@ public class Mario2DController : MonoBehaviour {
     private void HookInteraction() {
         thisColliderDetector2DInteractor.OnInteractEnter += (ColliderDetector2D.Direction direction, Interactable interactable) => {
             interactable.Interact(thisColliderDetector2DInteractor);
-            Debug.Log(interactable.name);
         };
     }
 
@@ -110,7 +132,8 @@ public class Mario2DController : MonoBehaviour {
            stateMachine.CurrentState != marioStates[curStateSetIndex].Dead) {
             if(thisCharacter2D.IsGrounded) {
                 if(!thisCharacter2D.IsMoving(ColliderDetector2D.Direction.Any) &&
-                    inputAxis == Vector2.zero) {
+                    inputAxis == Vector2.zero &&
+                    !Input.GetKey(KeyCode.Space)) {
                     stateMachine.SetState(marioStates[curStateSetIndex].Idle);
                 }
 
@@ -132,7 +155,8 @@ public class Mario2DController : MonoBehaviour {
                     }
                 }
 
-                if(thisCharacter2D.IsChangingDirection) {
+                if(thisCharacter2D.IsChangingDirection &&
+                   !Input.GetKey(KeyCode.Space)) {
                     stateMachine.SetState(marioStates[curStateSetIndex].Slide);
                 }
 
@@ -154,25 +178,19 @@ public class Mario2DController : MonoBehaviour {
 
         // Debug code
         if(Input.GetKeyDown(KeyCode.E)) {
-            if(curStateSetIndex == 0) curStateSetIndex = marioStates.Length - 1;
-            else curStateSetIndex--;
-
-            SetStateSetIndex(curStateSetIndex);
+            PowerUp(false);
         }
 
         if(Input.GetKeyDown(KeyCode.R)) {
-            if(curStateSetIndex == marioStates.Length - 1) curStateSetIndex = 0;
-            else curStateSetIndex++;
-
-            SetStateSetIndex(curStateSetIndex);
+            PowerUp(true);
         }
 
         if(Input.GetKeyDown(KeyCode.T)) {
-            SetDead(true);
+            Kill(true);
         }
 
         if(Input.GetKeyDown(KeyCode.Y)) {
-            SetDead(false);
+            Kill(false);
         }
     }
 
@@ -392,6 +410,7 @@ public class Mario2DController : MonoBehaviour {
     [Serializable]
     public class MarioStates {
         public bool                 IsCanDuck;
+        public bool                 IsCanBreakBrick;
 
         public IdleState            Idle;
         public JumpState            Jump;
