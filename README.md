@@ -13,6 +13,8 @@ Replicating Super Mario Bros. in Unity
 ##### Controls:
 * W, A, S, D - Movement
 * Space - Jump
+* E, R - CHEAT: Power-up, Power-down
+* T, Y - CHEAT: Kill, Revive
 
 ##### Notes:
 * This is a work in progress, the aim here is to replicate the 1-1 level of the game.
