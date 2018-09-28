@@ -6,9 +6,8 @@ using System.Collections.Generic;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(BoxCastColliderDetector2D))]
-[RequireComponent(typeof(RayCastColliderDetector2D))]
-[RequireComponent(typeof(ColliderDetector2DInteractor))]
+[RequireComponent(typeof(DirectionalCollider2DDetector))]
+[RequireComponent(typeof(DirectionalInteractor))]
 [RequireComponent(typeof(Character2D))]
 public class Mario2DController : MonoBehaviour {
     public MarioStates CurrentStateSet { get { return marioStates[curStateSetIndex]; } }
@@ -37,9 +36,9 @@ public class Mario2DController : MonoBehaviour {
     [SerializeField] private BoxCollider2D                              thisGroundCollider;
     [SerializeField] private BoxCollider2D                              thisCharacterCollider;
     [SerializeField] private Rigidbody2D                                thisRigidbody2D;
-    [SerializeField] private BoxCastColliderDetector2D                  thisBoxCastColliderDetector2D;
-    [SerializeField] private RayCastColliderDetector2D                  thisRayCastColliderDetector2D;
-    [SerializeField] private ColliderDetector2DInteractor               thisColliderDetector2DInteractor;
+    [SerializeField] private DirectionalCollider2DDetector              thisCollisionDetectorDirectional;
+    [SerializeField] private DirectionalCollider2DDetector              thisInteractionDetectorDirectional;
+    [SerializeField] private DirectionalInteractor               thisColliderDetector2DInteractor;
     [SerializeField] private Character2D                                thisCharacter2D;
     [SerializeField] private Animator                                   thisAnimator;
     [SerializeField] private Transform                                  thisCharacterObject;
@@ -78,14 +77,16 @@ public class Mario2DController : MonoBehaviour {
     }
 
     private void HookInteraction() {
-        thisColliderDetector2DInteractor.OnInteractEnter += (ColliderDetector2D.Direction direction, Interactable interactable) => {
+        thisColliderDetector2DInteractor.OnInteractEnter += (Direction direction, Interactable interactable) => {
             interactable.Interact(thisColliderDetector2DInteractor);
         };
     }
 
     private void UpdateFlipping() {
         Vector2 characterFlip = thisCharacterObject.localScale;
-        Vector2 rayDetectorFlip = thisRayCastColliderDetector2D.GetDetector(ColliderDetector2D.Direction.Up).Offset;
+
+        RayCastCollider2DDetector rayCastColliderDetector = thisInteractionDetectorDirectional.GetDetector(Direction.Up).Detector as RayCastCollider2DDetector;
+        Vector2 rayDetectorFlip = rayCastColliderDetector.Offset;
 
         if(isFlipX && thisCharacter2D.FaceAxis.x != 0f) {
             if(thisCharacter2D.FaceAxis.x != Mathf.Sign(thisCharacterObject.localScale.x)) {
@@ -108,7 +109,7 @@ public class Mario2DController : MonoBehaviour {
         }
 
         thisCharacterObject.localScale = characterFlip;
-        thisRayCastColliderDetector2D.GetDetector(ColliderDetector2D.Direction.Up).Offset = rayDetectorFlip;
+        rayCastColliderDetector.Offset = rayDetectorFlip;
     }
 
     private void Awake() {
@@ -131,7 +132,7 @@ public class Mario2DController : MonoBehaviour {
         if(stateMachine.CurrentState != marioStates[curStateSetIndex].Transition &&
            stateMachine.CurrentState != marioStates[curStateSetIndex].Dead) {
             if(thisCharacter2D.IsGrounded) {
-                if(!thisCharacter2D.IsMoving(ColliderDetector2D.Direction.Any) &&
+                if(!thisCharacter2D.IsMoving(Direction.Any) &&
                     inputAxis == Vector2.zero &&
                     !Input.GetKey(KeyCode.Space)) {
                     stateMachine.SetState(marioStates[curStateSetIndex].Idle);
@@ -165,7 +166,7 @@ public class Mario2DController : MonoBehaviour {
                 }
             } else {
                 if(Mathf.Abs(thisTransform.localPosition.y - lastJumpPos.y) > maxJumpHeight ||
-                    thisCharacter2D.ColliderDetector.IsColliding(ColliderDetector2D.Direction.Up) ||
+                    thisCharacter2D.ColliderDetector.IsColliding(Direction.Up, true) ||
                     !Input.GetKey(KeyCode.Space)) {
                     stateMachine.SetState(marioStates[curStateSetIndex].Fall);
                 }
@@ -207,6 +208,9 @@ public class Mario2DController : MonoBehaviour {
         // Setup states
         marioStates = new MarioStates[3] {
             new MarioStates {
+                Label = "Small",
+                IsCanBreakBrick = false,
+                IsCanDuck = false,
                 Duck = new DuckState {
                     BoxColliderInfo = new BoxColliderInfo {
                         Offset = new Vector2(0f, 0.15f),
@@ -223,6 +227,9 @@ public class Mario2DController : MonoBehaviour {
                 }
             },
             new MarioStates {
+                Label = "Big",
+                IsCanBreakBrick = true,
+                IsCanDuck = true,
                 Duck = new DuckState {
                     BoxColliderInfo = new BoxColliderInfo {
                         Offset = new Vector2(0f, 0.15f),
@@ -239,6 +246,9 @@ public class Mario2DController : MonoBehaviour {
                 }
             },
             new MarioStates {
+                Label = "Power",
+                IsCanBreakBrick = true,
+                IsCanDuck = true,
                 Duck = new DuckState {
                     BoxColliderInfo = new BoxColliderInfo {
                         Offset = new Vector2(0f, 0.15f),
@@ -296,86 +306,114 @@ public class Mario2DController : MonoBehaviour {
          *  Setup ColliderDetector2D: 
          */
         // (Colliders)
-        thisBoxCastColliderDetector2D = this.AddOrGetComponent<BoxCastColliderDetector2D>();
+        thisCollisionDetectorDirectional = this.AddOrGetComponent<DirectionalCollider2DDetector>(0);
 
         // Generate preset colliders
-        thisBoxCastColliderDetector2D.Init(new BoxCastColliderDetector2D.BoxCastDetectorInfo[4] {
-            new BoxCastColliderDetector2D.BoxCastDetectorInfo {
-                Direction = ColliderDetector2D.Direction.Up,
-                ReferenceCollider = thisCharacterCollider,
-                SizeMultiplier = 1f,
-                Distance = 0.2f
-            },
-            new BoxCastColliderDetector2D.BoxCastDetectorInfo {
-                Direction = ColliderDetector2D.Direction.Down,
-                ReferenceCollider = thisCharacterCollider,
-                SizeMultiplier = 1f,
-                Distance = 0.2f
-            },
-            new BoxCastColliderDetector2D.BoxCastDetectorInfo {
-                Direction = ColliderDetector2D.Direction.Left,
-                ReferenceCollider = thisCharacterCollider,
-                SizeMultiplier = 1f,
-                Distance = 0.2f
-            },
-            new BoxCastColliderDetector2D.BoxCastDetectorInfo {
-                Direction = ColliderDetector2D.Direction.Right,
-                ReferenceCollider = thisCharacterCollider,
-                SizeMultiplier = 1f,
-                Distance = 0.2f
-            }
-        });
+        BoxCastCollider2DDetector upBox = this.AddComponentAsChildObject<BoxCastCollider2DDetector>(thisTransform, "CollisionDetector/UpBox");
+        upBox.SizeMultiplier = 1f;
+        upBox.Distance = 0.2f;
+        upBox.Init(GetComponentsInChildren<Collider2D>());
 
-        // We ignore some colliders
-        thisBoxCastColliderDetector2D.Init(GetComponentsInChildren<Collider2D>(true));
+        BoxCastCollider2DDetector downBox = this.AddComponentAsChildObject<BoxCastCollider2DDetector>(thisTransform, "CollisionDetector/DownBox");
+        downBox.SizeMultiplier = 1f;
+        downBox.Distance = 0.2f;
+        downBox.Init(GetComponentsInChildren<Collider2D>());
+
+        BoxCastCollider2DDetector leftBox = this.AddComponentAsChildObject<BoxCastCollider2DDetector>(thisTransform, "CollisionDetector/LeftBox");
+        leftBox.SizeMultiplier = 1f;
+        leftBox.Distance = 0.2f;
+        leftBox.Init(GetComponentsInChildren<Collider2D>());
+
+        BoxCastCollider2DDetector rightBox = this.AddComponentAsChildObject<BoxCastCollider2DDetector>(thisTransform, "CollisionDetector/RightBox");
+        rightBox.SizeMultiplier = 1f;
+        rightBox.Distance = 0.2f;
+        rightBox.Init(GetComponentsInChildren<Collider2D>());
+
+        thisCollisionDetectorDirectional.Init(new DirectionalCollider2DDetector.DetectorInfo[4] {
+            new DirectionalCollider2DDetector.DetectorInfo {
+                Detector = upBox,
+                Direction = Direction.Up,
+                IsEnable = true
+            },
+            new DirectionalCollider2DDetector.DetectorInfo {
+                Detector = downBox,
+                Direction = Direction.Down,
+                IsEnable = true
+            },
+            new DirectionalCollider2DDetector.DetectorInfo {
+                Detector = leftBox,
+                Direction = Direction.Left,
+                IsEnable = true
+            },
+            new DirectionalCollider2DDetector.DetectorInfo {
+                Detector = rightBox,
+                Direction = Direction.Right,
+                IsEnable = true
+            }
+        },
+        thisCharacterCollider);
 
         // (Interactables)
-        thisRayCastColliderDetector2D = this.AddOrGetComponent<RayCastColliderDetector2D>();
+        thisInteractionDetectorDirectional = this.AddOrGetComponent<DirectionalCollider2DDetector>(1);
 
         // Generate preset colliders
-        thisRayCastColliderDetector2D.Init(new RayCastColliderDetector2D.RayCastDetectorInfo[4] {
-            new RayCastColliderDetector2D.RayCastDetectorInfo {
-                Direction = ColliderDetector2D.Direction.Up,
-                ReferenceCollider = thisCharacterCollider,
-                Offset = new Vector2(0.1f, 0f),
-                Distance = 0.2f
-            },
-            new RayCastColliderDetector2D.RayCastDetectorInfo {
-                Direction = ColliderDetector2D.Direction.Down,
-                ReferenceCollider = thisCharacterCollider,
-                Offset = Vector2.zero,
-                Distance = 0.2f
-            },
-            new RayCastColliderDetector2D.RayCastDetectorInfo {
-                Direction = ColliderDetector2D.Direction.Left,
-                ReferenceCollider = thisCharacterCollider,
-                Offset = Vector2.zero,
-                Distance = 0.2f
-            },
-            new RayCastColliderDetector2D.RayCastDetectorInfo {
-                Direction = ColliderDetector2D.Direction.Right,
-                ReferenceCollider = thisCharacterCollider,
-                Offset = Vector2.zero,
-                Distance = 0.2f
-            }
-        });
+        RayCastCollider2DDetector upRay = this.AddComponentAsChildObject<RayCastCollider2DDetector>(thisTransform, "InteractionDetector/UpRay");
+        upRay.Offset = new Vector2(0.1f, 0f);
+        upRay.Distance = 0.2f;
+        upRay.Init(GetComponentsInChildren<Collider2D>());
 
-        // We ignore some colliders
-        thisRayCastColliderDetector2D.Init(GetComponentsInChildren<Collider2D>(true));
+        RayCastCollider2DDetector downRay = this.AddComponentAsChildObject<RayCastCollider2DDetector>(thisTransform, "InteractionDetector/DownRay");
+        downRay.Offset = Vector2.zero;
+        downRay.Distance = 0.2f;
+        downRay.Init(GetComponentsInChildren<Collider2D>());
+
+        RayCastCollider2DDetector leftRay = this.AddComponentAsChildObject<RayCastCollider2DDetector>(thisTransform, "InteractionDetector/LeftRay");
+        leftRay.Offset = Vector2.zero;
+        leftRay.Distance = 0.2f;
+        leftRay.Init(GetComponentsInChildren<Collider2D>());
+
+        RayCastCollider2DDetector rightRay = this.AddComponentAsChildObject<RayCastCollider2DDetector>(thisTransform, "InteractionDetector/RightRay");
+        rightRay.Offset = Vector2.zero;
+        rightRay.Distance = 0.2f;
+        rightRay.Init(GetComponentsInChildren<Collider2D>());
+
+        thisInteractionDetectorDirectional.Init(new DirectionalCollider2DDetector.DetectorInfo[4] {
+            new DirectionalCollider2DDetector.DetectorInfo {
+                Direction = Direction.Up,
+                Detector = upRay,
+                IsEnable = true
+            },
+            new DirectionalCollider2DDetector.DetectorInfo {
+                Direction = Direction.Down,
+                Detector = downRay,
+                IsEnable = true
+            },
+            new DirectionalCollider2DDetector.DetectorInfo {
+                Direction = Direction.Left,
+                Detector = leftRay,
+                IsEnable = true
+            },
+            new DirectionalCollider2DDetector.DetectorInfo {
+                Direction = Direction.Right,
+                Detector = rightRay,
+                IsEnable = true
+            }
+        },
+        thisCharacterCollider);
 
 
         /*
          *  Setup ColliderDetector2DInteractor
          */
-        thisColliderDetector2DInteractor = this.AddOrGetComponent<ColliderDetector2DInteractor>();
-        thisColliderDetector2DInteractor.Init(thisRayCastColliderDetector2D);
+        thisColliderDetector2DInteractor = this.AddOrGetComponent<DirectionalInteractor>();
+        thisColliderDetector2DInteractor.Init(thisInteractionDetectorDirectional);
 
 
         /*
          *  Setup Character2D
          */
         thisCharacter2D = this.AddOrGetComponent<Character2D>();
-        thisCharacter2D.Init(thisRigidbody2D, thisBoxCastColliderDetector2D);
+        thisCharacter2D.Init(thisRigidbody2D, thisCollisionDetectorDirectional);
 
 
         /* 
@@ -409,6 +447,8 @@ public class Mario2DController : MonoBehaviour {
 
     [Serializable]
     public class MarioStates {
+        public string               Label;
+
         public bool                 IsCanDuck;
         public bool                 IsCanBreakBrick;
 

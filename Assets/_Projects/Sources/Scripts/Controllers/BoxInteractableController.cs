@@ -24,12 +24,12 @@ public class BoxInteractableController : MonoBehaviour {
 
 
     private void OnInteract(Interactor interactor) {
-        ColliderDetector2D colliderDetector = interactor.GetComponent<ColliderDetector2D>();
-        if(colliderDetector) {
+        DirectionalCollider2DDetector collider2DDetectorDirectional = interactor.GetComponent<DirectionalCollider2DDetector>();
+        if(collider2DDetectorDirectional) {
             if(interactDirection == InteractDirection.FromBelow && 
-               !colliderDetector.IsColliderWithinBounds(ColliderDetector2D.Direction.Up)) return;
+               !collider2DDetectorDirectional.IsColliding(Direction.Up)) return;
             if(interactDirection == InteractDirection.FromAbove && 
-               !colliderDetector.IsColliderWithinBounds(ColliderDetector2D.Direction.Down)) return;
+               !collider2DDetectorDirectional.IsColliding(Direction.Down)) return;
         }
 
         Mario2DController mario = interactor.GetComponent<Mario2DController>();

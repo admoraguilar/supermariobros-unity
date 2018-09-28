@@ -5,11 +5,11 @@ public class Character2D : MonoBehaviour {
     public bool                                     IsGrounded { get { return isGrounded; } }
     public bool                                     IsChangingDirection {
         get {
-            return (thisRigidbody2D.velocity.x > 0f && IsFacing(ColliderDetector2D.Direction.Left)) ||
-                   (thisRigidbody2D.velocity.x < 0f && IsFacing(ColliderDetector2D.Direction.Right));
+            return (thisRigidbody2D.velocity.x > 0f && IsFacing(Direction.Left)) ||
+                   (thisRigidbody2D.velocity.x < 0f && IsFacing(Direction.Right));
         }
     }
-    public ColliderDetector2D                       ColliderDetector { get { return thisColliderDetector; } }
+    public DirectionalCollider2DDetector ColliderDetector { get { return thisCollider2DDetectorDirectional; } }
     public Vector2                                  FaceAxis { get { return faceAxis; } }
     public Vector2                                  MaxVelocity { get { return maxVelocity; } }
     public Vector2                                  Velocity { get { return thisRigidbody2D.velocity; } }
@@ -24,47 +24,47 @@ public class Character2D : MonoBehaviour {
 
     [Header("References")]
     [SerializeField] private Rigidbody2D            thisRigidbody2D;
-    [SerializeField] private ColliderDetector2D     thisColliderDetector;
+    [SerializeField] private DirectionalCollider2DDetector     thisCollider2DDetectorDirectional;
    
 
 
-    public bool IsFacing(ColliderDetector2D.Direction direction) {
+    public bool IsFacing(Direction direction) {
         switch(direction) {
-            case ColliderDetector2D.Direction.Up: return faceAxis.y > 0f;
-            case ColliderDetector2D.Direction.Down: return faceAxis.y < 0f;
-            case ColliderDetector2D.Direction.Left: return faceAxis.x < 0f;
-            case ColliderDetector2D.Direction.Right: return faceAxis.x > 0f;
+            case Direction.Up: return faceAxis.y > 0f;
+            case Direction.Down: return faceAxis.y < 0f;
+            case Direction.Left: return faceAxis.x < 0f;
+            case Direction.Right: return faceAxis.x > 0f;
             default: return true;
         }
     }
 
-    public bool IsMoving(ColliderDetector2D.Direction direction) {
+    public bool IsMoving(Direction direction) {
         switch(direction) {
-            case ColliderDetector2D.Direction.Up: return thisRigidbody2D.velocity.y > 0f;
-            case ColliderDetector2D.Direction.Down: return thisRigidbody2D.velocity.y < 0f;
-            case ColliderDetector2D.Direction.Left: return thisRigidbody2D.velocity.x < 0f;
-            case ColliderDetector2D.Direction.Right: return thisRigidbody2D.velocity.x > 0f;
-            case ColliderDetector2D.Direction.Any: return thisRigidbody2D.velocity != Vector2.zero;
+            case Direction.Up: return thisRigidbody2D.velocity.y > 0f;
+            case Direction.Down: return thisRigidbody2D.velocity.y < 0f;
+            case Direction.Left: return thisRigidbody2D.velocity.x < 0f;
+            case Direction.Right: return thisRigidbody2D.velocity.x > 0f;
+            case Direction.Any: return thisRigidbody2D.velocity != Vector2.zero;
             default: return false;
         }
     }
 
-    public void Init(Rigidbody2D rigidbody2D, ColliderDetector2D colliderDetector2D) {
+    public void Init(Rigidbody2D rigidbody2D, DirectionalCollider2DDetector collider2DDetectorDirectional) {
         thisRigidbody2D = rigidbody2D;
-        thisColliderDetector = colliderDetector2D;
+        thisCollider2DDetectorDirectional = collider2DDetectorDirectional;
     }
 
     public void Move(Vector2 direction) {
-        if(thisColliderDetector.IsColliding(ColliderDetector2D.Direction.Up) && direction.y > 0) {
+        if(thisCollider2DDetectorDirectional.IsColliding(Direction.Up, true) && direction.y > 0) {
             direction.y = 0f;
         }
-        if(thisColliderDetector.IsColliding(ColliderDetector2D.Direction.Down) && direction.y < 0) {
+        if(thisCollider2DDetectorDirectional.IsColliding(Direction.Down, true) && direction.y < 0) {
             direction.y = 0f;
         }
-        if(thisColliderDetector.IsColliding(ColliderDetector2D.Direction.Left) && direction.x < 0) {
+        if(thisCollider2DDetectorDirectional.IsColliding(Direction.Left, true) && direction.x < 0) {
             direction.x = 0f;
         }
-        if(thisColliderDetector.IsColliding(ColliderDetector2D.Direction.Right) && direction.x > 0) {
+        if(thisCollider2DDetectorDirectional.IsColliding(Direction.Right, true) && direction.x > 0) {
             direction.x = 0f;
         }
 
@@ -81,6 +81,11 @@ public class Character2D : MonoBehaviour {
         }
     }
 
+    private void Awake() {
+        if(!thisRigidbody2D) thisRigidbody2D = GetComponent<Rigidbody2D>();
+        if(!thisCollider2DDetectorDirectional) thisCollider2DDetectorDirectional = GetComponent<DirectionalCollider2DDetector>();
+    }
+
     private void Update() {
         // Bugs: thisRigidbody.velocity.y is having some funny values for some reason
         //       when walking or sprinting. Investigate this when you have some time
@@ -89,7 +94,7 @@ public class Character2D : MonoBehaviour {
         // FIXED: It was not the code, but the composite collider issues, it seems to be 
         //        a Unity bug where the vertex snapping leaves very small gaps that could
         //        screw aroudn with collisions
-        isGrounded = thisColliderDetector.IsColliding(ColliderDetector2D.Direction.Down) && thisRigidbody2D.velocity.y == 0f;
+        isGrounded = thisCollider2DDetectorDirectional.IsColliding(Direction.Down) && thisRigidbody2D.velocity.y == 0f;
     }
 
     private void FixedUpdate() {
