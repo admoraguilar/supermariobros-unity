@@ -1,41 +1,42 @@
 ﻿using UnityEngine;
+using System;
+using System.Collections.Generic;
+using WishfulDroplet;
+using WishfulDroplet.Extensions;
 
 
 public class Character2D : MonoBehaviour {
-    public bool                                     IsGrounded { get { return isGrounded; } }
-    public bool                                     IsChangingDirection {
+    public Vector2                                          FaceAxis { get { return faceAxis; } }
+    public Vector2                                          MaxVelocity { get { return maxVelocity; } }
+    public Vector2                                          Velocity { get { return thisRigidbody2D.velocity; } }
+    public bool                                             IsGrounded { get { return isGrounded; } }
+    public bool                                             IsChangingDirection {
         get {
             return (thisRigidbody2D.velocity.x > 0f && IsFacing(Direction.Left)) ||
                    (thisRigidbody2D.velocity.x < 0f && IsFacing(Direction.Right));
         }
     }
-    public DirectionalCollider2DDetector ColliderDetector { get { return thisCollider2DDetectorDirectional; } }
-    public Vector2                                  FaceAxis { get { return faceAxis; } }
-    public Vector2                                  MaxVelocity { get { return maxVelocity; } }
-    public Vector2                                  Velocity { get { return thisRigidbody2D.velocity; } }
 
-    [SerializeField] private Vector2                maxVelocity = new Vector2(5f, 8f);
-    [SerializeField] private bool                   isUpdateFaceAxisOnlyOnGround = true;
+    [SerializeField] private Vector2                        maxVelocity = new Vector2(5f, 8f);
+    [SerializeField] private bool                           isUpdateFaceAxisOnlyOnGround = true;
+    [SerializeField] private DirectionalBoxCast2D           directionalBoxCast = new DirectionalBoxCast2D();
+    [SerializeField] private int                            maxHitBufferSize = 20;
+    [SerializeField] private List<Collider2D>               boxCastMask = new List<Collider2D>();
 
     [Header("Debug")]
-    [SerializeField] private Vector2                moveDirection;
-    [SerializeField] private Vector2                faceAxis;
-    [SerializeField] private bool                   isGrounded;
+    [SerializeField] private List<Collider2D>               touchedColliders = new List<Collider2D>();
+    [SerializeField] private Vector2                        moveDirection;
+    [SerializeField] private Vector2                        faceAxis;
+    [SerializeField] private bool                           isGrounded;
 
     [Header("References")]
-    [SerializeField] private Rigidbody2D            thisRigidbody2D;
-    [SerializeField] private DirectionalCollider2DDetector     thisCollider2DDetectorDirectional;
-   
+    [SerializeField] private Transform                      thisTransform;
+    [SerializeField] private Rigidbody2D                    thisRigidbody2D;
+    [SerializeField] private BoxCollider2D                  thisBoxCollider2D;
 
 
-    public bool IsFacing(Direction direction) {
-        switch(direction) {
-            case Direction.Up: return faceAxis.y > 0f;
-            case Direction.Down: return faceAxis.y < 0f;
-            case Direction.Left: return faceAxis.x < 0f;
-            case Direction.Right: return faceAxis.x > 0f;
-            default: return true;
-        }
+    public bool IsColliding(Direction direction, Collider2D collider = null) {
+        return directionalBoxCast.IsHit(direction, collider);
     }
 
     public bool IsMoving(Direction direction) {
@@ -49,26 +50,36 @@ public class Character2D : MonoBehaviour {
         }
     }
 
-    public void Init(Rigidbody2D rigidbody2D, DirectionalCollider2DDetector collider2DDetectorDirectional) {
-        thisRigidbody2D = rigidbody2D;
-        thisCollider2DDetectorDirectional = collider2DDetectorDirectional;
+    public bool IsFacing(Direction direction) {
+        switch(direction) {
+            case Direction.Up: return faceAxis.y > 0f;
+            case Direction.Down: return faceAxis.y < 0f;
+            case Direction.Left: return faceAxis.x < 0f;
+            case Direction.Right: return faceAxis.x > 0f;
+            default: return true;
+        }
     }
 
     public void Move(Vector2 direction) {
-        if(thisCollider2DDetectorDirectional.IsColliding(Direction.Up, true) && direction.y > 0) {
+        // This could be optimized
+        if(IsColliding(Direction.Up) && direction.y > 0) {
             direction.y = 0f;
         }
-        if(thisCollider2DDetectorDirectional.IsColliding(Direction.Down, true) && direction.y < 0) {
+        if(IsColliding(Direction.Down) && direction.y < 0) {
             direction.y = 0f;
         }
-        if(thisCollider2DDetectorDirectional.IsColliding(Direction.Left, true) && direction.x < 0) {
+        if(IsColliding(Direction.Left) && direction.x < 0) {
             direction.x = 0f;
         }
-        if(thisCollider2DDetectorDirectional.IsColliding(Direction.Right, true) && direction.x > 0) {
+        if(IsColliding(Direction.Right) && direction.x > 0) {
             direction.x = 0f;
         }
 
         moveDirection += direction;
+    }
+
+    public void SetVelocity(Vector2 velocity) {
+        thisRigidbody2D.velocity = velocity;
     }
 
     private void ClampVelocity() {
@@ -81,9 +92,24 @@ public class Character2D : MonoBehaviour {
         }
     }
 
+    private void Reset() {
+        thisTransform = this.GetComponent<Transform>();
+        thisRigidbody2D = gameObject.AddOrGetComponent<Rigidbody2D>();
+        thisBoxCollider2D = gameObject.AddOrGetComponent<BoxCollider2D>();
+
+        directionalBoxCast.BoxInfos = new DirectionalBoxCast2D.BoxCastInfo[4] {
+            new DirectionalBoxCast2D.BoxCastInfo { Direction = Direction.Up, SizeMultiplier = .02f },
+            new DirectionalBoxCast2D.BoxCastInfo { Direction = Direction.Down, SizeMultiplier = .02f },
+            new DirectionalBoxCast2D.BoxCastInfo { Direction = Direction.Left, SizeMultiplier = .02f },
+            new DirectionalBoxCast2D.BoxCastInfo { Direction = Direction.Right, SizeMultiplier = .02f },
+        };
+        directionalBoxCast.ReferenceCollider = thisBoxCollider2D;
+
+        boxCastMask = new List<Collider2D>(GetComponentsInChildren<Collider2D>(true));
+    }
+
     private void Awake() {
-        if(!thisRigidbody2D) thisRigidbody2D = GetComponent<Rigidbody2D>();
-        if(!thisCollider2DDetectorDirectional) thisCollider2DDetectorDirectional = GetComponent<DirectionalCollider2DDetector>();
+        directionalBoxCast.SetHitBufferSize(maxHitBufferSize);
     }
 
     private void Update() {
@@ -93,8 +119,8 @@ public class Character2D : MonoBehaviour {
         //       operator
         // FIXED: It was not the code, but the composite collider issues, it seems to be 
         //        a Unity bug where the vertex snapping leaves very small gaps that could
-        //        screw aroudn with collisions
-        isGrounded = thisCollider2DDetectorDirectional.IsColliding(Direction.Down) && thisRigidbody2D.velocity.y == 0f;
+        //        screw around with collisions
+        isGrounded = IsColliding(Direction.Down) && thisRigidbody2D.velocity.y == 0f;
     }
 
     private void FixedUpdate() {
@@ -110,5 +136,27 @@ public class Character2D : MonoBehaviour {
         }
 
         ClampVelocity();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if(!touchedColliders.Contains(collision.collider)) {
+            touchedColliders.Add(collision.collider);
+        }
+        directionalBoxCast.GetHits(touchedColliders, boxCastMask);
+    }
+
+    private void OnCollisionExit2D(Collision2D collision) {
+        touchedColliders.Remove(collision.collider);
+        directionalBoxCast.RemoveHit(collision.collider);
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        if(directionalBoxCast.BoxInfos != null) {
+            for(int i = 0; i < directionalBoxCast.BoxInfos.Length; i++) {
+                Gizmos.DrawWireCube(directionalBoxCast.BoxInfos[i].Origin,
+                                    directionalBoxCast.BoxInfos[i].Size);
+            }
+        }
     }
 }

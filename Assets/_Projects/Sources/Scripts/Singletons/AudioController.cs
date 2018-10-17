@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using WishfulDroplet;
+using WishfulDroplet.Extensions;
 
 
 public class AudioController : MonoBehaviour, IAudioController {
@@ -17,7 +19,7 @@ public class AudioController : MonoBehaviour, IAudioController {
     private void Reset() {
         Transform tr = GetComponent<Transform>();
 
-        worldAudioSource = this.AddComponentAsChildObject<AudioSource>(tr, "WorldAudioSource");
+        worldAudioSource = Utilities.CreateObject("WorldAudioSource", tr).AddOrGetComponent<AudioSource>();
         worldAudioSource.playOnAwake = false;
         worldAudioSource.volume = .5f;
     }
