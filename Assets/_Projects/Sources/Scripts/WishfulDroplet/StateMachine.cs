@@ -94,25 +94,25 @@ namespace WishfulDroplet {
             if(currentState == state) return;
 
             if(stateStack.Count > 0) {
-                currentState.OnExit(owner);
+                currentState.DoExit(owner);
             }
 
             stateStack.Push(state);
 
             IState<T> temp = stateStack.Peek();
-            temp.OnEnter(owner);
+            temp.DoEnter(owner);
         }
 
         public IState<T> PopState() {
             IState<T> state = null;
 
             if(stateStack.Count > 0) {
-                currentState.OnExit(owner);
+                currentState.DoExit(owner);
                 state = stateStack.Pop();
             }
 
             if(stateStack.Count > 0) {
-                currentState.OnEnter(owner);
+                currentState.DoEnter(owner);
             }
 
             return state;
@@ -120,30 +120,30 @@ namespace WishfulDroplet {
 
         public void Update() {
             if(currentState != null) {
-                currentState.OnUpdate(owner);
+                currentState.DoUpdate(owner);
             }
         }
 
         public void FixedUpdate() {
             if(currentState != null) {
-                currentState.OnFixedUpdate(owner);
+                currentState.DoFixedUpdate(owner);
             }
         }
 
         public void LateUpdate() {
             if(currentState != null) {
-                currentState.OnLateUpdate(owner);
+                currentState.DoLateUpdate(owner);
             }
         }
     }
 
 
     public interface IState<T> {
-        void OnEnter(T owner);
-        void OnExit(T owner);
+        void DoEnter(T owner);
+        void DoExit(T owner);
 
-        void OnUpdate(T owner);
-        void OnFixedUpdate(T owner);
-        void OnLateUpdate(T owner);
+        void DoUpdate(T owner);
+        void DoFixedUpdate(T owner);
+        void DoLateUpdate(T owner);
     }
 }

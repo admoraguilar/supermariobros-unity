@@ -5,13 +5,6 @@ using WishfulDroplet.Extensions;
 
 
 public class CharacterActor : MonoBehaviour {
-    public event Action<string> OnChangedForm = delegate { };
-
-    public string formId {
-        get { return _formId; }
-        private set { _formId = value; }
-    }
-
     public GameObject thisGameObject {
         get { return _thisGameObject; }
         private set { _thisGameObject = value; }
@@ -67,14 +60,31 @@ public class CharacterActor : MonoBehaviour {
     public bool isSprinting = false;
     public bool isJumping = false;
 
+    [Header("States")]
+    public FormStates.Small smallFormState;
+    public FormStates.Big bigFormState;
+    public FormStates.Power powerFormState;
+    [HideInInspector] public MovementStates.Idle idleMovementState;
+    [HideInInspector] public MovementStates.Walk walkMovementState;
+    [HideInInspector] public MovementStates.Slide slideMovementState;
+    [HideInInspector] public MovementStates.Duck duckMovementState;
+    [HideInInspector] public MovementStates.Jump jumpMovementState;
+    [HideInInspector] public MovementStates.Fall fallMovementState;
+    public MovementStates.Bounce bounceMovementState;
+    [HideInInspector] public MovementStates.Transition transitionMovementState;
+    [HideInInspector] public StatusStates.Normal normalStatusState;
+    [HideInInspector] public StatusStates.Invincible invincibleStatusState;
+    [HideInInspector] public StatusStates.Star starStatusState;
+    [HideInInspector] public StatusStates.Dead deadStatusState;
+
     [Header("Internal")]
     public StateController<CharacterActor> stateController = new StateController<CharacterActor>();
     public StateMachine<CharacterActor> formStateMachine = new StateMachine<CharacterActor>("FORM");
+    public StateMachine<CharacterActor> movementStateMachine = new StateMachine<CharacterActor>("MOVEMENT");
     public StateMachine<CharacterActor> statusStateMachine = new StateMachine<CharacterActor>("STATUS");
 
     [Header("Editor Internal")]
     [SerializeField] private CharacterBrain oldBrain;
-    [SerializeField] private string _formId;
 
     [Header("References")]
     [SerializeField] private GameObject _thisGameObject;
@@ -87,9 +97,9 @@ public class CharacterActor : MonoBehaviour {
     [SerializeField] private Transform _thisCharacterObject;
 
 
-    public void SetForm(string id) {
-        formId = id;
-        OnChangedForm(id);
+    public void SetForm(FormStates.FormState form, bool isDoTranstion = true) {
+        formStateMachine.SetState(form);
+        if(isDoTranstion) movementStateMachine.PushState(transitionMovementState);
     }
 
     private void UpdateCharacterObjectFlipping() {
@@ -111,60 +121,89 @@ public class CharacterActor : MonoBehaviour {
     }
 
     private void Awake() {
-        brain.DoAwake(this);
+        if(brain) {
+            brain.DoAwake(this);
+        }
     }
 
     private void OnEnable() {
-        brain.DoOnEnable(this);
+        if(brain) {
+            brain.DoOnEnable(this);
+        }
     }
 
     private void OnDisable() {
-        brain.DoOnDisable(this);
+        if(brain) {
+            brain.DoOnDisable(this);
+        }
     }
 
     private void Start() {
         stateController.AddStateMachine(formStateMachine, this);
+        stateController.AddStateMachine(movementStateMachine, this);
         stateController.AddStateMachine(statusStateMachine, this);
 
-        brain.DoStart(this);
+        if(brain) {
+            brain.DoStart(this);
+        }
     }
 
     private void Update() {
-        brain.UpdateInput(this);
+        if(brain) {
+            brain.UpdateInput(this);
+        }
+
         UpdateCharacterObjectFlipping();
-        brain.DoUpdate(this);
+
+        if(brain) {
+            brain.DoUpdate(this);
+        } 
 
         stateController.Update();
     }
 
     private void FixedUpdate() {
-        brain.DoFixedUpdate(this);
+        if(brain) {
+            brain.DoFixedUpdate(this);
+        }
 
         stateController.FixedUpdate();
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        brain.DoCollisionEnter2D(this, collision);
+        if(brain) {
+            brain.DoCollisionEnter2D(this, collision);
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision) {
-        brain.DoCollisionStay2D(this, collision);
+        if(brain) {
+            brain.DoCollisionStay2D(this, collision);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision) {
-        brain.DoCollisionExit2D(this, collision);
+        if(brain) {
+            brain.DoCollisionExit2D(this, collision);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        brain.DoTriggerEnter2D(this, collision);
+        if(brain) {
+            brain.DoTriggerEnter2D(this, collision);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
-        brain.DoTriggerStay2D(this, collision);
+        if(brain) {
+            brain.DoTriggerStay2D(this, collision);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        brain.DoTriggerExit2D(this, collision);
+        if(brain) {
+            brain.DoTriggerExit2D(this, collision);
+        }
     }
 
     private void OnDrawGizmos() {
@@ -199,10 +238,13 @@ public class CharacterActor : MonoBehaviour {
 
         // Setup collision collider
         thisCollisionCollider2D = thisGameObject.AddOrGetComponent<BoxCollider2D>();
+        thisCollisionCollider2D.size = thisCharacterObject ? thisCharacterObject.GetComponentInChildren<SpriteRenderer>().size :
+                                                             thisCollisionCollider2D.size;
 
         // Setup interaction collider
         thisInteractionCollider2D = Utilities.CreateObject("Interaction", thisTransform).AddOrGetComponent<BoxCollider2D>();
         thisInteractionCollider2D.isTrigger = true;
+        thisInteractionCollider2D.size = thisCollisionCollider2D.size;
 
         // Setup Animator
         thisAnimator = this.GetComponentInChildren<Animator>(true);
@@ -232,21 +274,244 @@ public class CharacterActor : MonoBehaviour {
     }
 
 
-    public abstract class CharacterState : ScriptableObject, IState<CharacterActor> {
-        public virtual void OnEnter(CharacterActor characterActor) {}
-        public virtual void OnExit(CharacterActor characterActor) {}
-        public virtual void OnFixedUpdate(CharacterActor characterActor) {}
-        public virtual void OnLateUpdate(CharacterActor characterActor) {}
-        public virtual void OnUpdate(CharacterActor characterActor) {}
+    [Serializable]
+    public abstract class CharacterState : IState<CharacterActor> {
+        public virtual void DoEnter(CharacterActor characterActor) {}
+        public virtual void DoExit(CharacterActor characterActor) {}
+        public virtual void DoFixedUpdate(CharacterActor characterActor) {}
+        public virtual void DoLateUpdate(CharacterActor characterActor) {}
+        public virtual void DoUpdate(CharacterActor characterActor) {}
     }
 
 
-    [Serializable]
-    public class BoxColliderInfo {
-        public Vector2 Offset;
-        public Vector2 Size;
+    public class FormStates {
+        [Serializable]
+        public class Small : FormState {
 
-        [Header("Debug")]
-        public Color GizmoColor = new Color(1f, 1f, 1f, 1f);
+        }
+
+
+        [Serializable]
+        public class Big : FormState {
+
+        }
+
+
+        [Serializable]
+        public class Power : FormState {
+
+        }
+
+
+        [Serializable]
+        public class BoxColliderInfo {
+            public Vector2 offset;
+            public Vector2 size;
+
+            [Header("Debug")]
+            public Color gizmoColor = new Color(1f, 1f, 1f, 1f);
+        }
+
+
+        [Serializable]
+        public abstract class FormState : CharacterState {
+            [Header("Form")]
+            public RuntimeAnimatorController runtimeAnimatorController;
+            public bool isCanDuck;
+            public bool isCanBreakBrick;
+
+            [Header("Transition")]
+            public BoxColliderInfo transitionBoxColliderInfo;
+            public AudioClip transitionSound;
+
+            [Header("Duck")]
+            public BoxColliderInfo duckBoxColliderInfo;
+
+            [Header("Jump")]
+            public AudioClip jumpSound;
+
+
+            public override void DoEnter(CharacterActor characterActor) {
+                characterActor.thisAnimator.runtimeAnimatorController = runtimeAnimatorController;
+
+                characterActor.transitionMovementState.transitionSound = transitionSound;
+                characterActor.transitionMovementState.boxColliderInfo = transitionBoxColliderInfo;
+
+                characterActor.duckMovementState.boxColliderInfo = duckBoxColliderInfo;
+
+                characterActor.jumpMovementState.jumpSound = jumpSound;
+            }
+        }
+    }
+
+
+    public class MovementStates {
+        [Serializable]
+        public class Idle : CharacterState {
+            public override void DoEnter(CharacterActor characterActor) {
+                characterActor.thisAnimator.PlayNoRepeat("Idle");
+            }
+        }
+
+
+        [Serializable]
+        public class Walk : CharacterState {
+            public override void DoEnter(CharacterActor characterActor) {
+                characterActor.thisAnimator.PlayNoRepeat("Walk");
+            }
+
+            public override void DoUpdate(CharacterActor characterActor) {
+                characterActor.thisAnimator.SetFloat("WalkSpeedMultiplier",
+                                            2.5f * Mathf.Max(0.1f, Mathf.InverseLerp(0f, characterActor.thisCharacter2D.MaxVelocity.x,
+                                                                                         Mathf.Abs(characterActor.thisCharacter2D.Velocity.x))));
+            }
+
+            public override void DoFixedUpdate(CharacterActor characterActor) {
+                float speed = characterActor.isSprinting ? characterActor.landSprintSpeed : characterActor.landMoveSpeed;
+                characterActor.thisCharacter2D.Move(new Vector2(characterActor.inputAxis.x, 0f) * speed * Time.fixedDeltaTime);
+            }
+        }
+
+
+        [Serializable]
+        public class Slide : CharacterState {
+            public override void DoEnter(CharacterActor characterActor) {
+                characterActor.thisAnimator.PlayNoRepeat("Slide");
+            }
+        }
+
+
+        [Serializable]
+        public class Duck : CharacterState {
+            public FormStates.BoxColliderInfo boxColliderInfo;
+
+
+            public override void DoEnter(CharacterActor characterActor) {
+                characterActor.thisAnimator.PlayNoRepeat("Duck");
+
+                characterActor.thisCollisionCollider2D.offset = boxColliderInfo.offset;
+                characterActor.thisCollisionCollider2D.size = boxColliderInfo.size;
+
+                characterActor.thisInteractionCollider2D.offset = boxColliderInfo.offset;
+                characterActor.thisInteractionCollider2D.size = boxColliderInfo.size;
+            }
+        }
+
+
+        [Serializable]
+        public class Jump : CharacterState {
+            public AudioClip jumpSound;
+
+
+            public override void DoEnter(CharacterActor characterActor) {
+                characterActor.lastJumpPos = characterActor.thisTransform.localPosition;
+                characterActor.thisAnimator.PlayNoRepeat("Jump");
+                Singleton.Get<IAudioController>().PlayOneShot(jumpSound);
+            }
+
+            public override void DoFixedUpdate(CharacterActor characterActor) {
+                float speed = characterActor.isSprinting ? characterActor.airSprintSpeed : characterActor.airMoveSpeed;
+                characterActor.thisCharacter2D.Move(new Vector2(characterActor.inputAxis.x * speed, 1f * characterActor.jumpSpeed) * Time.fixedDeltaTime);
+
+            }
+        }
+
+
+        [Serializable]
+        public class Fall : CharacterState {
+            public override void DoEnter(CharacterActor characterActor) {
+                characterActor.thisAnimator.PlayNoRepeat("Fall");
+            }
+
+            public override void DoFixedUpdate(CharacterActor characterActor) {
+                float speed = characterActor.isSprinting ? characterActor.airSprintSpeed : characterActor.airMoveSpeed;
+                characterActor.thisCharacter2D.Move(new Vector2(characterActor.inputAxis.x * speed, 0f) * Time.fixedDeltaTime);
+            }
+        }
+
+
+        [Serializable]
+        public class Bounce : CharacterState {
+            public float bounceTime = .2f;
+            public AudioClip stepSound;
+
+            private float timer;
+
+
+            public override void DoEnter(CharacterActor characterActor) {
+                timer = 0f;
+
+                characterActor.thisAnimator.PlayNoRepeat("Jump");
+                characterActor.thisCharacter2D.SetVelocity(new Vector2(characterActor.thisCharacter2D.Velocity.x, 0f));
+                Singleton.Get<IAudioController>().PlayOneShot(stepSound);
+            }
+
+            public override void DoFixedUpdate(CharacterActor characterActor) {
+                if(timer > bounceTime) {
+                    characterActor.movementStateMachine.PopState();
+                } else {
+                    timer += Time.fixedDeltaTime;
+
+                    float speed = characterActor.isSprinting ? characterActor.airSprintSpeed : characterActor.airMoveSpeed;
+                    characterActor.thisCharacter2D.Move(new Vector2(characterActor.inputAxis.x * speed, 1f * characterActor.jumpSpeed) * Time.fixedDeltaTime);
+                }
+            }
+        }
+
+
+        [Serializable]
+        public class Transition : CharacterState {
+            public AudioClip transitionSound;
+            public FormStates.BoxColliderInfo boxColliderInfo;
+
+
+            public override void DoEnter(CharacterActor characterActor) {
+                Time.timeScale = 0f;
+                characterActor.thisAnimator.PlayNoRepeat("Transition");
+                Singleton.Get<IAudioController>().PlayOneShot(transitionSound);
+            }
+
+            public override void DoUpdate(CharacterActor characterActor) {
+                if(characterActor.thisAnimator.GetCurrentAnimatorStateInfo(0).IsName("Transition")) {
+                    if(characterActor.thisAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > .95f) {
+                        characterActor.movementStateMachine.PopState();
+                    }
+                }
+            }
+
+            public override void DoExit(CharacterActor characterActor) {
+                Time.timeScale = 1f;
+                characterActor.thisCollisionCollider2D.offset = boxColliderInfo.offset;
+                characterActor.thisCollisionCollider2D.size = boxColliderInfo.size;
+                characterActor.thisInteractionCollider2D.offset = boxColliderInfo.offset;
+                characterActor.thisInteractionCollider2D.size = boxColliderInfo.size;
+            }
+        }
+    }
+
+   
+    public class StatusStates {
+        [Serializable]
+        public class Normal : CharacterState {
+
+        }
+
+
+        [Serializable]
+        public class Invincible : CharacterState {
+
+        }
+
+
+        [Serializable]
+        public class Star : CharacterState {
+
+        }
+
+
+        [Serializable]
+        public class Dead : CharacterState {
+
+        }
     }
 }

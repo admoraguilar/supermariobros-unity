@@ -6,61 +6,13 @@ using WishfulDroplet.Extensions;
 
 [CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/MarioBrain")]
 public class MarioCharacterBrain : CharacterActor.CharacterBrain {
-    [SerializeField] private MarioForm[] marioForms = new MarioForm[3];
+    [SerializeField] private CharacterActor.CharacterBrain enemyBrain;
 
-    [Header("Form State")]
-    [SerializeField] private IdleCharacterState idleState;
-    [SerializeField] private WalkCharacterState walkState;
-    [SerializeField] private SlideCharacterState slideState;
-    [SerializeField] private DuckCharacterState duckState;
-    [SerializeField] private JumpCharacterState jumpState;
-    [SerializeField] private FallCharacterState fallState;
-    [SerializeField] private BounceCharacterState bounceState;
-    [SerializeField] private TransitionCharacterState transitionState;
-
-    [SerializeField] private TransitionCharacterState testTransitionState;
-
-    private MarioForm currentForm;
-    private CharacterActor cachedCharacterActor;
-
-
-    public override void DoAwake(CharacterActor characterActor) {
-        testTransitionState = Instantiate(transitionState);
-        Debug.Log(Equals(testTransitionState, transitionState).ToString());
-    }
 
     public override void DoStart(CharacterActor characterActor) {
-        characterActor.SetForm(MarioFormId.MARIOSMALL);
-    }
-
-    private void OnChangedForm(string formId) {
-        for(int i = 0; i < marioForms.Length; i++) {
-            if(marioForms[i].id == formId) {
-                currentForm = marioForms[i];
-            }
-        }
-
-        if(currentForm.id == formId) {
-            cachedCharacterActor.thisAnimator.runtimeAnimatorController = currentForm.animator;
-
-            transitionState.TransitionSound = currentForm.TransitionSound;
-            transitionState.BoxColliderInfo = currentForm.TransitionBoxColliderInfo;
-
-            duckState.BoxColliderInfo = currentForm.DuckBoxColliderInfo;
-
-            jumpState.JumpSound = currentForm.JumpSound;
-
-            cachedCharacterActor.formStateMachine.SetState(transitionState);
-        } 
-    }
-
-    public override void DoOnEnable(CharacterActor characterActor) {
-        characterActor.OnChangedForm += OnChangedForm;
-        cachedCharacterActor = characterActor;
-    }
-
-    public override void DoOnDisable(CharacterActor characterActor) {
-        characterActor.OnChangedForm -= OnChangedForm;
+        characterActor.formStateMachine.SetState(characterActor.smallFormState);
+        characterActor.movementStateMachine.SetState(characterActor.idleMovementState);
+        characterActor.statusStateMachine.SetState(characterActor.normalStatusState);
     }
 
     public override void UpdateInput(CharacterActor characterActor) {
@@ -69,105 +21,155 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
         characterActor.isJumping = Input.GetKey(KeyCode.Space);
 
         if(Input.GetKeyDown(KeyCode.E)) {
-            characterActor.SetForm(MarioFormId.MARIOSMALL);
+            characterActor.SetForm(characterActor.smallFormState);
         }
 
         if(Input.GetKeyDown(KeyCode.R)) {
-            characterActor.SetForm(MarioFormId.MARIOBIG);
+            characterActor.SetForm(characterActor.bigFormState);
         }
 
         if(Input.GetKeyDown(KeyCode.T)) {
-            characterActor.SetForm(MarioFormId.MARIOPOWER);
+            characterActor.SetForm(characterActor.powerFormState);
         }
     }
 
     public override void DoUpdate(CharacterActor characterActor) {
-        if(!Equals(characterActor.formStateMachine.currentState, transitionState)) {
+        if(characterActor.statusStateMachine.currentState != characterActor.deadStatusState &&
+           characterActor.movementStateMachine.currentState != characterActor.transitionMovementState) {
             if(characterActor.thisCharacter2D.IsGrounded) {
                 if(!characterActor.thisCharacter2D.IsMoving(Direction.Any) &&
                     characterActor.inputAxis == Vector2.zero &&
                     !characterActor.isJumping) {
-                    characterActor.formStateMachine.SetState(idleState);
+                    characterActor.movementStateMachine.SetState(characterActor.idleMovementState);
                 }
 
                 if(characterActor.inputAxis.x != 0 &&
                    characterActor.inputAxis.y == 0 &&
                    !characterActor.isJumping &&
                    !characterActor.thisCharacter2D.IsChangingDirection) {
-                    characterActor.formStateMachine.SetState(walkState);
+                    characterActor.movementStateMachine.SetState(characterActor.walkMovementState);
                 }
 
                 if(characterActor.inputAxis.x == 0 &&
                    characterActor.inputAxis.y < 0f &&
-                   currentForm.IsCanDuck &&
+                   ((CharacterActor.FormStates.FormState)characterActor.formStateMachine.currentState).isCanDuck &&
                    !characterActor.isJumping) {
-                    characterActor.formStateMachine.PushState(duckState);
+                    characterActor.movementStateMachine.PushState(characterActor.duckMovementState);
                 } else {
-                    if(Equals(characterActor.formStateMachine.currentState, duckState)) {
-                        characterActor.formStateMachine.PopState();
+                    if(Equals(characterActor.movementStateMachine.currentState, characterActor.duckMovementState)) {
+                        characterActor.movementStateMachine.PopState();
                     }
                 }
 
                 if(characterActor.thisCharacter2D.IsChangingDirection &&
                    characterActor.thisCharacter2D.IsMoving(Direction.Any) &&
                    !characterActor.isJumping) {
-                    characterActor.formStateMachine.SetState(slideState);
+                    characterActor.movementStateMachine.SetState(characterActor.slideMovementState);
                 }
 
                 if(characterActor.isJumping) {
-                    characterActor.formStateMachine.SetState(jumpState);
+                    characterActor.movementStateMachine.SetState(characterActor.jumpMovementState);
                 }
             } else {
                 if((Mathf.Abs(characterActor.thisTransform.localPosition.y - characterActor.lastJumpPos.y) > characterActor.maxJumpHeight ||
                     characterActor.thisCharacter2D.IsColliding(Direction.Up) ||
                     !characterActor.isJumping) &&
-                    !Equals(characterActor.formStateMachine.currentState, bounceState)) {
-                    characterActor.formStateMachine.SetState(fallState);
+                    !Equals(characterActor.movementStateMachine.currentState, characterActor.bounceMovementState)) {
+                    characterActor.movementStateMachine.SetState(characterActor.fallMovementState);
                 }
             }
         }
     }
 
-    public override void DoDrawGizmos(CharacterActor characterActor) {
-        for(int i = 0; i < marioForms.Length; i++) {
-            // Duck collider
-            Gizmos.color = marioForms[i].DuckBoxColliderInfo.GizmoColor;
-            Gizmos.DrawWireCube(new Vector2(characterActor.thisTransform.position.x, characterActor.thisTransform.position.y) + marioForms[i].DuckBoxColliderInfo.Offset,
-                                            marioForms[i].DuckBoxColliderInfo.Size);
 
-            // Transition collider 
-            Gizmos.color = marioForms[i].TransitionBoxColliderInfo.GizmoColor;
-            Gizmos.DrawWireCube(new Vector2(characterActor.thisTransform.position.x, characterActor.thisTransform.position.y) + marioForms[i].TransitionBoxColliderInfo.Offset,
-                                            marioForms[i].TransitionBoxColliderInfo.Size);
-
-            
+    public override void DoTriggerEnter2D(CharacterActor characterActor, Collider2D collision) {
+        CharacterActor otherCharacterActor = collision.GetComponent<CharacterActor>();
+        if(otherCharacterActor) {
+            if(otherCharacterActor.brain == enemyBrain || otherCharacterActor.brain == null) {
+                if(Mathf.Abs(characterActor.thisInteractionCollider2D.bounds.min.y - collision.bounds.min.y) > .05f &&
+                    characterActor.thisInteractionCollider2D.bounds.min.y >= collision.bounds.min.y) {
+                    characterActor.movementStateMachine.PushState(characterActor.bounceMovementState);
+                    Destroy(otherCharacterActor.gameObject);
+                }
+            }
         }
     }
 
 
-    public class MarioFormId {
-        public const string MARIOSMALL = "MARIOSMALL";
-        public const string MARIOBIG = "MARIOBIG";
-        public const string MARIOPOWER = "MARIOPOWER";
+    public override void DoDrawGizmos(CharacterActor characterActor) {
+        // Small duck collider
+        Gizmos.color = characterActor.smallFormState.duckBoxColliderInfo.gizmoColor;
+        Gizmos.DrawWireCube(new Vector2(characterActor.thisTransform.position.x, characterActor.thisTransform.position.y) +
+                                        characterActor.smallFormState.duckBoxColliderInfo.offset,
+                            characterActor.smallFormState.duckBoxColliderInfo.size);
+
+        // Small transition collider 
+        Gizmos.color = characterActor.smallFormState.transitionBoxColliderInfo.gizmoColor;
+        Gizmos.DrawWireCube(new Vector2(characterActor.thisTransform.position.x, characterActor.thisTransform.position.y) +
+                                        characterActor.smallFormState.transitionBoxColliderInfo.offset,
+                            characterActor.smallFormState.transitionBoxColliderInfo.size);
+
+        // Big duck collider
+        Gizmos.color = characterActor.bigFormState.duckBoxColliderInfo.gizmoColor;
+        Gizmos.DrawWireCube(new Vector2(characterActor.thisTransform.position.x, characterActor.thisTransform.position.y) +
+                                        characterActor.bigFormState.duckBoxColliderInfo.offset,
+                            characterActor.bigFormState.duckBoxColliderInfo.size);
+
+        // Big transition collider 
+        Gizmos.color = characterActor.bigFormState.transitionBoxColliderInfo.gizmoColor;
+        Gizmos.DrawWireCube(new Vector2(characterActor.thisTransform.position.x, characterActor.thisTransform.position.y) +
+                                        characterActor.bigFormState.transitionBoxColliderInfo.offset,
+                            characterActor.bigFormState.transitionBoxColliderInfo.size);
+
+        // Power duck collider
+        Gizmos.color = characterActor.powerFormState.duckBoxColliderInfo.gizmoColor;
+        Gizmos.DrawWireCube(new Vector2(characterActor.thisTransform.position.x, characterActor.thisTransform.position.y) +
+                                        characterActor.powerFormState.duckBoxColliderInfo.offset,
+                            characterActor.powerFormState.duckBoxColliderInfo.size);
+
+        // Power transition collider 
+        Gizmos.color = characterActor.powerFormState.transitionBoxColliderInfo.gizmoColor;
+        Gizmos.DrawWireCube(new Vector2(characterActor.thisTransform.position.x, characterActor.thisTransform.position.y) +
+                                        characterActor.powerFormState.transitionBoxColliderInfo.offset,
+                            characterActor.powerFormState.transitionBoxColliderInfo.size);
     }
 
 
-    [Serializable]
-    public class MarioForm {
-        public string id;
-        public RuntimeAnimatorController animator;
+    public override void DoReset(CharacterActor characterActor) {
+        characterActor.smallFormState.transitionBoxColliderInfo = new CharacterActor.FormStates.BoxColliderInfo {
+            offset = new Vector2(0f, 0f),
+            size = new Vector2(0.65f, 0.8f),
+            gizmoColor = Color.blue
+        };
 
-        public bool IsCanDuck;
-        public bool IsCanBreakBricks;
+        characterActor.smallFormState.duckBoxColliderInfo = new CharacterActor.FormStates.BoxColliderInfo {
+            offset = new Vector2(0f, 0.15f),
+            size = new Vector2(0.8f, 1.11f),
+            gizmoColor = Color.cyan
+        };
 
-        [Header("Transition")]
-        public AudioClip TransitionSound;
-        public CharacterActor.BoxColliderInfo TransitionBoxColliderInfo;
+        characterActor.bigFormState.transitionBoxColliderInfo = new CharacterActor.FormStates.BoxColliderInfo {
+            offset = new Vector2(0f, 0.4f),
+            size = new Vector2(0.8f, 1.6f),
+            gizmoColor = Color.blue
+        };
 
-        [Header("Duck")]
-        public CharacterActor.BoxColliderInfo DuckBoxColliderInfo;
+        characterActor.bigFormState.duckBoxColliderInfo = new CharacterActor.FormStates.BoxColliderInfo {
+            offset = new Vector2(0f, 0.15f),
+            size = new Vector2(0.8f, 1.11f),
+            gizmoColor = Color.cyan
+        };
 
-        [Header("Jump")]
-        public AudioClip JumpSound;
+        characterActor.powerFormState.transitionBoxColliderInfo = new CharacterActor.FormStates.BoxColliderInfo {
+            offset = new Vector2(0f, 0.4f),
+            size = new Vector2(0.8f, 1.6f),
+            gizmoColor = Color.blue
+        };
+
+        characterActor.powerFormState.duckBoxColliderInfo = new CharacterActor.FormStates.BoxColliderInfo {
+            offset = new Vector2(0f, 0.15f),
+            size = new Vector2(0.8f, 1.11f),
+            gizmoColor = Color.cyan
+        };
     }
 }

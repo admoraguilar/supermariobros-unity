@@ -7303,6 +7303,60 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!1 &463174535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 463174537}
+  - component: {fileID: 463174536}
+  m_Layer: 0
+  m_Name: Interaction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &463174536
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 463174535}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.65, y: 0.8}
+  m_EdgeRadius: 0
+--- !u!4 &463174537
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 463174535}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1656137413}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &463429014
 Prefab:
   m_ObjectHideFlags: 0
@@ -7731,6 +7785,57 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &489293517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1390157847448240, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 489293518}
+  - component: {fileID: 489293519}
+  m_Layer: 0
+  m_Name: Mario
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &489293518
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4201921909368800, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 489293517}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 882872324}
+  m_Father: {fileID: 1656137413}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &489293519
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 95631879523681192, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 489293517}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &498472398
 Prefab:
   m_ObjectHideFlags: 0
@@ -12108,60 +12213,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!1 &803284235
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 803284237}
-  - component: {fileID: 803284236}
-  m_Layer: 0
-  m_Name: Interactor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!61 &803284236
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 803284235}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.65, y: 0.8}
-  m_EdgeRadius: 0
---- !u!4 &803284237
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 803284235}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 904922369}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &806543116
 Prefab:
   m_ObjectHideFlags: 0
@@ -12956,6 +13007,83 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!1 &882872323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1342676905304430, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 882872324}
+  - component: {fileID: 882872325}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &882872324
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4858530718901132, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 882872323}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 489293518}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &882872325
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 212479984552997146, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 882872323}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300396, guid: 839c19fb28c86a8488bda5f52b79b585, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.40625, y: 0.5}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!1 &885111813
 GameObject:
   m_ObjectHideFlags: 0
@@ -13214,6 +13342,67 @@ MonoBehaviour:
   isFlipOnY: 1
   isSprinting: 0
   isJumping: 0
+  smallFormState:
+    runtimeAnimatorController: {fileID: 9100000, guid: e7d0dd2dcce34ff47bd04a740569a82e,
+      type: 2}
+    isCanDuck: 0
+    isCanBreakBrick: 0
+    transitionBoxColliderInfo:
+      offset: {x: 0, y: 0}
+      size: {x: 0.65, y: 0.8}
+      gizmoColor: {r: 0, g: 0, b: 1, a: 1}
+    transitionSound: {fileID: 8300000, guid: 4e07cd4b182f0cc47b87c00f119c304a, type: 3}
+    duckBoxColliderInfo:
+      offset: {x: 0, y: 0.15}
+      size: {x: 0.8, y: 1.11}
+      gizmoColor: {r: 0, g: 1, b: 1, a: 1}
+    jumpSound: {fileID: 8300000, guid: 6a4b6ef914bcde040b68292465274dc6, type: 3}
+  bigFormState:
+    runtimeAnimatorController: {fileID: 9100000, guid: 85b44ff7e46477a43ace8df596cb0a16,
+      type: 2}
+    isCanDuck: 1
+    isCanBreakBrick: 1
+    transitionBoxColliderInfo:
+      offset: {x: 0, y: 0.4}
+      size: {x: 0.8, y: 1.6}
+      gizmoColor: {r: 0, g: 0, b: 1, a: 1}
+    transitionSound: {fileID: 8300000, guid: b399e2c5f4e71ba4e857bda4f0cd51be, type: 3}
+    duckBoxColliderInfo:
+      offset: {x: 0, y: 0.15}
+      size: {x: 0.8, y: 1.11}
+      gizmoColor: {r: 0, g: 1, b: 1, a: 1}
+    jumpSound: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
+  powerFormState:
+    runtimeAnimatorController: {fileID: 9100000, guid: b53e1083023458840997f92ad464d405,
+      type: 2}
+    isCanDuck: 1
+    isCanBreakBrick: 1
+    transitionBoxColliderInfo:
+      offset: {x: 0, y: 0.4}
+      size: {x: 0.8, y: 1.6}
+      gizmoColor: {r: 0, g: 0, b: 1, a: 1}
+    transitionSound: {fileID: 8300000, guid: b399e2c5f4e71ba4e857bda4f0cd51be, type: 3}
+    duckBoxColliderInfo:
+      offset: {x: 0, y: 0.15}
+      size: {x: 0.8, y: 1.11}
+      gizmoColor: {r: 0, g: 1, b: 1, a: 1}
+    jumpSound: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
+  duckMovementState:
+    boxColliderInfo:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      gizmoColor: {r: 1, g: 1, b: 1, a: 1}
+  jumpMovementState:
+    jumpSound: {fileID: 0}
+  bounceMovementState:
+    stepSound: {fileID: 8300000, guid: 0f4e0defb24ec6847ac32564bd46527e, type: 3}
+    bounceTime: 0.2
+  transitionMovementState:
+    transitionSound: {fileID: 0}
+    boxColliderInfo:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      gizmoColor: {r: 1, g: 1, b: 1, a: 1}
   oldBrain: {fileID: 0}
   _thisGameObject: {fileID: 904922364}
   _thisTransform: {fileID: 904922369}
@@ -13258,7 +13447,7 @@ MonoBehaviour:
   maxHitBufferSize: 20
   boxCastMask:
   - {fileID: 904922367}
-  - {fileID: 803284236}
+  - {fileID: 1636895614}
   touchedColliders: []
   moveDirection: {x: 0, y: 0}
   faceAxis: {x: 0, y: 0}
@@ -13307,7 +13496,7 @@ Rigidbody2D:
   m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 5
-  m_Material: {fileID: 1367979302}
+  m_Material: {fileID: 1129611973}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -13324,7 +13513,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2068556849}
-  - {fileID: 803284237}
   - {fileID: 1636895615}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -16119,6 +16307,14 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!62 &1129611973
+PhysicsMaterial2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Slippery
+  friction: 0.05
+  bounciness: 0
 --- !u!1 &1135770290
 GameObject:
   m_ObjectHideFlags: 0
@@ -18685,14 +18881,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!62 &1367979302
-PhysicsMaterial2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Slippery
-  friction: 0.05
-  bounciness: 0
 --- !u!1001 &1373539317
 Prefab:
   m_ObjectHideFlags: 0
@@ -21267,7 +21455,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.65, y: 0.8}
   m_EdgeRadius: 0
 --- !u!4 &1636895615
 Transform:
@@ -21280,7 +21468,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 904922369}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1639345894
 GameObject:
@@ -21646,6 +21834,225 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &1656137408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1652635735646800, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1656137413}
+  - component: {fileID: 1656137412}
+  - component: {fileID: 1656137411}
+  - component: {fileID: 1656137410}
+  - component: {fileID: 1656137409}
+  m_Layer: 10
+  m_Name: Mario (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1656137409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1656137408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505e8a0bdce59f34a9ec5353c0e6b4e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brain: {fileID: 0}
+  inputAxis: {x: 0, y: 0}
+  lastJumpPos: {x: 0, y: 0}
+  landMoveSpeed: 0.7
+  landSprintSpeed: 4.2
+  airMoveSpeed: 0.5
+  airSprintSpeed: 0.75
+  jumpSpeed: 10
+  maxJumpHeight: 2.4
+  isFlipOnX: 1
+  isFlipOnY: 1
+  isSprinting: 0
+  isJumping: 0
+  smallFormState:
+    runtimeAnimatorController: {fileID: 9100000, guid: e7d0dd2dcce34ff47bd04a740569a82e,
+      type: 2}
+    isCanDuck: 0
+    isCanBreakBrick: 0
+    transitionBoxColliderInfo:
+      offset: {x: 0, y: 0}
+      size: {x: 0.65, y: 0.8}
+      gizmoColor: {r: 0, g: 0, b: 1, a: 1}
+    transitionSound: {fileID: 8300000, guid: 4e07cd4b182f0cc47b87c00f119c304a, type: 3}
+    duckBoxColliderInfo:
+      offset: {x: 0, y: 0.15}
+      size: {x: 0.8, y: 1.11}
+      gizmoColor: {r: 0, g: 1, b: 1, a: 1}
+    jumpSound: {fileID: 8300000, guid: 6a4b6ef914bcde040b68292465274dc6, type: 3}
+  bigFormState:
+    runtimeAnimatorController: {fileID: 9100000, guid: 85b44ff7e46477a43ace8df596cb0a16,
+      type: 2}
+    isCanDuck: 1
+    isCanBreakBrick: 1
+    transitionBoxColliderInfo:
+      offset: {x: 0, y: 0.4}
+      size: {x: 0.8, y: 1.6}
+      gizmoColor: {r: 0, g: 0, b: 1, a: 1}
+    transitionSound: {fileID: 8300000, guid: b399e2c5f4e71ba4e857bda4f0cd51be, type: 3}
+    duckBoxColliderInfo:
+      offset: {x: 0, y: 0.15}
+      size: {x: 0.8, y: 1.11}
+      gizmoColor: {r: 0, g: 1, b: 1, a: 1}
+    jumpSound: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
+  powerFormState:
+    runtimeAnimatorController: {fileID: 9100000, guid: b53e1083023458840997f92ad464d405,
+      type: 2}
+    isCanDuck: 1
+    isCanBreakBrick: 1
+    transitionBoxColliderInfo:
+      offset: {x: 0, y: 0.4}
+      size: {x: 0.8, y: 1.6}
+      gizmoColor: {r: 0, g: 0, b: 1, a: 1}
+    transitionSound: {fileID: 8300000, guid: b399e2c5f4e71ba4e857bda4f0cd51be, type: 3}
+    duckBoxColliderInfo:
+      offset: {x: 0, y: 0.15}
+      size: {x: 0.8, y: 1.11}
+      gizmoColor: {r: 0, g: 1, b: 1, a: 1}
+    jumpSound: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
+  duckMovementState:
+    boxColliderInfo:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      gizmoColor: {r: 1, g: 1, b: 1, a: 1}
+  jumpMovementState:
+    jumpSound: {fileID: 0}
+  bounceMovementState:
+    stepSound: {fileID: 0}
+    bounceTime: 0
+  transitionMovementState:
+    transitionSound: {fileID: 0}
+    boxColliderInfo:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      gizmoColor: {r: 1, g: 1, b: 1, a: 1}
+  oldBrain: {fileID: 0}
+  _thisGameObject: {fileID: 1656137408}
+  _thisTransform: {fileID: 1656137413}
+  _thisRigidbody2D: {fileID: 1656137412}
+  _thisCollisionCollider2D: {fileID: 1656137411}
+  _thisInteractionCollider2D: {fileID: 463174536}
+  _thisCharacter2D: {fileID: 1656137410}
+  _thisAnimator: {fileID: 489293519}
+  _thisCharacterObject: {fileID: 489293518}
+--- !u!114 &1656137410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1656137408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a520db3256f134b826b65fbeffe993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxVelocity: {x: 5, y: 8}
+  isUpdateFaceAxisOnlyOnGround: 1
+  directionalBoxCast:
+    BoxInfos:
+    - Direction: 1
+      SizeMultiplier: 0.02
+      Distance: 1
+      Hits: []
+    - Direction: 2
+      SizeMultiplier: 0.02
+      Distance: 1
+      Hits: []
+    - Direction: 4
+      SizeMultiplier: 0.02
+      Distance: 1
+      Hits: []
+    - Direction: 8
+      SizeMultiplier: 0.02
+      Distance: 1
+      Hits: []
+    ReferenceCollider: {fileID: 1656137411}
+  maxHitBufferSize: 20
+  boxCastMask:
+  - {fileID: 1656137411}
+  - {fileID: 463174536}
+  touchedColliders: []
+  moveDirection: {x: 0, y: 0}
+  faceAxis: {x: 0, y: 0}
+  isGrounded: 0
+  thisTransform: {fileID: 1656137413}
+  thisRigidbody2D: {fileID: 1656137412}
+  thisBoxCollider2D: {fileID: 1656137411}
+--- !u!61 &1656137411
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1656137408}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.65, y: 0.8}
+  m_EdgeRadius: 0
+--- !u!50 &1656137412
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 50270306947926360, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1656137408}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 0.001
+  m_LinearDrag: 2
+  m_AngularDrag: 0.05
+  m_GravityScale: 5
+  m_Material: {fileID: 1129611973}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!4 &1656137413
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4238545032764632, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1656137408}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.3, y: -3.62, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 489293518}
+  - {fileID: 463174537}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1657894782
 GameObject:
   m_ObjectHideFlags: 0
