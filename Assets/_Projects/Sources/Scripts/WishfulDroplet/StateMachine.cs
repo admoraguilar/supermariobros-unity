@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 
 namespace WishfulDroplet {
+    using Extensions;
+
     [Serializable]
     public class StateController<T> {
-        protected T owner;
-
         private Dictionary<string, StateMachine<T>> stateMachines = new Dictionary<string, StateMachine<T>>();
 
 
@@ -21,8 +21,12 @@ namespace WishfulDroplet {
         }
 
         public StateMachine<T> AddStateMachine(StateMachine<T> stateMachine, IState<T> firstState = null) {
+            return AddStateMachine(stateMachine, default(T), firstState);
+        }
+
+        public StateMachine<T> AddStateMachine(StateMachine<T> stateMachine, T owner, IState<T> firstState = null) {
             stateMachines[stateMachine.id] = stateMachine;
-            stateMachine.SetOwner(owner);
+            stateMachine.SetOwner(owner == null ? stateMachine.owner : owner);
             stateMachine.SetState(firstState);
             return stateMachine;
         }
@@ -33,10 +37,6 @@ namespace WishfulDroplet {
                 stateMachine.SetState(null);
             }
             stateMachines.Remove(id);
-        }
-
-        public void SetOwner(T owner) {
-            this.owner = owner;
         }
 
         public void Update() {
@@ -61,39 +61,43 @@ namespace WishfulDroplet {
 
     [Serializable]
     public class StateMachine<T> {
+        public T owner { get; protected set; }
+
         public IState<T> currentState { get { return stateStack.Count > 0 ? stateStack.Peek() as IState<T> : null; } }
-        public IState<T>[] states { get { return stateStack.ToArray(); } }
+        public IState<T>[] states { get { return stateStack.ToArray(); } }        
         public int stateCount { get { return stateStack.Count; } }
 
         public string id;
 
-        protected T owner;
-
         private Stack<IState<T>> stateStack = new Stack<IState<T>>();
 
 
-        public void SetState(IState<T> State) {
-            if(currentState == State) return;
+        public StateMachine(string id) {
+            this.id = id;
+        }
+
+        public void SetState(IState<T> state) {
+            if(currentState == state) return;
 
             while(stateStack.Count > 0) {
                 PopState();
             }
 
-            PushState(State);
+            PushState(state);
         }
 
         public void SetOwner(T owner) {
             this.owner = owner;
         }
 
-        public void PushState(IState<T> State) {
-            if(currentState == State) return;
+        public void PushState(IState<T> state) {
+            if(currentState == state) return;
 
             if(stateStack.Count > 0) {
                 currentState.OnExit(owner);
             }
 
-            stateStack.Push(State);
+            stateStack.Push(state);
 
             IState<T> temp = stateStack.Peek();
             temp.OnEnter(owner);

@@ -5,6 +5,13 @@ using WishfulDroplet.Extensions;
 
 
 public class CharacterActor : MonoBehaviour {
+    public event Action<string> OnChangedForm = delegate { };
+
+    public string formId {
+        get { return _formId; }
+        private set { _formId = value; }
+    }
+
     public GameObject thisGameObject {
         get { return _thisGameObject; }
         private set { _thisGameObject = value; }
@@ -26,8 +33,8 @@ public class CharacterActor : MonoBehaviour {
     }
 
     public BoxCollider2D thisInteractionCollider2D {
-        get { return _thisCollisionCollider2D; }
-        private set { _thisCollisionCollider2D = value; }
+        get { return _thisInteractionCollider2D; }
+        private set { _thisInteractionCollider2D = value; }
     }
 
     public Character2D thisCharacter2D {
@@ -42,7 +49,7 @@ public class CharacterActor : MonoBehaviour {
 
     public Transform thisCharacterObject {
         get { return _thisCharacterObject; }
-        private set { thisCharacterObject = value; }
+        private set { _thisCharacterObject = value; }
     }
 
     [Header("Data")]
@@ -61,11 +68,13 @@ public class CharacterActor : MonoBehaviour {
     public bool isJumping = false;
 
     [Header("Internal")]
-    public CharacterActorStateMachine stateMachine;
     public StateController<CharacterActor> stateController = new StateController<CharacterActor>();
+    public StateMachine<CharacterActor> formStateMachine = new StateMachine<CharacterActor>("FORM");
+    public StateMachine<CharacterActor> statusStateMachine = new StateMachine<CharacterActor>("STATUS");
 
     [Header("Editor Internal")]
     [SerializeField] private CharacterBrain oldBrain;
+    [SerializeField] private string _formId;
 
     [Header("References")]
     [SerializeField] private GameObject _thisGameObject;
@@ -78,18 +87,51 @@ public class CharacterActor : MonoBehaviour {
     [SerializeField] private Transform _thisCharacterObject;
 
 
+    public void SetForm(string id) {
+        formId = id;
+        OnChangedForm(id);
+    }
+
+    private void UpdateCharacterObjectFlipping() {
+        Vector2 characterFlip = thisCharacterObject.localScale;
+
+        if(isFlipOnX && thisCharacter2D.FaceAxis.x != 0f) {
+            if(thisCharacter2D.FaceAxis.x != Mathf.Sign(thisCharacterObject.localScale.x)) {
+                characterFlip.x *= -1f;
+            }
+        }
+
+        if(isFlipOnY && thisCharacter2D.FaceAxis.y != 0f) {
+            if(thisCharacter2D.FaceAxis.y != Mathf.Sign(thisCharacterObject.localScale.y)) {
+                characterFlip.y *= -1f;
+            }
+        }
+
+        thisCharacterObject.localScale = characterFlip;
+    }
+
     private void Awake() {
         brain.DoAwake(this);
     }
 
-    private void Start() {
-        brain.DoStart(this);
+    private void OnEnable() {
+        brain.DoOnEnable(this);
+    }
 
-        stateController.SetOwner(this);
+    private void OnDisable() {
+        brain.DoOnDisable(this);
+    }
+
+    private void Start() {
+        stateController.AddStateMachine(formStateMachine, this);
+        stateController.AddStateMachine(statusStateMachine, this);
+
+        brain.DoStart(this);
     }
 
     private void Update() {
         brain.UpdateInput(this);
+        UpdateCharacterObjectFlipping();
         brain.DoUpdate(this);
 
         stateController.Update();
@@ -174,6 +216,8 @@ public class CharacterActor : MonoBehaviour {
         public virtual void UpdateInput(CharacterActor characterActor) { }
 
         public virtual void DoAwake(CharacterActor characterActor) { }
+        public virtual void DoOnEnable(CharacterActor characterActor) { }
+        public virtual void DoOnDisable(CharacterActor characterActor) { }
         public virtual void DoStart(CharacterActor characterActor) { }
         public virtual void DoUpdate(CharacterActor characterActor) { }
         public virtual void DoFixedUpdate(CharacterActor characterActor) { }
@@ -188,17 +232,21 @@ public class CharacterActor : MonoBehaviour {
     }
 
 
-    [Serializable]
-    public class CharacterActorStateMachine : StateMachine<CharacterActor> {
-
-    }
-
-
-    public abstract class CharacterActorState : ScriptableObject, IState<CharacterActor> {
+    public abstract class CharacterState : ScriptableObject, IState<CharacterActor> {
         public virtual void OnEnter(CharacterActor characterActor) {}
         public virtual void OnExit(CharacterActor characterActor) {}
         public virtual void OnFixedUpdate(CharacterActor characterActor) {}
         public virtual void OnLateUpdate(CharacterActor characterActor) {}
         public virtual void OnUpdate(CharacterActor characterActor) {}
+    }
+
+
+    [Serializable]
+    public class BoxColliderInfo {
+        public Vector2 Offset;
+        public Vector2 Size;
+
+        [Header("Debug")]
+        public Color GizmoColor = new Color(1f, 1f, 1f, 1f);
     }
 }

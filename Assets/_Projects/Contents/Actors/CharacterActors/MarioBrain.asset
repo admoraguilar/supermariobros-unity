@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 382fc1b904ebfd341818f5f47e8281c2, type: 3}
+  m_Name: MarioBrain
+  m_EditorClassIdentifier: 
+  marioForms:
+  - id: MARIOSMALL
+    animator: {fileID: 9100000, guid: e7d0dd2dcce34ff47bd04a740569a82e, type: 2}
+    IsCanDuck: 0
+    IsCanBreakBricks: 0
+    TransitionSound: {fileID: 8300000, guid: 4e07cd4b182f0cc47b87c00f119c304a, type: 3}
+    TransitionBoxColliderInfo:
+      Offset: {x: 0, y: 0}
+      Size: {x: 0.65, y: 0.8}
+      GizmoColor: {r: 0.024414062, g: 0, b: 1, a: 1}
+    DuckBoxColliderInfo:
+      Offset: {x: 0, y: 0.15}
+      Size: {x: 0.8, y: 1.11}
+      GizmoColor: {r: 0, g: 0.81251574, b: 1, a: 1}
+    JumpSound: {fileID: 8300000, guid: 6a4b6ef914bcde040b68292465274dc6, type: 3}
+  - id: MARIOBIG
+    animator: {fileID: 9100000, guid: 85b44ff7e46477a43ace8df596cb0a16, type: 2}
+    IsCanDuck: 1
+    IsCanBreakBricks: 1
+    TransitionSound: {fileID: 8300000, guid: b399e2c5f4e71ba4e857bda4f0cd51be, type: 3}
+    TransitionBoxColliderInfo:
+      Offset: {x: 0, y: 0.4}
+      Size: {x: 0.8, y: 1.6}
+      GizmoColor: {r: 0.023529414, g: 0, b: 1, a: 1}
+    DuckBoxColliderInfo:
+      Offset: {x: 0, y: 0.15}
+      Size: {x: 0.8, y: 1.11}
+      GizmoColor: {r: 0, g: 0.8117648, b: 1, a: 1}
+    JumpSound: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
+  - id: MARIOPOWER
+    animator: {fileID: 9100000, guid: b53e1083023458840997f92ad464d405, type: 2}
+    IsCanDuck: 1
+    IsCanBreakBricks: 1
+    TransitionSound: {fileID: 8300000, guid: b399e2c5f4e71ba4e857bda4f0cd51be, type: 3}
+    TransitionBoxColliderInfo:
+      Offset: {x: 0, y: 0.4}
+      Size: {x: 0.8, y: 1.6}
+      GizmoColor: {r: 0.023529414, g: 0, b: 1, a: 1}
+    DuckBoxColliderInfo:
+      Offset: {x: 0, y: 0.15}
+      Size: {x: 0.8, y: 1.11}
+      GizmoColor: {r: 0, g: 0.8117648, b: 1, a: 1}
+    JumpSound: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
+  idleState: {fileID: 11400000, guid: 7659ece44f923af498dfb49d8afcf8fc, type: 2}
+  walkState: {fileID: 11400000, guid: 18f93d457c0de464088ba5db2b51c9b5, type: 2}
+  slideState: {fileID: 11400000, guid: 154fb747e2141c54da5e25545713b916, type: 2}
+  duckState: {fileID: 11400000, guid: 041775bbb081fe1438f4a6db3e429fef, type: 2}
+  jumpState: {fileID: 11400000, guid: 1a4206287f69dc1489f060bc8b4392a3, type: 2}
+  fallState: {fileID: 11400000, guid: 85aed71d63c9c7044a216986c72f33e7, type: 2}
+  bounceState: {fileID: 11400000, guid: 471ae687cc3cfa84ea7765afb0b89d6a, type: 2}
+  transitionState: {fileID: 11400000, guid: 20d7e987ff814014baa5cece9471b044, type: 2}
+  testTransitionState: {fileID: 0}

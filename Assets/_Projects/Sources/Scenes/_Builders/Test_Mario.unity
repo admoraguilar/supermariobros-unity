@@ -13201,7 +13201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505e8a0bdce59f34a9ec5353c0e6b4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 0}
+  brain: {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   inputAxis: {x: 0, y: 0}
   lastJumpPos: {x: 0, y: 0}
   landMoveSpeed: 0.7
@@ -13214,17 +13214,15 @@ MonoBehaviour:
   isFlipOnY: 1
   isSprinting: 0
   isJumping: 0
-  stateMachine:
-    id: 
   oldBrain: {fileID: 0}
-  _thisGameObject: {fileID: 0}
-  _thisTransform: {fileID: 0}
-  _thisRigidbody2D: {fileID: 0}
-  _thisCollisionCollider2D: {fileID: 0}
-  _thisInteractionCollider2D: {fileID: 0}
-  _thisCharacter2D: {fileID: 0}
-  _thisAnimator: {fileID: 0}
-  _thisCharacterObject: {fileID: 0}
+  _thisGameObject: {fileID: 904922364}
+  _thisTransform: {fileID: 904922369}
+  _thisRigidbody2D: {fileID: 904922368}
+  _thisCollisionCollider2D: {fileID: 904922367}
+  _thisInteractionCollider2D: {fileID: 1636895614}
+  _thisCharacter2D: {fileID: 904922366}
+  _thisAnimator: {fileID: 2068556850}
+  _thisCharacterObject: {fileID: 2068556849}
 --- !u!114 &904922366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13309,7 +13307,7 @@ Rigidbody2D:
   m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 5
-  m_Material: {fileID: 26452670}
+  m_Material: {fileID: 1367979302}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -13327,6 +13325,7 @@ Transform:
   m_Children:
   - {fileID: 2068556849}
   - {fileID: 803284237}
+  - {fileID: 1636895615}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18426,7 +18425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1311342658
 Transform:
   m_ObjectHideFlags: 0
@@ -18686,6 +18685,14 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!62 &1367979302
+PhysicsMaterial2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Slippery
+  friction: 0.05
+  bounciness: 0
 --- !u!1001 &1373539317
 Prefab:
   m_ObjectHideFlags: 0
@@ -21221,6 +21228,60 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &1636895613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1636895615}
+  - component: {fileID: 1636895614}
+  m_Layer: 0
+  m_Name: Interaction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1636895614
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1636895613}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!4 &1636895615
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1636895613}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 904922369}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1639345894
 GameObject:
   m_ObjectHideFlags: 0
@@ -26198,7 +26259,7 @@ Animator:
   m_GameObject: {fileID: 2068556848}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bdf8c44e019ebfc48a40f1c88dc89233, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 2
   m_ApplyRootMotion: 0
