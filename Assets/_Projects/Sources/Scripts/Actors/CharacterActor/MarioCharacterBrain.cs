@@ -6,9 +6,6 @@ using WishfulDroplet.Extensions;
 
 [CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/MarioBrain")]
 public class MarioCharacterBrain : CharacterActor.CharacterBrain {
-    [SerializeField] private CharacterActor.CharacterBrain enemyBrain;
-
-
     public override void DoStart(CharacterActor characterActor) {
         characterActor.formStateMachine.SetState(characterActor.smallFormState);
         characterActor.movementStateMachine.SetState(characterActor.idleMovementState);
@@ -85,7 +82,7 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
     public override void DoTriggerEnter2D(CharacterActor characterActor, Collider2D collision) {
         CharacterActor otherCharacterActor = collision.GetComponent<CharacterActor>();
         if(otherCharacterActor) {
-            if(otherCharacterActor.brain == enemyBrain || otherCharacterActor.brain == null) {
+            if(characterActor.IsThisCharactersEnemy(otherCharacterActor.brain)) {
                 if(Mathf.Abs(characterActor.thisInteractionCollider2D.bounds.min.y - collision.bounds.min.y) > .05f &&
                     characterActor.thisInteractionCollider2D.bounds.min.y >= collision.bounds.min.y) {
                     characterActor.movementStateMachine.PushState(characterActor.bounceMovementState);

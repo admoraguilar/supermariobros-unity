@@ -17,8 +17,10 @@ public class Character2D : MonoBehaviour {
         }
     }
 
-    [SerializeField] private Vector2                        maxVelocity = new Vector2(5f, 8f);
-    [SerializeField] private bool                           isUpdateFaceAxisOnlyOnGround = true;
+    public Vector2                                          maxVelocity = new Vector2(5f, 8f);
+    public bool                                             isUpdateFaceAxisOnlyOnGround = true;
+
+    [Header("Boxcast Collision Detector")]
     [SerializeField] private DirectionalBoxCast2D           directionalBoxCast = new DirectionalBoxCast2D();
     [SerializeField] private int                            maxHitBufferSize = 20;
     [SerializeField] private List<Collider2D>               boxCastMask = new List<Collider2D>();

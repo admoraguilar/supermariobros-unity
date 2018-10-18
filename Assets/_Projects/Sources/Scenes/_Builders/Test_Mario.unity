@@ -7331,7 +7331,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.03}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -7342,7 +7342,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.65, y: 0.8}
+  m_Size: {x: 0.8, y: 0.75}
   m_EdgeRadius: 0
 --- !u!4 &463174537
 Transform:
@@ -7796,7 +7796,7 @@ GameObject:
   - component: {fileID: 489293518}
   - component: {fileID: 489293519}
   m_Layer: 0
-  m_Name: Mario
+  m_Name: Goomba
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13074,7 +13074,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300396, guid: 839c19fb28c86a8488bda5f52b79b585, type: 3}
+  m_Sprite: {fileID: 21300934, guid: 839c19fb28c86a8488bda5f52b79b585, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -13084,6 +13084,14 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!62 &884628699
+PhysicsMaterial2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Slippery
+  friction: 0.05
+  bounciness: 0
 --- !u!1 &885111813
 GameObject:
   m_ObjectHideFlags: 0
@@ -13330,6 +13338,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
+  enemyBrains:
+  - {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
+  powerUpBrains: []
   inputAxis: {x: 0, y: 0}
   lastJumpPos: {x: 0, y: 0}
   landMoveSpeed: 0.7
@@ -13395,15 +13406,17 @@ MonoBehaviour:
   jumpMovementState:
     jumpSound: {fileID: 0}
   bounceMovementState:
-    stepSound: {fileID: 8300000, guid: 0f4e0defb24ec6847ac32564bd46527e, type: 3}
     bounceTime: 0.2
+    stepSound: {fileID: 8300000, guid: 0f4e0defb24ec6847ac32564bd46527e, type: 3}
   transitionMovementState:
     transitionSound: {fileID: 0}
     boxColliderInfo:
       offset: {x: 0, y: 0}
       size: {x: 0, y: 0}
       gizmoColor: {r: 1, g: 1, b: 1, a: 1}
-  oldBrain: {fileID: 0}
+  deadStatusState:
+    deathSound: {fileID: 0}
+  oldBrain: {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   _thisGameObject: {fileID: 904922364}
   _thisTransform: {fileID: 904922369}
   _thisRigidbody2D: {fileID: 904922368}
@@ -21847,8 +21860,8 @@ GameObject:
   - component: {fileID: 1656137411}
   - component: {fileID: 1656137410}
   - component: {fileID: 1656137409}
-  m_Layer: 10
-  m_Name: Mario (1)
+  m_Layer: 9
+  m_Name: Goomba
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21865,7 +21878,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505e8a0bdce59f34a9ec5353c0e6b4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 0}
+  brain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
+  enemyBrains:
+  - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
+  powerUpBrains: []
   inputAxis: {x: 0, y: 0}
   lastJumpPos: {x: 0, y: 0}
   landMoveSpeed: 0.7
@@ -21879,50 +21895,47 @@ MonoBehaviour:
   isSprinting: 0
   isJumping: 0
   smallFormState:
-    runtimeAnimatorController: {fileID: 9100000, guid: e7d0dd2dcce34ff47bd04a740569a82e,
-      type: 2}
+    runtimeAnimatorController: {fileID: 0}
     isCanDuck: 0
     isCanBreakBrick: 0
     transitionBoxColliderInfo:
-      offset: {x: 0, y: 0}
-      size: {x: 0.65, y: 0.8}
+      offset: {x: 0, y: 0.03}
+      size: {x: 0.8, y: 0.75}
       gizmoColor: {r: 0, g: 0, b: 1, a: 1}
-    transitionSound: {fileID: 8300000, guid: 4e07cd4b182f0cc47b87c00f119c304a, type: 3}
+    transitionSound: {fileID: 0}
     duckBoxColliderInfo:
-      offset: {x: 0, y: 0.15}
-      size: {x: 0.8, y: 1.11}
+      offset: {x: 0, y: 0.03}
+      size: {x: 0.8, y: 0.75}
       gizmoColor: {r: 0, g: 1, b: 1, a: 1}
-    jumpSound: {fileID: 8300000, guid: 6a4b6ef914bcde040b68292465274dc6, type: 3}
+    jumpSound: {fileID: 0}
   bigFormState:
-    runtimeAnimatorController: {fileID: 9100000, guid: 85b44ff7e46477a43ace8df596cb0a16,
-      type: 2}
-    isCanDuck: 1
-    isCanBreakBrick: 1
+    runtimeAnimatorController: {fileID: 0}
+    isCanDuck: 0
+    isCanBreakBrick: 0
     transitionBoxColliderInfo:
-      offset: {x: 0, y: 0.4}
-      size: {x: 0.8, y: 1.6}
+      offset: {x: 0, y: 0.03}
+      size: {x: 0.8, y: 0.75}
       gizmoColor: {r: 0, g: 0, b: 1, a: 1}
-    transitionSound: {fileID: 8300000, guid: b399e2c5f4e71ba4e857bda4f0cd51be, type: 3}
+    transitionSound: {fileID: 0}
     duckBoxColliderInfo:
-      offset: {x: 0, y: 0.15}
-      size: {x: 0.8, y: 1.11}
+      offset: {x: 0, y: 0.03}
+      size: {x: 0.8, y: 0.75}
       gizmoColor: {r: 0, g: 1, b: 1, a: 1}
-    jumpSound: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
+    jumpSound: {fileID: 0}
   powerFormState:
-    runtimeAnimatorController: {fileID: 9100000, guid: b53e1083023458840997f92ad464d405,
-      type: 2}
-    isCanDuck: 1
-    isCanBreakBrick: 1
+    runtimeAnimatorController: {fileID: 0}
+    isCanDuck: 0
+    isCanBreakBrick: 0
     transitionBoxColliderInfo:
-      offset: {x: 0, y: 0.4}
-      size: {x: 0.8, y: 1.6}
+      offset: {x: 0, y: 0.03}
+      size: {x: 0.8, y: 0.75}
       gizmoColor: {r: 0, g: 0, b: 1, a: 1}
-    transitionSound: {fileID: 8300000, guid: b399e2c5f4e71ba4e857bda4f0cd51be, type: 3}
+    transitionSound: {fileID: 0}
     duckBoxColliderInfo:
-      offset: {x: 0, y: 0.15}
-      size: {x: 0.8, y: 1.11}
+      offset: {x: 0, y: 0.03}
+      size: {x: 0.8, y: 0.75}
       gizmoColor: {r: 0, g: 1, b: 1, a: 1}
-    jumpSound: {fileID: 8300000, guid: 538808479bd73984bbbf4ac87149ba58, type: 3}
+    jumpSound: {fileID: 0}
   duckMovementState:
     boxColliderInfo:
       offset: {x: 0, y: 0}
@@ -21931,15 +21944,17 @@ MonoBehaviour:
   jumpMovementState:
     jumpSound: {fileID: 0}
   bounceMovementState:
+    bounceTime: 0.2
     stepSound: {fileID: 0}
-    bounceTime: 0
   transitionMovementState:
     transitionSound: {fileID: 0}
     boxColliderInfo:
       offset: {x: 0, y: 0}
       size: {x: 0, y: 0}
       gizmoColor: {r: 1, g: 1, b: 1, a: 1}
-  oldBrain: {fileID: 0}
+  deadStatusState:
+    deathSound: {fileID: 0}
+  oldBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
   _thisGameObject: {fileID: 1656137408}
   _thisTransform: {fileID: 1656137413}
   _thisRigidbody2D: {fileID: 1656137412}
@@ -22003,7 +22018,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.03}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -22014,7 +22029,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.65, y: 0.8}
+  m_Size: {x: 0.8, y: 0.75}
   m_EdgeRadius: 0
 --- !u!50 &1656137412
 Rigidbody2D:
@@ -22032,7 +22047,7 @@ Rigidbody2D:
   m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 5
-  m_Material: {fileID: 1129611973}
+  m_Material: {fileID: 884628699}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -22045,7 +22060,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1656137408}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.3, y: -3.62, z: 0}
+  m_LocalPosition: {x: -3.46, y: -1.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 489293518}

@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 382fc1b904ebfd341818f5f47e8281c2, type: 3}
-  m_Name: MarioBrain
+  m_Script: {fileID: 11500000, guid: b89fa3f685304254da9a10a2d61d01d3, type: 3}
+  m_Name: GoombaBrain
   m_EditorClassIdentifier: 
-  enemyBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
+  enemyBrain: {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}

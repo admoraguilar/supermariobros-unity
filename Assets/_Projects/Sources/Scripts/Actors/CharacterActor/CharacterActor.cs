@@ -47,6 +47,8 @@ public class CharacterActor : MonoBehaviour {
 
     [Header("Data")]
     public CharacterBrain brain;
+    [SerializeField] private CharacterBrain[] enemyBrains;
+    [SerializeField] private CharacterBrain[] powerUpBrains;
     public Vector2 inputAxis = Vector2.zero;
     public Vector2 lastJumpPos = Vector2.zero;
     public float landMoveSpeed = .7f;
@@ -96,6 +98,26 @@ public class CharacterActor : MonoBehaviour {
     [SerializeField] private Animator _thisAnimator;
     [SerializeField] private Transform _thisCharacterObject;
 
+
+    public T IsThisCharactersEnemy<T>(T brain) where T : CharacterBrain {
+        return CheckBrainIfOnSet<T>(enemyBrains, brain);
+    }
+
+    public T IsThisCharactersPowerUp<T>(T brain) where T : CharacterBrain {
+        return CheckBrainIfOnSet<T>(powerUpBrains, brain);
+    }
+
+    private T CheckBrainIfOnSet<T>(CharacterBrain[] brainSet, T brain) where T : CharacterBrain {
+        if(brain == null) return null;
+
+        for(int i = 0; i < brainSet.Length; i++) {
+            if(brainSet[i] == brain) {
+                return (T)brainSet[i];
+            }
+        }
+
+        return null;
+    }
 
     public void SetForm(FormStates.FormState form, bool isDoTranstion = true) {
         formStateMachine.SetState(form);
@@ -214,7 +236,10 @@ public class CharacterActor : MonoBehaviour {
 
     private void OnValidate() {
         if(brain) {
-            if(brain != oldBrain) brain.DoReset(this);
+            if(brain != oldBrain) {
+                brain.DoReset(this);
+                oldBrain = brain;
+            }
         }
     }
 
@@ -511,7 +536,18 @@ public class CharacterActor : MonoBehaviour {
 
         [Serializable]
         public class Dead : CharacterState {
+            public AudioClip deathSound;
 
+
+            public override void DoEnter(CharacterActor characterActor) {
+                Time.timeScale = 0f;
+                characterActor.thisAnimator.PlayNoRepeat("Dead");
+                Singleton.Get<IAudioController>().PlayOneShot(deathSound);
+            }
+
+            public override void DoExit(CharacterActor characterActor) {
+                Time.timeScale = 1f;
+            }
         }
     }
 }
