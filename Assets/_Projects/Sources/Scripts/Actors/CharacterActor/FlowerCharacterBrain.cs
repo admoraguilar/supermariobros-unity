@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/Goomba")]
-public class GoombaCharacterBrain : CharacterActor.CharacterBrain {
+[CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/Flower")]
+public class FlowerCharacterBrain : CharacterActor.CharacterBrain {
     public override void DoTriggerEnter2D(CharacterActor characterActor, Collider2D collision) {
         CharacterActor otherCharacterActor = collision.GetComponent<CharacterActor>();
         if(otherCharacterActor) {
-            if(characterActor.IsThisCharactersEnemy(otherCharacterActor.brain)) {
-                if(Mathf.Abs(characterActor.thisInteractionCollider2D.bounds.min.y - collision.bounds.min.y) < .01f ||
-                   characterActor.thisInteractionCollider2D.bounds.min.y >= collision.bounds.min.y) {
-                    if(otherCharacterActor.formStateMachine.currentState != otherCharacterActor.smallFormState) {
-                        otherCharacterActor.SetForm(otherCharacterActor.smallFormState);
-                    } else {
-                        otherCharacterActor.statusStateMachine.SetState(otherCharacterActor.deadStatusState);
-                    }
+            if(characterActor.IsThisCharactersBuffable(otherCharacterActor.brain)) {
+                if(otherCharacterActor.formStateMachine.currentState == otherCharacterActor.smallFormState) {
+                    otherCharacterActor.SetForm(otherCharacterActor.bigFormState);
+                    Destroy(characterActor.gameObject);
+                    return;
+                } else if(otherCharacterActor.formStateMachine.currentState == otherCharacterActor.bigFormState) {
+                    otherCharacterActor.SetForm(otherCharacterActor.powerFormState);
+                    Destroy(characterActor.gameObject);
+                    return;
                 }
             }
         }

@@ -49,6 +49,7 @@ public class CharacterActor : MonoBehaviour {
     public CharacterBrain brain;
     [SerializeField] private CharacterBrain[] enemyBrains;
     [SerializeField] private CharacterBrain[] powerUpBrains;
+    [SerializeField] private CharacterBrain[] buffableBrains;
     public Vector2 inputAxis = Vector2.zero;
     public Vector2 lastJumpPos = Vector2.zero;
     public float landMoveSpeed = .7f;
@@ -105,6 +106,10 @@ public class CharacterActor : MonoBehaviour {
 
     public T IsThisCharactersPowerUp<T>(T brain) where T : CharacterBrain {
         return CheckBrainIfOnSet<T>(powerUpBrains, brain);
+    }
+
+    public T IsThisCharactersBuffable<T>(T brain) where T : CharacterBrain {
+        return CheckBrainIfOnSet<T>(buffableBrains, brain);
     }
 
     private T CheckBrainIfOnSet<T>(CharacterBrain[] brainSet, T brain) where T : CharacterBrain {

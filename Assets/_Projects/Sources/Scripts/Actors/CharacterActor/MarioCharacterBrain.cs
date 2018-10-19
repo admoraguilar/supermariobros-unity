@@ -4,7 +4,7 @@ using WishfulDroplet;
 using WishfulDroplet.Extensions;
 
 
-[CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/MarioBrain")]
+[CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/Mario")]
 public class MarioCharacterBrain : CharacterActor.CharacterBrain {
     public override void DoStart(CharacterActor characterActor) {
         characterActor.formStateMachine.SetState(characterActor.smallFormState);
