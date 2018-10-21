@@ -4,17 +4,7 @@ using WishfulDroplet;
 using WishfulDroplet.Extensions;
 
 
-public class CharacterActor : MonoBehaviour {
-    public GameObject thisGameObject {
-        get { return _thisGameObject; }
-        private set { _thisGameObject = value; }
-    }
-
-    public Transform thisTransform {
-        get { return _thisTransform; }
-        private set { _thisTransform = value; }
-    }
-
+public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrain> {
     public Rigidbody2D thisRigidbody2D {
         get { return _thisRigidbody2D; }
         private set { _thisRigidbody2D = value; }
@@ -45,8 +35,8 @@ public class CharacterActor : MonoBehaviour {
         private set { _thisCharacterObject = value; }
     }
 
+    [InspectorNote("Character Actor")]
     [Header("Data")]
-    public CharacterBrain brain;
     [SerializeField] private CharacterBrain[] enemyBrains;
     [SerializeField] private CharacterBrain[] powerUpBrains;
     [SerializeField] private CharacterBrain[] buffableBrains;
@@ -86,12 +76,7 @@ public class CharacterActor : MonoBehaviour {
     public StateMachine<CharacterActor> movementStateMachine = new StateMachine<CharacterActor>("MOVEMENT");
     public StateMachine<CharacterActor> statusStateMachine = new StateMachine<CharacterActor>("STATUS");
 
-    [Header("Editor Internal")]
-    [SerializeField] private CharacterBrain oldBrain;
-
     [Header("References")]
-    [SerializeField] private GameObject _thisGameObject;
-    [SerializeField] private Transform _thisTransform;
     [SerializeField] private Rigidbody2D _thisRigidbody2D;
     [SerializeField] private BoxCollider2D _thisCollisionCollider2D;
     [SerializeField] private BoxCollider2D _thisInteractionCollider2D;
@@ -100,28 +85,16 @@ public class CharacterActor : MonoBehaviour {
     [SerializeField] private Transform _thisCharacterObject;
 
 
-    public T IsThisCharactersEnemy<T>(T brain) where T : CharacterBrain {
-        return CheckBrainIfOnSet<T>(enemyBrains, brain);
+    public CharacterBrain IsThisCharactersEnemy(CharacterBrain brain) {
+        return CheckBrainIfOnSet(enemyBrains, brain);
     }
 
-    public T IsThisCharactersPowerUp<T>(T brain) where T : CharacterBrain {
-        return CheckBrainIfOnSet<T>(powerUpBrains, brain);
+    public CharacterBrain IsThisCharactersPowerUp(CharacterBrain brain) {
+        return CheckBrainIfOnSet(powerUpBrains, brain);
     }
 
-    public T IsThisCharactersBuffable<T>(T brain) where T : CharacterBrain {
-        return CheckBrainIfOnSet<T>(buffableBrains, brain);
-    }
-
-    private T CheckBrainIfOnSet<T>(CharacterBrain[] brainSet, T brain) where T : CharacterBrain {
-        if(brain == null) return null;
-
-        for(int i = 0; i < brainSet.Length; i++) {
-            if(brainSet[i] == brain) {
-                return (T)brainSet[i];
-            }
-        }
-
-        return null;
+    public CharacterBrain IsThisCharactersBuffable(CharacterBrain brain) {
+        return CheckBrainIfOnSet(buffableBrains, brain);
     }
 
     public void SetForm(FormStates.FormState form, bool isDoTranstion = true) {
@@ -239,18 +212,8 @@ public class CharacterActor : MonoBehaviour {
         }
     }
 
-    private void OnValidate() {
-        if(brain) {
-            if(brain != oldBrain) {
-                brain.DoReset(this);
-                oldBrain = brain;
-            }
-        }
-    }
-
-    private void Reset() {
-        thisGameObject = gameObject;
-        thisTransform = GetComponent<Transform>();
+    protected override void Reset() {
+        base.Reset();
 
         // Setup Rigidbody2D
         thisRigidbody2D = _thisGameObject.AddOrGetComponent<Rigidbody2D>();
@@ -284,33 +247,15 @@ public class CharacterActor : MonoBehaviour {
     }
 
 
-    public abstract class CharacterBrain : ScriptableObject {
+    public abstract class CharacterBrain : ActorBrain<CharacterActor> {
         public virtual void UpdateInput(CharacterActor characterActor) { }
-
-        public virtual void DoAwake(CharacterActor characterActor) { }
-        public virtual void DoOnEnable(CharacterActor characterActor) { }
-        public virtual void DoOnDisable(CharacterActor characterActor) { }
-        public virtual void DoStart(CharacterActor characterActor) { }
-        public virtual void DoUpdate(CharacterActor characterActor) { }
-        public virtual void DoFixedUpdate(CharacterActor characterActor) { }
-        public virtual void DoCollisionEnter2D(CharacterActor characterActor, Collision2D collision) { }
-        public virtual void DoCollisionStay2D(CharacterActor characterActor, Collision2D collision) { }
-        public virtual void DoCollisionExit2D(CharacterActor characterActor, Collision2D collision) { }
-        public virtual void DoTriggerEnter2D(CharacterActor characterActor, Collider2D collision) { }
-        public virtual void DoTriggerStay2D(CharacterActor characterActor, Collider2D collision) { }
-        public virtual void DoTriggerExit2D(CharacterActor characterActor, Collider2D collision) { }
-        public virtual void DoDrawGizmos(CharacterActor characterActor) { }
-        public virtual void DoReset(CharacterActor characterActor) { }
     }
 
 
     [Serializable]
-    public abstract class CharacterState : IState<CharacterActor> {
-        public virtual void DoEnter(CharacterActor characterActor) {}
-        public virtual void DoExit(CharacterActor characterActor) {}
-        public virtual void DoFixedUpdate(CharacterActor characterActor) {}
-        public virtual void DoLateUpdate(CharacterActor characterActor) {}
-        public virtual void DoUpdate(CharacterActor characterActor) {}
+    public abstract class CharacterState : State<CharacterActor> {
+        public override void DoEnter(CharacterActor characterActor) {}
+        public override void DoExit(CharacterActor characterActor) {}
     }
 
 

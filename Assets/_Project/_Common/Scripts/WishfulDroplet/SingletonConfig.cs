@@ -10,14 +10,16 @@ namespace WishfulDroplet {
 
         [Serializable]
         public class SingletonSet {
-            public GameObject[] Singletons;
-            public bool IsEnabled = true;
+            public string label;
+            public GameObject[] gameObjectSingletons = new GameObject[0];
+            public ScriptableObject[] scriptableObjectSingletons = new ScriptableObject[0];
+            public bool isEnabled = true;
         }
     }
 
 
     public static class Singleton {
-        private static List<MonoBehaviour> singletons = new List<MonoBehaviour>();
+        private static List<object> singletons = new List<object>();
         private static Dictionary<Type, object> cachedSingletons = new Dictionary<Type, object>();
 
 
@@ -51,9 +53,9 @@ namespace WishfulDroplet {
             }
 
             foreach(var singletonSet in config.SingletonSets) {
-                if(!singletonSet.IsEnabled) continue;
+                if(!singletonSet.isEnabled) continue;
 
-                foreach(var singleton in singletonSet.Singletons) {
+                foreach(var singleton in singletonSet.gameObjectSingletons) {
                     if(!singleton) continue;
 
                     GameObject go = singleton as GameObject;
@@ -63,6 +65,15 @@ namespace WishfulDroplet {
                         UnityEngine.Object.DontDestroyOnLoad(go);
 
                         singletons.AddRange(go.GetComponents<MonoBehaviour>());
+                    }
+                }
+
+                foreach(var singleton in singletonSet.scriptableObjectSingletons) {
+                    if(singleton) continue;
+
+                    ScriptableObject so = singleton as ScriptableObject;
+                    if(so) {
+                        singletons.Add(so);
                     }
                 }
             }

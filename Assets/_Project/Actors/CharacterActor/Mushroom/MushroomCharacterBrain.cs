@@ -6,6 +6,7 @@ public class MushroomCharacterBrain : CharacterActor.CharacterBrain {
     public override void DoTriggerEnter2D(CharacterActor characterActor, Collider2D collision) {
         CharacterActor otherCharacterActor = collision.GetComponent<CharacterActor>();
         if(otherCharacterActor) {
+            // Empower buffables upon contact
             if(characterActor.IsThisCharactersBuffable(otherCharacterActor.brain)) {
                 if(otherCharacterActor.formStateMachine.currentState == otherCharacterActor.smallFormState) {
                     otherCharacterActor.SetForm(otherCharacterActor.bigFormState);

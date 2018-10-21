@@ -6,6 +6,8 @@ public class GoombaCharacterBrain : CharacterActor.CharacterBrain {
     public override void DoTriggerEnter2D(CharacterActor characterActor, Collider2D collision) {
         CharacterActor otherCharacterActor = collision.GetComponent<CharacterActor>();
         if(otherCharacterActor) {
+            // Demote enemies to a smaller state or kill them if they are
+            // below or the same y distance as Goomba
             if(characterActor.IsThisCharactersEnemy(otherCharacterActor.brain)) {
                 if(Mathf.Abs(characterActor.thisInteractionCollider2D.bounds.min.y - collision.bounds.min.y) < .01f ||
                    characterActor.thisInteractionCollider2D.bounds.min.y >= collision.bounds.min.y) {

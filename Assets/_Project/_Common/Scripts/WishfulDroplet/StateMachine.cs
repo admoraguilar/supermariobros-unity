@@ -20,11 +20,11 @@ namespace WishfulDroplet {
             return stateMachine;
         }
 
-        public StateMachine<T> AddStateMachine(StateMachine<T> stateMachine, IState<T> firstState = null) {
+        public StateMachine<T> AddStateMachine(StateMachine<T> stateMachine, State<T> firstState = null) {
             return AddStateMachine(stateMachine, default(T), firstState);
         }
 
-        public StateMachine<T> AddStateMachine(StateMachine<T> stateMachine, T owner, IState<T> firstState = null) {
+        public StateMachine<T> AddStateMachine(StateMachine<T> stateMachine, T owner, State<T> firstState = null) {
             stateMachines[stateMachine.id] = stateMachine;
             stateMachine.SetOwner(owner == null ? stateMachine.owner : owner);
             stateMachine.SetState(firstState);
@@ -63,20 +63,20 @@ namespace WishfulDroplet {
     public class StateMachine<T> {
         public T owner { get; protected set; }
 
-        public IState<T> currentState { get { return stateStack.Count > 0 ? stateStack.Peek() as IState<T> : null; } }
-        public IState<T>[] states { get { return stateStack.ToArray(); } }        
+        public State<T> currentState { get { return stateStack.Count > 0 ? stateStack.Peek() as State<T> : null; } }
+        public State<T>[] states { get { return stateStack.ToArray(); } }        
         public int stateCount { get { return stateStack.Count; } }
 
         public string id;
 
-        private Stack<IState<T>> stateStack = new Stack<IState<T>>();
+        private Stack<State<T>> stateStack = new Stack<State<T>>();
 
 
         public StateMachine(string id) {
             this.id = id;
         }
 
-        public void SetState(IState<T> state) {
+        public void SetState(State<T> state) {
             if(currentState == state) return;
 
             while(stateStack.Count > 0) {
@@ -90,7 +90,7 @@ namespace WishfulDroplet {
             this.owner = owner;
         }
 
-        public void PushState(IState<T> state) {
+        public void PushState(State<T> state) {
             if(currentState == state) return;
 
             if(stateStack.Count > 0) {
@@ -99,12 +99,12 @@ namespace WishfulDroplet {
 
             stateStack.Push(state);
 
-            IState<T> temp = stateStack.Peek();
+            State<T> temp = stateStack.Peek();
             temp.DoEnter(owner);
         }
 
-        public IState<T> PopState() {
-            IState<T> state = null;
+        public State<T> PopState() {
+            State<T> state = null;
 
             if(stateStack.Count > 0) {
                 currentState.DoExit(owner);
@@ -138,12 +138,12 @@ namespace WishfulDroplet {
     }
 
 
-    public interface IState<T> {
-        void DoEnter(T owner);
-        void DoExit(T owner);
+    public abstract class State<T> {
+        public abstract void DoEnter(T owner);
+        public abstract void DoExit(T owner);
 
-        void DoUpdate(T owner);
-        void DoFixedUpdate(T owner);
-        void DoLateUpdate(T owner);
+        public virtual void DoUpdate(T owner) { }
+        public virtual void DoFixedUpdate(T owner) { }
+        public virtual void DoLateUpdate(T owner) { }
     }
 }

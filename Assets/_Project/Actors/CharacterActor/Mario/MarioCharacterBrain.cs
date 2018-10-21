@@ -82,6 +82,7 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
     public override void DoTriggerEnter2D(CharacterActor characterActor, Collider2D collision) {
         CharacterActor otherCharacterActor = collision.GetComponent<CharacterActor>();
         if(otherCharacterActor) {
+            // Stomp/Destroy enemies if they are below mario
             if(characterActor.IsThisCharactersEnemy(otherCharacterActor.brain)) {
                 if(Mathf.Abs(characterActor.thisInteractionCollider2D.bounds.min.y - collision.bounds.min.y) > .05f &&
                     characterActor.thisInteractionCollider2D.bounds.min.y >= collision.bounds.min.y) {
