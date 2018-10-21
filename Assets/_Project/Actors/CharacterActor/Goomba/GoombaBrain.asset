@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -11,4 +11,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89fa3f685304254da9a10a2d61d01d3, type: 3}
   m_Name: GoombaBrain
   m_EditorClassIdentifier: 
-  enemyBrain: {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}

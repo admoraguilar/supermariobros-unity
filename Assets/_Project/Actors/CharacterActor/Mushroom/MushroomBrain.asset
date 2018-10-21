@@ -3,12 +3,11 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 382fc1b904ebfd341818f5f47e8281c2, type: 3}
-  m_Name: MarioBrain
+  m_Script: {fileID: 11500000, guid: fab37663433c9844a980df08e72da4d8, type: 3}
+  m_Name: MushroomBrain
   m_EditorClassIdentifier: 
-  enemyBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
