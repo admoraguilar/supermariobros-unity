@@ -49,7 +49,7 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
 
                 if(characterActor.inputAxis.x == 0 &&
                    characterActor.inputAxis.y < 0f &&
-                   ((CharacterActor.FormStates.FormState)characterActor.formStateMachine.currentState).isCanDuck &&
+                   characterActor.formStateMachine.currentState.isCanDuck &&
                    !characterActor.isJumping) {
                     characterActor.movementStateMachine.PushState(characterActor.duckMovementState);
                 } else {

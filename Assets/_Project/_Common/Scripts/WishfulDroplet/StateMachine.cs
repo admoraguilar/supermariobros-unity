@@ -7,24 +7,84 @@ using System.Collections.Generic;
 namespace WishfulDroplet {
     using Extensions;
 
+    //[Serializable]
+    //public class StateController<TOwner, TState>
+    //    where TState : State<TOwner> {
+    //    private Dictionary<string, StateMachine<TOwner, TState>> stateMachines = new Dictionary<string, StateMachine<TOwner, TState>>();
+
+
+    //    public StateMachine<TOwner, TState> GetStateMachine(string id) {
+    //        StateMachine<TOwner, TState> stateMachine = null;
+    //        if(!stateMachines.TryGetValue(id, out stateMachine)) {
+    //            Debug.Log(string.Format("StateMachine: {0}, doesn't exists.", id));
+    //        }
+    //        return stateMachine;
+    //    }
+
+    //    public StateMachine<TOwner, TState> AddStateMachine(StateMachine<TOwner, TState> stateMachine, TState firstState = null) {
+    //        return AddStateMachine(stateMachine, default(TOwner), firstState);
+    //    }
+
+    //    public StateMachine<TOwner, TState> AddStateMachine(StateMachine<TOwner, TState> stateMachine, TOwner owner, TState firstState = null) {
+    //        stateMachines[stateMachine.id] = stateMachine;
+    //        stateMachine.SetOwner(owner == null ? stateMachine.owner : owner);
+    //        stateMachine.SetState(firstState);
+    //        return stateMachine;
+    //    }
+
+    //    public void RemoveStateMachine(string id) {
+    //        StateMachine<TOwner, TState> stateMachine = GetStateMachine(id);
+    //        if(stateMachine != null) {
+    //            stateMachine.SetState(null);
+    //        }
+    //        stateMachines.Remove(id);
+    //    }
+
+    //    public void Update() {
+    //        foreach(var stateMachine in stateMachines) {
+    //            stateMachine.Value.Update();
+    //        }
+    //    }
+
+    //    public void FixedUpdate() {
+    //        foreach(var stateMachine in stateMachines) {
+    //            stateMachine.Value.FixedUpdate();
+    //        }
+    //    }
+
+    //    public void LateUpdate() {
+    //        foreach(var stateMachine in stateMachines) {
+    //            stateMachine.Value.LateUpdate();
+    //        }
+    //    }
+    //}
+
+
     [Serializable]
-    public class StateController<T> {
-        private Dictionary<string, StateMachine<T>> stateMachines = new Dictionary<string, StateMachine<T>>();
+    public class StateController {
+        private Dictionary<string, _InternalStateMachine> stateMachines = new Dictionary<string, _InternalStateMachine>();
 
 
-        public StateMachine<T> GetStateMachine(string id) {
-            StateMachine<T> stateMachine = null;
+        public StateMachine<TOwner, TState> GetStateMachine<TOwner, TState>(string id)
+            where TState : State<TOwner> {
+            return (StateMachine<TOwner, TState>)GetStateMachine(id);
+        }
+
+        public _InternalStateMachine GetStateMachine(string id) {
+            _InternalStateMachine stateMachine = null;
             if(!stateMachines.TryGetValue(id, out stateMachine)) {
                 Debug.Log(string.Format("StateMachine: {0}, doesn't exists.", id));
             }
             return stateMachine;
         }
 
-        public StateMachine<T> AddStateMachine(StateMachine<T> stateMachine, State<T> firstState = null) {
-            return AddStateMachine(stateMachine, default(T), firstState);
+        public StateMachine<TOwner, TState> AddStateMachine<TOwner, TState>(StateMachine<TOwner, TState> stateMachine, TState firstState = null)
+            where TState : State<TOwner> {
+            return AddStateMachine(stateMachine, default(TOwner), firstState);
         }
 
-        public StateMachine<T> AddStateMachine(StateMachine<T> stateMachine, T owner, State<T> firstState = null) {
+        public StateMachine<TOwner, TState> AddStateMachine<TOwner, TState>(StateMachine<TOwner, TState> stateMachine, TOwner owner, TState firstState = null)
+            where TState : State<TOwner> {
             stateMachines[stateMachine.id] = stateMachine;
             stateMachine.SetOwner(owner == null ? stateMachine.owner : owner);
             stateMachine.SetState(firstState);
@@ -32,9 +92,9 @@ namespace WishfulDroplet {
         }
 
         public void RemoveStateMachine(string id) {
-            StateMachine<T> stateMachine = GetStateMachine(id);
+            _InternalStateMachine stateMachine = GetStateMachine(id);
             if(stateMachine != null) {
-                stateMachine.SetState(null);
+                stateMachine.Flush();
             }
             stateMachines.Remove(id);
         }
@@ -60,23 +120,22 @@ namespace WishfulDroplet {
 
 
     [Serializable]
-    public class StateMachine<T> {
-        public T owner { get; protected set; }
+    public class StateMachine<TOwner, TState> : _InternalStateMachine
+        where TState : State<TOwner> {
+        public TOwner owner { get; protected set; }
 
-        public State<T> currentState { get { return stateStack.Count > 0 ? stateStack.Peek() as State<T> : null; } }
-        public State<T>[] states { get { return stateStack.ToArray(); } }        
+        public TState currentState { get { return stateStack.Count > 0 ? stateStack.Peek() as TState : null; } }
+        public TState[] states { get { return stateStack.ToArray(); } }        
         public int stateCount { get { return stateStack.Count; } }
 
-        public string id;
-
-        private Stack<State<T>> stateStack = new Stack<State<T>>();
+        private Stack<TState> stateStack = new Stack<TState>();
 
 
-        public StateMachine(string id) {
-            this.id = id;
+        public StateMachine(string id) : base(id) {
+            
         }
 
-        public void SetState(State<T> state) {
+        public void SetState(TState state) {
             if(currentState == state) return;
 
             while(stateStack.Count > 0) {
@@ -86,11 +145,11 @@ namespace WishfulDroplet {
             PushState(state);
         }
 
-        public void SetOwner(T owner) {
+        public void SetOwner(TOwner owner) {
             this.owner = owner;
         }
 
-        public void PushState(State<T> state) {
+        public void PushState(TState state) {
             if(currentState == state) return;
 
             if(stateStack.Count > 0) {
@@ -99,12 +158,12 @@ namespace WishfulDroplet {
 
             stateStack.Push(state);
 
-            State<T> temp = stateStack.Peek();
+            TState temp = stateStack.Peek();
             temp.DoEnter(owner);
         }
 
-        public State<T> PopState() {
-            State<T> state = null;
+        public TState PopState() {
+            TState state = null;
 
             if(stateStack.Count > 0) {
                 currentState.DoExit(owner);
@@ -118,19 +177,23 @@ namespace WishfulDroplet {
             return state;
         }
 
-        public void Update() {
+        public override void Flush() {
+            SetState(null);
+        }
+
+        public override void Update() {
             if(currentState != null) {
                 currentState.DoUpdate(owner);
             }
         }
 
-        public void FixedUpdate() {
+        public override void FixedUpdate() {
             if(currentState != null) {
                 currentState.DoFixedUpdate(owner);
             }
         }
 
-        public void LateUpdate() {
+        public override void LateUpdate() {
             if(currentState != null) {
                 currentState.DoLateUpdate(owner);
             }
@@ -138,12 +201,31 @@ namespace WishfulDroplet {
     }
 
 
-    public abstract class State<T> {
-        public abstract void DoEnter(T owner);
-        public abstract void DoExit(T owner);
+    public abstract class State<TOwner> : _InternalState {
+        public abstract void DoEnter(TOwner owner);
+        public abstract void DoExit(TOwner owner);
 
-        public virtual void DoUpdate(T owner) { }
-        public virtual void DoFixedUpdate(T owner) { }
-        public virtual void DoLateUpdate(T owner) { }
+        public virtual void DoUpdate(TOwner owner) { }
+        public virtual void DoFixedUpdate(TOwner owner) { }
+        public virtual void DoLateUpdate(TOwner owner) { }
     }
+
+
+    public abstract class _InternalStateMachine {
+        public string id;
+
+
+        public _InternalStateMachine(string id) {
+            this.id = id;
+        }
+
+        public abstract void Flush();
+
+        public abstract void Update();
+        public abstract void FixedUpdate();
+        public abstract void LateUpdate();
+    }
+
+
+    public abstract class _InternalState { }
 }

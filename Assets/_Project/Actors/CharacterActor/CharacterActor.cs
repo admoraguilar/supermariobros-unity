@@ -70,10 +70,10 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
     [HideInInspector] public StatusStates.Dead deadStatusState;
 
     [Header("Internal")]
-    public StateController<CharacterActor> stateController = new StateController<CharacterActor>();
-    public StateMachine<CharacterActor> formStateMachine = new StateMachine<CharacterActor>("FORM");
-    public StateMachine<CharacterActor> movementStateMachine = new StateMachine<CharacterActor>("MOVEMENT");
-    public StateMachine<CharacterActor> statusStateMachine = new StateMachine<CharacterActor>("STATUS");
+    public StateController stateController = new StateController();
+    public StateMachine<CharacterActor, FormStates.FormState> formStateMachine = new StateMachine<CharacterActor, FormStates.FormState>("FORM");
+    public StateMachine<CharacterActor, CharacterState> movementStateMachine = new StateMachine<CharacterActor, CharacterState>("MOVEMENT");
+    public StateMachine<CharacterActor, CharacterState> statusStateMachine = new StateMachine<CharacterActor, CharacterState>("STATUS");
 
     [Header("References")]
     [SerializeField] private Rigidbody2D _thisRigidbody2D;
@@ -91,8 +91,6 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
     public bool IsBrainPowerup(CharacterBrain brain) {
         return IsBrainOnSet(powerUpBrains, brain);
     }
-
-    
 
     public void SetForm(FormStates.FormState form, bool isDoTranstion = true) {
         formStateMachine.SetState(form);

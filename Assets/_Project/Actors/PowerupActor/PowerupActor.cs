@@ -4,8 +4,23 @@ using WishfulDroplet;
 using WishfulDroplet.Extensions;
 
 
-public class LevelItemActor : Actor<LevelItemActor, LevelItemActor.LevelItemBrain> {
-    [InspectorNote("Level Item Actor")]
+public class PowerupActor : Actor<PowerupActor, PowerupActor.PowerupBrain> {
+    public Rigidbody2D thisRigidbody2D {
+        get { return _thisRigidbody2D; }
+        private set { _thisRigidbody2D = value; }
+    }
+
+    public BoxCollider2D thisCollisionCollider2D {
+        get { return _thisCollisionCollider2D; }
+        private set { _thisCollisionCollider2D = value; }
+    }
+
+    public BoxCollider2D thisInteractionCollider2D {
+        get { return _thisInteractionCollider2D; }
+        private set { _thisInteractionCollider2D = value; }
+    }
+
+    [InspectorNote("Powerup Actor")]
     [Header("Data")]
     public _InternalActorBrain[] buffableBrains;
 
@@ -37,7 +52,7 @@ public class LevelItemActor : Actor<LevelItemActor, LevelItemActor.LevelItemBrai
     }
 
 
-    public abstract class LevelItemBrain : ActorBrain<LevelItemActor> {
+    public abstract class PowerupBrain : ActorBrain<PowerupActor> {
 
     }
 }
