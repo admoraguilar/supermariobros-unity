@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using WishfulDroplet;
 
 
 [CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/Goomba")]
@@ -8,9 +9,8 @@ public class GoombaCharacterBrain : CharacterActor.CharacterBrain {
         if(otherCharacterActor) {
             // Demote enemies to a smaller state or kill them if they are
             // below or the same y distance as Goomba
-            if(characterActor.IsThisCharactersEnemy(otherCharacterActor.brain)) {
-                if(Mathf.Abs(characterActor.thisInteractionCollider2D.bounds.min.y - collision.bounds.min.y) < .01f ||
-                   characterActor.thisInteractionCollider2D.bounds.min.y >= collision.bounds.min.y) {
+            if(characterActor.IsBrainEnemy(otherCharacterActor.brain)) {
+                if(Utilities.CheckOtherColliderDirection2D(Direction.Up, characterActor.thisInteractionCollider2D, collision)) {
                     if(otherCharacterActor.formStateMachine.currentState != otherCharacterActor.smallFormState) {
                         otherCharacterActor.SetForm(otherCharacterActor.smallFormState);
                     } else {

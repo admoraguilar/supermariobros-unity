@@ -34,7 +34,7 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
         if(characterActor.statusStateMachine.currentState != characterActor.deadStatusState &&
            characterActor.movementStateMachine.currentState != characterActor.transitionMovementState) {
             if(characterActor.thisCharacter2D.IsGrounded) {
-                if(!characterActor.thisCharacter2D.IsMoving(Direction.Any) &&
+                if(!characterActor.thisCharacter2D.IsMoving() &&
                     characterActor.inputAxis == Vector2.zero &&
                     !characterActor.isJumping) {
                     characterActor.movementStateMachine.SetState(characterActor.idleMovementState);
@@ -59,7 +59,7 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
                 }
 
                 if(characterActor.thisCharacter2D.IsChangingDirection &&
-                   characterActor.thisCharacter2D.IsMoving(Direction.Any) &&
+                   characterActor.thisCharacter2D.IsMoving() &&
                    !characterActor.isJumping) {
                     characterActor.movementStateMachine.SetState(characterActor.slideMovementState);
                 }
@@ -83,9 +83,8 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
         CharacterActor otherCharacterActor = collision.GetComponent<CharacterActor>();
         if(otherCharacterActor) {
             // Stomp/Destroy enemies if they are below mario
-            if(characterActor.IsThisCharactersEnemy(otherCharacterActor.brain)) {
-                if(Mathf.Abs(characterActor.thisInteractionCollider2D.bounds.min.y - collision.bounds.min.y) > .05f &&
-                    characterActor.thisInteractionCollider2D.bounds.min.y >= collision.bounds.min.y) {
+            if(characterActor.IsBrainEnemy(otherCharacterActor.brain)) {
+                if(Utilities.CheckOtherColliderDirection2D(Direction.Down, characterActor.thisInteractionCollider2D, collision)) {
                     characterActor.movementStateMachine.PushState(characterActor.bounceMovementState);
                     Destroy(otherCharacterActor.gameObject);
                 }

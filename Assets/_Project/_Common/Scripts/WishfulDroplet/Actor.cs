@@ -29,16 +29,16 @@ namespace WishfulDroplet {
         [SerializeField] protected TBrain oldBrain;
 
 
-        protected TBrain CheckBrainIfOnSet(TBrain[] brainSet, TBrain brain)  {
-            if(brain == null) return default(TBrain);
+        protected bool IsBrainOnSet<T>(T[] brainSet, T brain) {
+            if(brain == null) return false;
 
             for(int i = 0; i < brainSet.Length; i++) {
                 if(brainSet[i].Equals(brain)) {
-                    return brainSet[i];
+                    return true;
                 }
             }
 
-            return default(TBrain);
+            return false;
         }
 
         protected virtual void OnValidate() {
@@ -80,3 +80,18 @@ namespace WishfulDroplet {
     public abstract class _InternalActor : MonoBehaviour { }
     public abstract class _InternalActorBrain : ScriptableObject { }
 }
+
+
+//public class LevelItemActor : LevelItemActor<LevelItemActor, LevelItemActor.LevelItemBrain> {
+//    public abstract class LevelItemBrain : ActorBrain<LevelItemActor> {
+
+//    }
+//}
+
+
+//public class LevelItemActor<T, U> : Actor<T, U>
+//    where T : Actor<T, U>
+//    where U : ActorBrain<T> {
+//    [InspectorNote("Level Item Actor")]
+//    public int test = 0;
+//}

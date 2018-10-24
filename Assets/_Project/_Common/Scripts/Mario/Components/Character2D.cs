@@ -37,8 +37,16 @@ public class Character2D : MonoBehaviour {
     [SerializeField] private BoxCollider2D                  thisBoxCollider2D;
 
 
+    public bool IsColliding(Collider2D collider = null) {
+        return directionalBoxCast.IsHit(collider);
+    }
+
     public bool IsColliding(Direction direction, Collider2D collider = null) {
         return directionalBoxCast.IsHit(direction, collider);
+    }
+
+    public bool IsMoving() {
+        return thisRigidbody2D.velocity != Vector2.zero;
     }
 
     public bool IsMoving(Direction direction) {
@@ -47,7 +55,6 @@ public class Character2D : MonoBehaviour {
             case Direction.Down: return thisRigidbody2D.velocity.y < 0f;
             case Direction.Left: return thisRigidbody2D.velocity.x < 0f;
             case Direction.Right: return thisRigidbody2D.velocity.x > 0f;
-            case Direction.Any: return thisRigidbody2D.velocity != Vector2.zero;
             default: return false;
         }
     }

@@ -39,7 +39,6 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
     [Header("Data")]
     [SerializeField] private CharacterBrain[] enemyBrains;
     [SerializeField] private CharacterBrain[] powerUpBrains;
-    [SerializeField] private CharacterBrain[] buffableBrains;
     public Vector2 inputAxis = Vector2.zero;
     public Vector2 lastJumpPos = Vector2.zero;
     public float landMoveSpeed = .7f;
@@ -85,17 +84,15 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
     [SerializeField] private Transform _thisCharacterObject;
 
 
-    public CharacterBrain IsThisCharactersEnemy(CharacterBrain brain) {
-        return CheckBrainIfOnSet(enemyBrains, brain);
+    public bool IsBrainEnemy(CharacterBrain brain) {
+        return IsBrainOnSet(enemyBrains, brain);
     }
 
-    public CharacterBrain IsThisCharactersPowerUp(CharacterBrain brain) {
-        return CheckBrainIfOnSet(powerUpBrains, brain);
+    public bool IsBrainPowerup(CharacterBrain brain) {
+        return IsBrainOnSet(powerUpBrains, brain);
     }
 
-    public CharacterBrain IsThisCharactersBuffable(CharacterBrain brain) {
-        return CheckBrainIfOnSet(buffableBrains, brain);
-    }
+    
 
     public void SetForm(FormStates.FormState form, bool isDoTranstion = true) {
         formStateMachine.SetState(form);

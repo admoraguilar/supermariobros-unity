@@ -9,11 +9,10 @@ namespace WishfulDroplet {
 
     [Flags]
     public enum Direction {
-        Any = 0,
-        Up = 1,
-        Down = 2, 
-        Left = 4,
-        Right = 8,
+        Up = 0,
+        Down = 1, 
+        Left = 2,
+        Right = 3,
     }
 
 
@@ -29,23 +28,33 @@ namespace WishfulDroplet {
         private RaycastHit2D[]                             hitBuffer;
 
 
-        public bool IsHit(Direction direction, Collider2D collider = null) {
-            if(direction == Direction.Any) {
-                for(int i = 0; i < BoxInfos.Length; i++) {
-                    if(!collider) {
-                        if(BoxInfos[i].Hits.Count != 0) return true;
-                    } else {
-                        return BoxInfos[i].Hits.Contains(collider);
+        public bool IsHit(Collider2D collider = null) {
+            bool isHit = false;
+
+            for(int i = 0; i < BoxInfos.Length; i++) {
+                if(!collider) {
+                    if(BoxInfos[i].Hits.Count != 0) {
+                        isHit = true;
+                        break;
+                    }
+                } else {
+                    if(BoxInfos[i].Hits.Contains(collider)) {
+                        isHit = true;
+                        break;
                     }
                 }
-            } else {
-                for(int i = 0; i < BoxInfos.Length; i++) {
-                    if(BoxInfos[i].Direction == direction) {
-                        if(!collider) {
-                            return BoxInfos[i].Hits.Count != 0;
-                        } else {
-                            return BoxInfos[i].Hits.Contains(collider);
-                        }
+            }
+
+            return isHit;
+        }
+
+        public bool IsHit(Direction direction, Collider2D collider = null) {
+            for(int i = 0; i < BoxInfos.Length; i++) {
+                if(BoxInfos[i].Direction == direction) {
+                    if(!collider) {
+                        return BoxInfos[i].Hits.Count != 0;
+                    } else {
+                        return BoxInfos[i].Hits.Contains(collider);
                     }
                 }
             }
@@ -155,6 +164,43 @@ namespace WishfulDroplet {
             }
 
             return parent.gameObject;
+        }
+
+
+        public static bool CheckOtherColliderDirection2D(Direction direction, Collider2D collider, Collider2D otherCollider, float maxDistanceDelta = 1f) {
+            switch(direction) {
+                case Direction.Up:
+                    return collider.bounds.max.y < otherCollider.bounds.max.y &&
+                           Mathf.Abs(collider.bounds.max.y - otherCollider.bounds.max.y) <= maxDistanceDelta;
+                case Direction.Down:
+                    return collider.bounds.min.y > otherCollider.bounds.min.y &&
+                           Mathf.Abs(collider.bounds.min.y - otherCollider.bounds.min.y) <= maxDistanceDelta;
+                case Direction.Left:
+                    return collider.bounds.min.x > otherCollider.bounds.min.x &&
+                           Mathf.Abs(collider.bounds.min.x - otherCollider.bounds.min.x) <= maxDistanceDelta;
+                case Direction.Right:
+                    return collider.bounds.max.x < otherCollider.bounds.max.x &&
+                           Mathf.Abs(collider.bounds.max.x - otherCollider.bounds.max.x) <= maxDistanceDelta;
+                default:
+                    return false;
+            }
+
+            //switch(direction) {
+            //    case Direction.Up:
+            //        return collider.bounds.max.y < otherCollider.bounds.min.y &&
+            //               Mathf.Abs(collider.bounds.max.y - otherCollider.bounds.min.y) <= maxDistanceDelta;
+            //    case Direction.Down:
+            //        return collider.bounds.min.y > otherCollider.bounds.max.y &&
+            //               Mathf.Abs(collider.bounds.min.y - otherCollider.bounds.max.y) <= maxDistanceDelta;
+            //    case Direction.Left:
+            //        return collider.bounds.min.x > otherCollider.bounds.max.x &&
+            //               Mathf.Abs(collider.bounds.min.x - otherCollider.bounds.max.x) <= maxDistanceDelta;
+            //    case Direction.Right:
+            //        return collider.bounds.max.x < otherCollider.bounds.min.x &&
+            //               Mathf.Abs(collider.bounds.max.x - otherCollider.bounds.min.x) <= maxDistanceDelta;
+            //    default:
+            //        return false;
+            //}
         }
     }
 }
