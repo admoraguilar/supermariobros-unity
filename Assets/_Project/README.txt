@@ -8,6 +8,11 @@ WORKFLOW:
 * As much as possible everything should be a prefab to make changes easier.
 * References fields are exposed in the inspector in case some default reference values are missing, but it shouldn't be touched as much as possible.
 
+=========================================
+
+BUGS:
+* Transitioning from small to big, when picking up a mushroom timescale stop and animation doesn't work.
+
 
 =========================================
 

@@ -22,11 +22,16 @@ public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
     [InspectorNote("Block Actor")]
     [Header("Data")]
     public _InternalActorBrain[] interactorBrains;
+    public GameObject content;
+    public Sprite filledSprite;
+    public Sprite emptySprite;
+    public int contentCount;
     public AudioClip hitSound;
-    public AudioClip breakSound;
+    public AudioClip contentAppearSound;
 
     [Header("References")]
     [SerializeField] private Animator _thisAnimator;
+    [SerializeField] private SpriteRenderer _thisSpriteRenderer;
     [SerializeField] private BoxCollider2D _thisCollisionCollider2D;
     [SerializeField] private BoxCollider2D _thisInteractionCollider2D;
 
@@ -45,6 +50,8 @@ public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
         base.Reset();
 
         _thisAnimator = gameObject.GetComponentInChildren<Animator>(true);
+
+        _thisSpriteRenderer = _thisAnimator.GetComponentInChildren<SpriteRenderer>(true);
 
         _thisCollisionCollider2D = gameObject.AddOrGetComponent<BoxCollider2D>();
 

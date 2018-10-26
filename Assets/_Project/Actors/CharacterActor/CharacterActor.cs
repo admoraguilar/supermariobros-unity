@@ -39,8 +39,7 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
     [Header("Data")]
     [SerializeField] private CharacterBrain[] enemyBrains;
     [SerializeField] private CharacterBrain[] powerUpBrains;
-    public Vector2 inputAxis = Vector2.zero;
-    public Vector2 lastJumpPos = Vector2.zero;
+	public float gravity = 9.8f;
     public float landMoveSpeed = .7f;
     public float landSprintSpeed = 4.2f;
     public float airMoveSpeed = .5f;
@@ -70,7 +69,9 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
     [HideInInspector] public StatusStates.Dead deadStatusState;
 
     [Header("Internal")]
-    public StateController stateController = new StateController();
+	public Vector2 inputAxis = Vector2.zero;
+	public Vector2 lastJumpPos = Vector2.zero;
+	public StateController stateController = new StateController();
     public StateMachine<CharacterActor, FormStates.FormState> formStateMachine = new StateMachine<CharacterActor, FormStates.FormState>("FORM");
     public StateMachine<CharacterActor, CharacterState> movementStateMachine = new StateMachine<CharacterActor, CharacterState>("MOVEMENT");
     public StateMachine<CharacterActor, CharacterState> statusStateMachine = new StateMachine<CharacterActor, CharacterState>("STATUS");
@@ -115,7 +116,7 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
         thisCharacterObject.localScale = characterFlip;
     }
 
-    private void Awake() {
+	private void Awake() {
         if(brain) {
             brain.DoAwake(this);
         }
