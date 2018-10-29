@@ -30,6 +30,40 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
 		}
 	}
 
+	public override bool DoInteract(CharacterActor characterActor, GameObject interactor) {
+		CharacterActor otherCharacterActor = interactor.GetComponent<CharacterActor>();
+		if(otherCharacterActor) {
+			Collider2D collision = otherCharacterActor.thisInteractionCollider2D;
+
+			// Stomp/Destroy enemies if they are below mario
+			if(characterActor.IsBrainEnemy(otherCharacterActor.brain)) {
+				if(Utilities.CheckOtherColliderDirection2D(Direction.Down, characterActor.thisInteractionCollider2D, collision)) {
+					characterActor.movementStateMachine.PushState(characterActor.bounceMovementState);
+					Destroy(otherCharacterActor.gameObject);
+					return true;
+				}
+			}
+		}
+
+		BlockActor otherBlockActor = interactor.GetComponent<BlockActor>();
+		if(otherBlockActor) {
+			Collider2D collision = otherBlockActor.thisInteractionCollider2D;
+
+			Debug.Log("Block interacted");
+			if(Utilities.CheckOtherColliderDirection2D(Direction.Up, characterActor.thisInteractionCollider2D, collision)) {
+				if(characterActor.formStateMachine.currentState.isCanBreakBrick) {
+					otherBlockActor.Destroy();
+					return true;
+				} else {
+					otherBlockActor.Interact();
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 	public override void DoUpdate(CharacterActor characterActor) {
 		if(characterActor.statusStateMachine.currentState != characterActor.deadStatusState &&
 		   characterActor.movementStateMachine.currentState != characterActor.transitionMovementState) {
@@ -79,24 +113,50 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
 	}
 
 
-	public override void DoTriggerEnter2D(CharacterActor characterActor, Collider2D collision) {
-		Debug.Log(string.Format("{0} | {1}", characterActor.name, collision.name));
-		Debug.Log(string.Format("Getting parent: {0}", collision.GetComponentInParent<Rigidbody2D>().name));
+	public override void DoCollisionEnter2D(CharacterActor actor, Collision2D collision) {
+		Debug.Log(string.Format("{0} collided with {1}", actor.name, collision.collider.name));
+	}
 
-		CharacterActor otherCharacterActor = collision.GetComponent<CharacterActor>();
-		if(otherCharacterActor) {
-			// Stomp/Destroy enemies if they are below mario
-			if(characterActor.IsBrainEnemy(otherCharacterActor.brain)) {
-				if(Utilities.CheckOtherColliderDirection2D(Direction.Down, characterActor.thisInteractionCollider2D, collision)) {
-					characterActor.movementStateMachine.PushState(characterActor.bounceMovementState);
-					Destroy(otherCharacterActor.gameObject);
-				}
-			}
-		}
+	public override void DoTriggerEnter2D(CharacterActor characterActor, Collider2D collision) {
+		//Debug.Log(string.Format("{0} | {1}", characterActor.name, collision.transform.root.name));
+		//Debug.Log(string.Format("Getting parent: {0}", collision.transform.root.GetComponentInParent<Rigidbody2D>().name));
+
+		//CharacterActor otherCharacterActor = collision.transform.root.GetComponent<CharacterActor>();
+		//if(otherCharacterActor) {
+		//	// Stomp/Destroy enemies if they are below mario
+		//	if(characterActor.IsBrainEnemy(otherCharacterActor.brain)) {
+		//		if(Utilities.CheckOtherColliderDirection2D(Direction.Down, characterActor.thisInteractionCollider2D, collision)) {
+		//			characterActor.movementStateMachine.PushState(characterActor.bounceMovementState);
+		//			Destroy(otherCharacterActor.gameObject);
+		//		}
+		//	}
+		//}
+
+		//BlockActor otherBlockActor = collision.transform.parent.GetComponent<BlockActor>();
+		//if(otherBlockActor) {
+		//	Debug.Log("Block interacted");
+		//	if(Utilities.CheckOtherColliderDirection2D(Direction.Up, characterActor.thisInteractionCollider2D, collision)) {
+		//		if(characterActor.formStateMachine.currentState.isCanBreakBrick) {
+		//			otherBlockActor.Destroy();
+		//		} else {
+		//			otherBlockActor.Interact();
+		//		}
+		//	}
+		//}
+
+		//// Fall if we bump on something above
+		//if(Utilities.CheckOtherColliderDirection2D(Direction.Up, characterActor.thisInteractionCollider2D, collision, 5f)) {
+		//	characterActor.movementStateMachine.SetState(characterActor.fallMovementState);
+		//}
 
 		// Fall if we bump on something above
 		if(Utilities.CheckOtherColliderDirection2D(Direction.Up, characterActor.thisInteractionCollider2D, collision, 5f)) {
 			characterActor.movementStateMachine.SetState(characterActor.fallMovementState);
+		}
+
+		Interactable interactable = collision.transform.root.GetComponent<Interactable>();
+		if(interactable) {
+			interactable.Interact(characterActor.gameObject);
 		}
 	}
 

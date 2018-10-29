@@ -8,25 +8,29 @@ public class BrickBlockBrain : BlockActor.BlockBrain {
 	public override void DoTriggerEnter2D(BlockActor blockActor, Collider2D collision) {
 		Debug.Log("Brick interacted");
 
-		if(Utilities.CheckOtherColliderDirection2D(Direction.Down, blockActor.thisInteractionCollider2D, collision, 5f)) {
-			CharacterActor otherCharacterActor = collision.GetComponent<CharacterActor>();
+		//if(Utilities.CheckOtherColliderDirection2D(Direction.Left, blockActor.thisInteractionCollider2D, collision, 5f)) {
 
-			Debug.Log(string.Format("Brick interacted below: {0}", collision.name));
+		//}
 
-			if(otherCharacterActor) {
-				if(otherCharacterActor.formStateMachine.currentState.isCanBreakBrick) {
-					ActionTemplates.RunActionAfterSeconds("BlockBrain_DelayedDisable", .05f, () => { blockActor.gameObject.SetActive(false); });
+		//if(Utilities.CheckOtherColliderDirection2D(Direction.Down, blockActor.thisInteractionCollider2D, collision, 5f)) {
+		//	CharacterActor otherCharacterActor = collision.transform.root.GetComponent<CharacterActor>();
 
-					if(blockActor.content) {
-						Instantiate(blockActor.content, blockActor.thisTransform.position, blockActor.thisTransform.rotation);
-					}
-					Singleton.Get<IAudioController>().PlayOneShot(blockActor.contentAppearSound);
-				} else {
-					blockActor.thisAnimator.PlayNoRepeat("Interacted");
+		//	Debug.Log(string.Format("Brick interacted below: {0}", collision.name));
 
-					Singleton.Get<IAudioController>().PlayOneShot(blockActor.hitSound);
-				}
-			}
-		}
+		//	if(otherCharacterActor) {
+		//		if(otherCharacterActor.formStateMachine.currentState.isCanBreakBrick) {
+		//			ActionTemplates.RunActionAfterSeconds("BlockBrain_DelayedDisable", .05f, () => { blockActor.gameObject.SetActive(false); });
+
+		//			if(blockActor.content) {
+		//				Instantiate(blockActor.content, blockActor.thisTransform.position, blockActor.thisTransform.rotation);
+		//			}
+		//			Singleton.Get<IAudioController>().PlayOneShot(blockActor.contentAppearSound);
+		//		} else {
+		//			blockActor.thisAnimator.PlayNoRepeat("Interacted");
+
+		//			Singleton.Get<IAudioController>().PlayOneShot(blockActor.hitSound);
+		//		}
+		//	}
+		//}
 	}
 }

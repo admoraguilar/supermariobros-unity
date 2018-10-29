@@ -37,13 +37,19 @@ public class SandboxCharacterMover : MonoBehaviour {
 									(new Vector3(_inputAxis.x, _inputAxis.y, 0f) * moveSpeed * Time.deltaTime));
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision) {
-		//Debug.Log(string.Format("Collided with: {0}", collision.collider.name));
-	}
+	//private void OnCollisionEnter2D(Collision2D collision) {
+	//	//Debug.Log(string.Format("Collided with: {0}", collision.collider.name));
+	//}
 
-	private void OnTriggerEnter2D(Collider2D collision) {
-		Debug.Log(string.Format("Trigger from: {0}", collision.name));
-	}
+	//private void OnTriggerEnter2D(Collider2D collision) {
+	//	Transform t = collision.GetComponentInRoot<Transform>();
+	//	Debug.Log(string.Format("{0} entered {1} trigger.", name, t.name));
+	//}
+
+	//private void OnTriggerExit2D(Collider2D collision) {
+	//	Transform t = collision.GetComponentInRoot<Transform>();
+	//	Debug.Log(string.Format("{0} exit {1} trigger.", name, t.name));
+	//}
 
 	private void Reset() {
 		thisGameObject = gameObject;

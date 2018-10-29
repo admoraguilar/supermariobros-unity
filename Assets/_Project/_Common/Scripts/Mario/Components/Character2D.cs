@@ -145,7 +145,7 @@ public class Character2D : MonoBehaviour {
             new DirectionalBoxCast2D.BoxCastInfo { Direction = Direction.Left, SizeMultiplier = .02f },
             new DirectionalBoxCast2D.BoxCastInfo { Direction = Direction.Right, SizeMultiplier = .02f },
         };
-        directionalBoxCast.ReferenceCollider = _thisBoxCollider2D;
+        directionalBoxCast.ReferenceCollider = thisBoxCollider2D;
 
         boxCastMask = new List<Collider2D>(GetComponentsInChildren<Collider2D>(true));
     }

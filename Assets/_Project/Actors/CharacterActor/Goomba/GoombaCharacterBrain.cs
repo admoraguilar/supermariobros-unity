@@ -4,22 +4,54 @@ using WishfulDroplet;
 
 [CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/Goomba")]
 public class GoombaCharacterBrain : CharacterActor.CharacterBrain {
-    public override void DoTriggerEnter2D(CharacterActor characterActor, Collider2D collision) {
-        CharacterActor otherCharacterActor = collision.GetComponent<CharacterActor>();
-        if(otherCharacterActor) {
-            // Demote enemies to a smaller state or kill them if they are
-            // below or the same y distance as Goomba
-            if(characterActor.IsBrainEnemy(otherCharacterActor.brain)) {
-                if(Utilities.CheckOtherColliderDirection2D(Direction.Up, characterActor.thisInteractionCollider2D, collision)) {
-                    if(otherCharacterActor.formStateMachine.currentState != otherCharacterActor.smallFormState) {
-                        otherCharacterActor.SetForm(otherCharacterActor.smallFormState);
-                    } else {
-                        otherCharacterActor.statusStateMachine.SetState(otherCharacterActor.deadStatusState);
-                    }
-                }
-            }
-        }
-    }
+	public override bool DoInteract(CharacterActor characterActor, GameObject interactor) {
+		CharacterActor otherCharacterActor = interactor.GetComponent<CharacterActor>();
+		if(otherCharacterActor) {
+			Collider2D collision = otherCharacterActor.thisInteractionCollider2D;
+
+			// Demote enemies to a smaller state or kill them if they are
+			// below or the same y distance as Goomba
+			if(characterActor.IsBrainEnemy(otherCharacterActor.brain)) {
+				if(Utilities.CheckOtherColliderDirection2D(Direction.Down, characterActor.thisInteractionCollider2D, collision)) {
+					if(otherCharacterActor.formStateMachine.currentState != otherCharacterActor.smallFormState) {
+						otherCharacterActor.SetForm(otherCharacterActor.smallFormState);
+						Debug.Log("small");
+					} else {
+						otherCharacterActor.statusStateMachine.SetState(otherCharacterActor.deadStatusState);
+						Debug.Log("dead");
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public override void DoTriggerEnter2D(CharacterActor characterActor, Collider2D collision) {
+		//Debug.Log(string.Format("{0} entered {1}'s trigger.", collision.name, characterActor.name));
+
+		//CharacterActor otherCharacterActor = collision.transform.root.GetComponent<CharacterActor>();
+		//if(otherCharacterActor) {
+		//	// Demote enemies to a smaller state or kill them if they are
+		//	// below or the same y distance as Goomba
+		//	if(characterActor.IsBrainEnemy(otherCharacterActor.brain)) {
+		//		if(Utilities.CheckOtherColliderDirection2D(Direction.Down, characterActor.thisInteractionCollider2D, collision)) {
+		//			if(otherCharacterActor.formStateMachine.currentState != otherCharacterActor.smallFormState) {
+		//				otherCharacterActor.SetForm(otherCharacterActor.smallFormState);
+		//				Debug.Log("small");
+		//			} else {
+		//				otherCharacterActor.statusStateMachine.SetState(otherCharacterActor.deadStatusState);
+		//				Debug.Log("dead");
+		//			}
+		//		}
+		//	}
+		//}
+
+		Interactable interactable = collision.transform.root.GetComponent<Interactable>();
+		if(interactable) {
+			interactable.Interact(characterActor.gameObject);
+		}
+	}
 
     public override void DoDrawGizmos(CharacterActor characterActor) {
         // Small duck collider

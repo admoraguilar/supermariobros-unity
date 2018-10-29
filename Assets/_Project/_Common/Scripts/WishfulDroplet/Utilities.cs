@@ -168,7 +168,15 @@ namespace WishfulDroplet {
 
 
         public static bool CheckOtherColliderDirection2D(Direction direction, Collider2D collider, Collider2D otherCollider, float maxDistanceDelta = 1f) {
-            switch(direction) {
+			//Debug.Log(string.Format("Comparison: {0}: {1} | {2}: {3} {4} Distance: {5}",
+			//								collider.transform.root.name,
+			//								collider.bounds.min.x,
+			//								otherCollider.transform.root.name,
+			//								otherCollider.bounds.min.x,
+			//								Environment.NewLine,
+			//								Mathf.Abs(collider.bounds.min.x - otherCollider.bounds.min.x)));
+
+			switch(direction) {
                 case Direction.Up:
                     return collider.bounds.max.y < otherCollider.bounds.max.y &&
                            Mathf.Abs(collider.bounds.max.y - otherCollider.bounds.max.y) <= maxDistanceDelta;
