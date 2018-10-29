@@ -5,14 +5,6 @@ using System.IO;
 
 
 namespace WishfulDroplet.Editor {
-    public static class ShortcutItems {
-        [MenuItem("Tools/WishfulDropet/Settings/Editor Resources")]
-        public static void ShowEditorResources() {
-            EditorResources editorResources = EditorSingleton.Get<EditorResources>();
-            Selection.activeObject = editorResources;
-        }
-    }
-
     public static class Utilities {
         public static T CreateScriptableObjectAsset<T>(string path) where T : ScriptableObject {
             T so = ScriptableObject.CreateInstance<T>();
