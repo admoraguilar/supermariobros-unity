@@ -5,7 +5,12 @@ using WishfulDroplet.Extensions;
 
 
 public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
-    public Animator thisAnimator {
+	public Interactable thisInteractable {
+		get { return _thisInteractable; }
+		private set { _thisInteractable = value; }
+	}
+
+	public Animator thisAnimator {
         get { return _thisAnimator; }
         private set { _thisAnimator = value; }
     }
@@ -35,7 +40,8 @@ public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
     public AudioClip hitSound;
     public AudioClip contentAppearSound;
 
-    [Header("References")]
+	[Header("References")]
+	[SerializeField] private Interactable _thisInteractable;
     [SerializeField] private Animator _thisAnimator;
     [SerializeField] private SpriteRenderer _thisSpriteRenderer;
     [SerializeField] private BoxCollider2D _thisCollisionCollider2D;
@@ -62,7 +68,17 @@ public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
 		Singleton.Get<IAudioController>().PlayOneShot(contentAppearSound);
 	}
 
+	private bool OnInteract(GameObject interactor) {
+		if(brain) {
+			brain.DoInteract(this, interactor);
+		}
+
+		return false;
+	}
+
 	private void OnEnable() {
+		thisInteractable.OnInteract += OnInteract;
+
 		//thisInteractionColliderEvents.OnCollisionEnter2DCallback += _OnCollisionEnter2D;
 		//thisInteractionColliderEvents.OnCollisionStay2DCallback += _OnCollisionStay2D;
 		//thisInteractionColliderEvents.OnCollisionExit2DCallback += _OnCollisionExit2D;
@@ -72,6 +88,8 @@ public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
 	}
 
 	private void OnDisable() {
+		thisInteractable.OnInteract -= OnInteract;
+
 		//thisInteractionColliderEvents.OnCollisionEnter2DCallback -= _OnCollisionEnter2D;
 		//thisInteractionColliderEvents.OnCollisionStay2DCallback -= _OnCollisionStay2D;
 		//thisInteractionColliderEvents.OnCollisionExit2DCallback -= _OnCollisionExit2D;
@@ -101,6 +119,6 @@ public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
 
 
     public class BlockBrain : ActorBrain<BlockActor> {
-
-    }
+		public virtual bool DoInteract(BlockActor blockActor, GameObject interactor) { return false; }
+	}
 }

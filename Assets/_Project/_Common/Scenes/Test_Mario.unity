@@ -498,6 +498,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 45191337}
   _thisTransform: {fileID: 45191338}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -506,6 +507,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1152739482}
   _thisSpriteRenderer: {fileID: 80922443}
   _thisCollisionCollider2D: {fileID: 1989544582}
@@ -1736,6 +1738,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 102804727}
   _thisTransform: {fileID: 102804730}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -1744,6 +1747,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 673702776}
   _thisSpriteRenderer: {fileID: 1883044540}
   _thisCollisionCollider2D: {fileID: 102804728}
@@ -1865,6 +1869,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 103732613}
   _thisTransform: {fileID: 103732618}
   oldBrain: {fileID: 11400000, guid: 1181d9527b5760a4587133f4dc4ed1e3, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 1181d9527b5760a4587133f4dc4ed1e3, type: 2}
   buffableBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   _thisRigidbody2D: {fileID: 103732617}
@@ -2464,6 +2469,107 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!1 &156092164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1652635735646800, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 156092167}
+  - component: {fileID: 156092168}
+  - component: {fileID: 156092166}
+  - component: {fileID: 156092165}
+  m_Layer: 0
+  m_Name: Brick (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &156092165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 156092164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a102c42be737c4a89f950f0dd1fad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  _thisActor: {fileID: 156092165}
+  _thisGameObject: {fileID: 156092164}
+  _thisTransform: {fileID: 156092167}
+  oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  interactorBrains:
+  - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
+  content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
+  filledSprite: {fileID: 21300026, guid: 839c19fb28c86a8488bda5f52b79b585, type: 3}
+  emptySprite: {fileID: 0}
+  contentCount: 0
+  hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
+  contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 156092166}
+  _thisAnimator: {fileID: 1746233075}
+  _thisSpriteRenderer: {fileID: 260568547}
+  _thisCollisionCollider2D: {fileID: 1293258312}
+  _thisInteractionCollider2D: {fileID: 2098534041}
+  _thisInteractionColliderEvents: {fileID: 2098534039}
+--- !u!114 &156092166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 156092164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58518d8a0198e21459a3039aa1ba899a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInfiniteInteract: 1
+  maxInteractCount: 1
+  remainingInteractCount: 0
+--- !u!4 &156092167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4238545032764632, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 156092164}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.81, y: -1.43, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1746233074}
+  - {fileID: 1293258313}
+  - {fileID: 2098534040}
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &156092168
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 156092164}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.001
+  m_LinearDrag: 2
+  m_AngularDrag: 0.05
+  m_GravityScale: 5
+  m_Material: {fileID: 884628699}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!1001 &158841139
 Prefab:
   m_ObjectHideFlags: 0
@@ -4216,6 +4322,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 256596576}
   _thisTransform: {fileID: 256596580}
   oldBrain: {fileID: 11400000, guid: 1181d9527b5760a4587133f4dc4ed1e3, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 1181d9527b5760a4587133f4dc4ed1e3, type: 2}
   buffableBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   _thisRigidbody2D: {fileID: 256596579}
@@ -4281,7 +4388,7 @@ Transform:
   - {fileID: 1881447746}
   - {fileID: 19866549}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &258317900
 GameObject:
@@ -4348,6 +4455,84 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &260568546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1342676905304430, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 260568548}
+  - component: {fileID: 260568547}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &260568547
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 212479984552997146, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 260568546}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300026, guid: 839c19fb28c86a8488bda5f52b79b585, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.40625, y: 0.5}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &260568548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4858530718901132, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 260568546}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1746233074}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &262461415
 Prefab:
   m_ObjectHideFlags: 0
@@ -4701,6 +4886,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 278572183}
   _thisTransform: {fileID: 278572184}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -4709,6 +4895,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 526416354}
   _thisSpriteRenderer: {fileID: 292518961}
   _thisCollisionCollider2D: {fileID: 1223222201}
@@ -5531,6 +5718,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 312677006}
   _thisTransform: {fileID: 312677010}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -5539,6 +5727,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1716452520}
   _thisSpriteRenderer: {fileID: 1715257694}
   _thisCollisionCollider2D: {fileID: 312677008}
@@ -5759,6 +5948,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 325675814}
   _thisTransform: {fileID: 325675818}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -5767,6 +5957,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1134026681}
   _thisSpriteRenderer: {fileID: 401789973}
   _thisCollisionCollider2D: {fileID: 325675816}
@@ -8767,7 +8958,7 @@ Transform:
   - {fileID: 45191338}
   - {fileID: 1210122452}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &447554621
 GameObject:
@@ -9495,6 +9686,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 469740728}
   _thisTransform: {fileID: 469740732}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -9503,6 +9695,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 201557840}
   _thisSpriteRenderer: {fileID: 1897170109}
   _thisCollisionCollider2D: {fileID: 469740730}
@@ -9742,6 +9935,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 475957446}
   _thisTransform: {fileID: 475957447}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -9750,6 +9944,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 2039934700}
   _thisSpriteRenderer: {fileID: 1400403434}
   _thisCollisionCollider2D: {fileID: 1297984708}
@@ -10340,6 +10535,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 504036593}
   _thisTransform: {fileID: 504036594}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -10348,6 +10544,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 586747081}
   _thisSpriteRenderer: {fileID: 1740831422}
   _thisCollisionCollider2D: {fileID: 295021395}
@@ -13029,6 +13226,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 621278184}
   _thisTransform: {fileID: 621278188}
   oldBrain: {fileID: 11400000, guid: d85b3fa20748cfb49a7351391272a058, type: 2}
+  cachedBrain: {fileID: 11400000, guid: d85b3fa20748cfb49a7351391272a058, type: 2}
   buffableBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   _thisRigidbody2D: {fileID: 621278187}
@@ -13347,6 +13545,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 627655039}
   _thisTransform: {fileID: 627655043}
   oldBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
   enemyBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   powerUpBrains: []
@@ -13514,7 +13713,7 @@ Transform:
   - {fileID: 1952387747}
   - {fileID: 1571015900}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &633507369
 GameObject:
@@ -14104,6 +14303,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 667344365}
   _thisTransform: {fileID: 667344368}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -14112,6 +14312,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1207577844}
   _thisSpriteRenderer: {fileID: 1302274176}
   _thisCollisionCollider2D: {fileID: 667344366}
@@ -16299,6 +16500,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 832167169}
   _thisTransform: {fileID: 832167173}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -16307,6 +16509,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1840098289}
   _thisSpriteRenderer: {fileID: 1489344933}
   _thisCollisionCollider2D: {fileID: 832167171}
@@ -17012,6 +17215,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 867722266}
   _thisTransform: {fileID: 867722267}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -17020,6 +17224,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 484405036}
   _thisSpriteRenderer: {fileID: 452503179}
   _thisCollisionCollider2D: {fileID: 2005600380}
@@ -17059,6 +17264,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 881636875}
   _thisTransform: {fileID: 881636879}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -17067,6 +17273,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1632553121}
   _thisSpriteRenderer: {fileID: 811991019}
   _thisCollisionCollider2D: {fileID: 881636877}
@@ -17556,6 +17763,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 904922364}
   _thisTransform: {fileID: 904922369}
   oldBrain: {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   enemyBrains:
   - {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
   powerUpBrains: []
@@ -18095,6 +18303,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 933159019}
   _thisTransform: {fileID: 933159022}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -18103,6 +18312,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 2036877290}
   _thisSpriteRenderer: {fileID: 350672202}
   _thisCollisionCollider2D: {fileID: 933159020}
@@ -18844,6 +19054,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 960886412}
   _thisTransform: {fileID: 960886415}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -18852,6 +19063,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 561615712}
   _thisSpriteRenderer: {fileID: 861163473}
   _thisCollisionCollider2D: {fileID: 960886413}
@@ -19018,6 +19230,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 968195350}
   _thisTransform: {fileID: 968195353}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -19026,6 +19239,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1275162085}
   _thisSpriteRenderer: {fileID: 2012034034}
   _thisCollisionCollider2D: {fileID: 968195351}
@@ -19844,6 +20058,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1060513508}
   _thisTransform: {fileID: 1060513509}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -19852,6 +20067,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 160910325}
   _thisSpriteRenderer: {fileID: 120432489}
   _thisCollisionCollider2D: {fileID: 2051644367}
@@ -22757,6 +22973,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1210122451}
   _thisTransform: {fileID: 1210122452}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -22765,6 +22982,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 904163249}
   _thisSpriteRenderer: {fileID: 954964127}
   _thisCollisionCollider2D: {fileID: 2138069266}
@@ -22874,6 +23092,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1211745031}
   _thisTransform: {fileID: 1211745032}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -22882,6 +23101,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1067798558}
   _thisSpriteRenderer: {fileID: 1979828059}
   _thisCollisionCollider2D: {fileID: 1821605649}
@@ -24084,6 +24304,60 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!1 &1293258311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1293258313}
+  - component: {fileID: 1293258312}
+  m_Layer: 0
+  m_Name: Collision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1293258312
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1293258311}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 0.8}
+  m_EdgeRadius: 0
+--- !u!4 &1293258313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1293258311}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 156092167}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1297984706
 GameObject:
   m_ObjectHideFlags: 0
@@ -25432,6 +25706,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1447209045}
   _thisTransform: {fileID: 1447209048}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -25440,6 +25715,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1164162064}
   _thisSpriteRenderer: {fileID: 1407749950}
   _thisCollisionCollider2D: {fileID: 1447209046}
@@ -25883,6 +26159,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1466048697}
   _thisTransform: {fileID: 1466048701}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -25891,6 +26168,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 2000182457}
   _thisSpriteRenderer: {fileID: 311446920}
   _thisCollisionCollider2D: {fileID: 1466048699}
@@ -25972,6 +26250,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1466064061}
   _thisTransform: {fileID: 1466064065}
   oldBrain: {fileID: 11400000, guid: d85b3fa20748cfb49a7351391272a058, type: 2}
+  cachedBrain: {fileID: 11400000, guid: d85b3fa20748cfb49a7351391272a058, type: 2}
   buffableBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   _thisRigidbody2D: {fileID: 1466064064}
@@ -26037,7 +26316,7 @@ Transform:
   - {fileID: 602848352}
   - {fileID: 331760984}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1471224143
 GameObject:
@@ -26440,6 +26719,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1493244124}
   _thisTransform: {fileID: 1493244128}
   oldBrain: {fileID: 11400000, guid: d85b3fa20748cfb49a7351391272a058, type: 2}
+  cachedBrain: {fileID: 11400000, guid: d85b3fa20748cfb49a7351391272a058, type: 2}
   buffableBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   _thisRigidbody2D: {fileID: 1493244127}
@@ -27689,6 +27969,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1582228664}
   _thisTransform: {fileID: 1582228667}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -27697,6 +27978,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1300642103}
   _thisSpriteRenderer: {fileID: 170861543}
   _thisCollisionCollider2D: {fileID: 1582228665}
@@ -28333,6 +28615,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1640265003}
   _thisTransform: {fileID: 1640265007}
   oldBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
   enemyBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   powerUpBrains: []
@@ -28493,7 +28776,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1640265003}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.91, y: -3.1, z: 0}
+  m_LocalPosition: {x: -0.04000008, y: -3.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1938158173}
@@ -28905,6 +29188,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1653727796}
   _thisTransform: {fileID: 1653727801}
   oldBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
   enemyBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   powerUpBrains: []
@@ -29079,14 +29363,14 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1653727796}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.95, y: -3.1, z: 0}
+  m_LocalPosition: {x: 1.92, y: -3.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1471224144}
   - {fileID: 1913490308}
   - {fileID: 111666493}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1656137408
 GameObject:
@@ -29124,6 +29408,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1656137408}
   _thisTransform: {fileID: 1656137413}
   oldBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
   enemyBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   powerUpBrains: []
@@ -29894,6 +30179,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1682206489}
   _thisTransform: {fileID: 1682206492}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -29902,6 +30188,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1623022150}
   _thisSpriteRenderer: {fileID: 470714210}
   _thisCollisionCollider2D: {fileID: 1682206490}
@@ -31060,6 +31347,57 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1746233073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1390157847448240, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1746233074}
+  - component: {fileID: 1746233075}
+  m_Layer: 0
+  m_Name: Brick
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1746233074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4201921909368800, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1746233073}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 260568548}
+  m_Father: {fileID: 156092167}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1746233075
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 95631879523681192, guid: de8512146f9acdb439fdefc30112dd8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1746233073}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e52ebf5e6b1cafb429ddd77bbe785b19, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1749052229
 Prefab:
   m_ObjectHideFlags: 0
@@ -31634,6 +31972,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1795125274}
   _thisTransform: {fileID: 1795125278}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -31642,6 +31981,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1650381122}
   _thisSpriteRenderer: {fileID: 1920401848}
   _thisCollisionCollider2D: {fileID: 1795125276}
@@ -32065,6 +32405,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 1827906947}
   _thisTransform: {fileID: 1827906951}
   oldBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 32cd060a466d8a241a8f96a957ea2de2, type: 2}
   interactorBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   content: {fileID: 1519093888514030, guid: 01b8f0c578d38cc41826eee6d90dafa7, type: 2}
@@ -32073,6 +32414,7 @@ MonoBehaviour:
   contentCount: 0
   hitSound: {fileID: 8300000, guid: 62c211e40682ed4459e087a090e030d9, type: 3}
   contentAppearSound: {fileID: 8300000, guid: a9364040ddbcba04282ef82364b1af4d, type: 3}
+  _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1824436785}
   _thisSpriteRenderer: {fileID: 2097470182}
   _thisCollisionCollider2D: {fileID: 1827906949}
@@ -36399,6 +36741,72 @@ Transform:
   m_Father: {fileID: 1824436784}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2098534038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2098534040}
+  - component: {fileID: 2098534041}
+  - component: {fileID: 2098534039}
+  m_Layer: 11
+  m_Name: Interaction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2098534039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2098534038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b0a7471ef4df94993f8b3590c4e463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2098534040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2098534038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 156092167}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2098534041
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2098534038}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 0.8}
+  m_EdgeRadius: 0
 --- !u!1 &2100480567
 GameObject:
   m_ObjectHideFlags: 0
@@ -36812,6 +37220,7 @@ MonoBehaviour:
   _thisGameObject: {fileID: 2120892551}
   _thisTransform: {fileID: 2120892556}
   oldBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
+  cachedBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
   enemyBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   powerUpBrains: []
@@ -36986,14 +37395,14 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2120892551}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.01, y: -3.1, z: 0}
+  m_LocalPosition: {x: 3.88, y: -3.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 517654626}
   - {fileID: 320797062}
   - {fileID: 1086819842}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2123015976
 GameObject:

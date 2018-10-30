@@ -45,21 +45,21 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
 			}
 		}
 
-		BlockActor otherBlockActor = interactor.GetComponent<BlockActor>();
-		if(otherBlockActor) {
-			Collider2D collision = otherBlockActor.thisInteractionCollider2D;
+		//BlockActor otherBlockActor = interactor.GetComponent<BlockActor>();
+		//if(otherBlockActor) {
+		//	Collider2D collision = otherBlockActor.thisInteractionCollider2D;
 
-			Debug.Log("Block interacted");
-			if(Utilities.CheckOtherColliderDirection2D(Direction.Up, characterActor.thisInteractionCollider2D, collision)) {
-				if(characterActor.formStateMachine.currentState.isCanBreakBrick) {
-					otherBlockActor.Destroy();
-					return true;
-				} else {
-					otherBlockActor.Interact();
-					return true;
-				}
-			}
-		}
+		//	Debug.Log("Block interacted");
+		//	if(Utilities.CheckOtherColliderDirection2D(Direction.Up, characterActor.thisInteractionCollider2D, collision)) {
+		//		if(characterActor.formStateMachine.currentState.isCanBreakBrick) {
+		//			otherBlockActor.Destroy();
+		//			return true;
+		//		} else {
+		//			otherBlockActor.Interact();
+		//			return true;
+		//		}
+		//	}
+		//}
 
 		return false;
 	}
@@ -156,6 +156,7 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
 
 		Interactable interactable = collision.transform.root.GetComponent<Interactable>();
 		if(interactable) {
+			Debug.Log(string.Format("Mario interacting {0}", interactable.name));
 			interactable.Interact(characterActor.gameObject);
 		}
 	}

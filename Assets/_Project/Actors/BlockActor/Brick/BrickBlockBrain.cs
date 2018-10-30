@@ -5,9 +5,30 @@ using WishfulDroplet.Extensions;
 
 [CreateAssetMenu(menuName = "Actors/Blocks/Brains/Block")]
 public class BrickBlockBrain : BlockActor.BlockBrain {
-	public override void DoTriggerEnter2D(BlockActor blockActor, Collider2D collision) {
-		Debug.Log("Brick interacted");
+	public override bool DoInteract(BlockActor blockActor, GameObject interactor) {
+		Debug.Log(string.Format("Brick interacted: {0}", interactor.name));
 
+		CharacterActor otherCharacterActor = interactor.GetComponent<CharacterActor>();
+		if(otherCharacterActor) {
+			Collider2D collision = otherCharacterActor.thisInteractionCollider2D;
+
+			if(Utilities.CheckOtherColliderDirection2D(Direction.Down, blockActor.thisInteractionCollider2D, collision, 5f)) {
+				if(otherCharacterActor.formStateMachine.currentState.isCanBreakBrick) {
+					blockActor.Destroy();
+					Debug.Log("Destroy");
+					return true;
+				} else {
+					blockActor.Interact();
+					Debug.Log("Interact");
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public override void DoTriggerEnter2D(BlockActor blockActor, Collider2D collision) {
 		//if(Utilities.CheckOtherColliderDirection2D(Direction.Left, blockActor.thisInteractionCollider2D, collision, 5f)) {
 
 		//}
@@ -32,5 +53,10 @@ public class BrickBlockBrain : BlockActor.BlockBrain {
 		//		}
 		//	}
 		//}
+
+		Interactable interactable = collision.transform.root.GetComponent<Interactable>();
+		if(interactable) {
+			interactable.Interact(blockActor.gameObject);
+		}
 	}
 }

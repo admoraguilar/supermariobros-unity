@@ -5,7 +5,22 @@ namespace WishfulDroplet {
     public abstract class Actor<TActor, TBrain> : _InternalActor
         where TActor : Actor<TActor, TBrain>
         where TBrain : ActorBrain<TActor> {
-        public GameObject thisGameObject {
+		public new TBrain brain {
+			get {
+				// We cache it so we don't cast everytime
+				// #MICRO-OPTIMIZATIIIIION
+				if(cachedBrain != base.brain) {
+					cachedBrain = (TBrain)base.brain;
+					Debug.Log("Caching brain");
+				}
+				return cachedBrain;
+			}
+			private set {
+				base.brain = value;
+			}
+		}
+
+		public GameObject thisGameObject {
             get { return _thisGameObject; }
             private set { _thisGameObject = value; }
         }
@@ -15,18 +30,15 @@ namespace WishfulDroplet {
             private set { _thisTransform = value; }
         }
 
-        [InspectorNote("Actor")]
-        [Header("Base Data")]
-        public TBrain brain;
-        
-
-        [Header("Base Refereces")]
+		[InspectorNote("Actor")]
+		[Header("Base Refereces")]
         [SerializeField] protected TActor _thisActor;
         [SerializeField] protected GameObject _thisGameObject;
         [SerializeField] protected Transform _thisTransform;
 
         [Header("Base Editor Internal")]
         [SerializeField] protected TBrain oldBrain;
+		[SerializeField] protected TBrain cachedBrain; 
 
 
         protected bool IsBrainOnSet<T>(T[] brainSet, T brain) {
@@ -77,21 +89,25 @@ namespace WishfulDroplet {
     }
 
 
-    public abstract class _InternalActor : MonoBehaviour { }
+    public abstract class _InternalActor : MonoBehaviour {
+		[InspectorNote("_Internal Actor")]
+		[Header("Base Data")]
+		public _InternalActorBrain brain;
+	}
+
     public abstract class _InternalActorBrain : ScriptableObject { }
+
+	//public class LevelItemActor : LevelItemActor<LevelItemActor, LevelItemActor.LevelItemBrain> {
+	//    public abstract class LevelItemBrain : ActorBrain<LevelItemActor> {
+
+	//    }
+	//}
+
+
+	//public class LevelItemActor<T, U> : Actor<T, U>
+	//    where T : Actor<T, U>
+	//    where U : ActorBrain<T> {
+	//    [InspectorNote("Level Item Actor")]
+	//    public int test = 0;
+	//}
 }
-
-
-//public class LevelItemActor : LevelItemActor<LevelItemActor, LevelItemActor.LevelItemBrain> {
-//    public abstract class LevelItemBrain : ActorBrain<LevelItemActor> {
-
-//    }
-//}
-
-
-//public class LevelItemActor<T, U> : Actor<T, U>
-//    where T : Actor<T, U>
-//    where U : ActorBrain<T> {
-//    [InspectorNote("Level Item Actor")]
-//    public int test = 0;
-//}
