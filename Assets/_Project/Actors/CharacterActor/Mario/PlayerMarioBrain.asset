@@ -9,5 +9,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 382fc1b904ebfd341818f5f47e8281c2, type: 3}
-  m_Name: MarioBrain
+  m_Name: PlayerMarioBrain
   m_EditorClassIdentifier: 
+  isUpdateInput: 1

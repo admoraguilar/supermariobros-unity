@@ -1,3 +1,16 @@
+STUFF THAT COULD BE DONE:
+* Editor Settings Snapshot
+   * Snapshots
+   * Presets
+
+* Encapsulated features
+   * Object move via Character2D
+
+* Powerup
+   * Powerup appear from box
+
+=========================================
+
 WORKFLOW:
 * Objects should only have one "Controller" script which drives the whole thing.
 	* The "Controller" will have "Component" which could be shared with other "Controllers".

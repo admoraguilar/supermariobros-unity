@@ -13,6 +13,8 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
 	}
 
 	public override void UpdateInput(CharacterActor characterActor) {
+		if(!isUpdateInput) return;
+
 		characterActor.inputAxis = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 		characterActor.isSprinting = Input.GetKey(KeyCode.LeftShift);
 		characterActor.isJumping = Input.GetKey(KeyCode.Space);

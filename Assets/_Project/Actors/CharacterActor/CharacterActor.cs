@@ -297,6 +297,9 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 
 
 	public abstract class CharacterBrain : ActorBrain<CharacterActor> {
+		public bool isUpdateInput = true;
+
+
 		public virtual void UpdateInput(CharacterActor characterActor) { }
 		public virtual bool DoInteract(CharacterActor characterActor, GameObject interactor) { return false; }
 	}
