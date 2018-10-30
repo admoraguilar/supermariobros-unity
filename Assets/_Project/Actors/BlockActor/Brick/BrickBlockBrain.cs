@@ -14,11 +14,16 @@ public class BrickBlockBrain : BlockActor.BlockBrain {
 
 			if(Utilities.CheckOtherColliderDirection2D(Direction.Down, blockActor.thisInteractionCollider2D, collision, 5f)) {
 				if(otherCharacterActor.formStateMachine.currentState.isCanBreakBrick) {
-					blockActor.Destroy();
+					ActionTemplates.RunActionAfterSeconds("BlockBrain_DelayedDisable", .05f, () => { blockActor.gameObject.SetActive(false); });
+					if (blockActor.content) {
+						Instantiate(blockActor.content, blockActor.thisTransform.position, blockActor.thisTransform.rotation);
+					}
+					Singleton.Get<IAudioController>().PlayOneShot(blockActor.contentAppearSound);
 					Debug.Log("Destroy");
 					return true;
 				} else {
-					blockActor.Interact();
+					blockActor.thisAnimator.PlayNoRepeat("Interacted");
+					Singleton.Get<IAudioController>().PlayOneShot(blockActor.hitSound);
 					Debug.Log("Interact");
 					return true;
 				}

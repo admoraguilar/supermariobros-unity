@@ -37,7 +37,6 @@ namespace WishfulDroplet {
         [SerializeField] protected Transform _thisTransform;
 
         [Header("Base Editor Internal")]
-        [SerializeField] protected TBrain oldBrain;
 		[SerializeField] protected TBrain cachedBrain; 
 
 
@@ -55,9 +54,9 @@ namespace WishfulDroplet {
 
         protected virtual void OnValidate() {
             if(brain) {
-                if(brain != oldBrain) {
+				if(brain != cachedBrain) {
                     brain.DoReset(_thisActor);
-                    oldBrain = brain;
+					cachedBrain = brain;
                 }
             }
         }

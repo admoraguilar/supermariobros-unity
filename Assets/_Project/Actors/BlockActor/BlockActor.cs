@@ -53,21 +53,6 @@ public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
         return IsBrainOnSet(interactorBrains, brain);
     }
 
-	public void Interact() {
-		thisAnimator.PlayNoRepeat("Interacted");
-
-		Singleton.Get<IAudioController>().PlayOneShot(hitSound);
-	}
-
-	public void Destroy() {
-		ActionTemplates.RunActionAfterSeconds("BlockBrain_DelayedDisable", .05f, () => { gameObject.SetActive(false); });
-
-		if(content) {
-			Instantiate(content, thisTransform.position, thisTransform.rotation);
-		}
-		Singleton.Get<IAudioController>().PlayOneShot(contentAppearSound);
-	}
-
 	private bool OnInteract(GameObject interactor) {
 		if(brain) {
 			brain.DoInteract(this, interactor);
