@@ -69,7 +69,7 @@ namespace WishfulDroplet {
                 }
 
                 foreach(var singleton in singletonSet.scriptableObjectSingletons) {
-                    if(singleton) continue;
+                    if(!singleton) continue;
 
                     ScriptableObject so = singleton as ScriptableObject;
                     if(so) {

@@ -15,5 +15,6 @@ MonoBehaviour:
   - label: Game
     gameObjectSingletons:
     - {fileID: 1474133770736704, guid: 678763bd691433c46bf67fbf5494a9bf, type: 2}
-    scriptableObjectSingletons: []
+    scriptableObjectSingletons:
+    - {fileID: 11400000, guid: a5c4d2b6320631d48b01db852e432e36, type: 2}
     isEnabled: 1
