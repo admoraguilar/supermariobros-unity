@@ -10,22 +10,40 @@ namespace WishfulDroplet {
 		private static Dictionary<Type, IList<IList>> dataWatchers = new Dictionary<Type, IList<IList>>();
 
 
+		public static List<List<T>> GetWatchers<T>() {
+			// Plz optimize this code this is the headache of the bunch
+			IList<IList> watchers = GetWatchers(typeof(T));
+
+			List<List<T>> castWatchers = new List<List<T>>();
+			foreach(var watcher in watchers) {
+				List<T> castWatcher = watcher as List<T>;
+				if(castWatcher != null) {
+					castWatchers.Add(castWatcher);
+				}
+			}
+
+			return castWatchers;
+		}
+
 		public static IList<IList> GetWatchers(Type type) {
 			IList<IList> value = null;
-			dataWatchers.TryGetValue(type, out value);
+			if(!dataWatchers.TryGetValue(type, out value)) {
+				dataWatchers.Add(type, value = new List<IList>());
+				value.Add(new ArrayList());
+				//Debug.Log(string.Format("Creating new data watcher set of type: {0}", type.Name));
+			}
 
 			IList<IList> watchers = value as IList<IList>;
 			return watchers;
 		}
 
 		public static void AddWatcher<T>(ref List<T> watcher) {
-			Type type = typeof(T);
-			if(!dataWatchers.ContainsKey(type)) {
-				dataWatchers.Add(type, new List<IList>());
-				//Debug.Log(string.Format("Creating new data watcher set of type: {0}", type.Name));
-			}
+			IList cast = watcher;
+			AddWatcher(typeof(T), ref cast);
+		}
 
-			IList<IList> watchers = GetWatchers(typeof(T));
+		public static void AddWatcher(Type type, ref IList watcher) {
+			IList<IList> watchers = GetWatchers(type);
 			if(watchers != null) {
 				watchers.Add(watcher);
 				//Debug.Log(string.Format("Watcher added successfully, watcher data count: {0}", watchers.Count));
@@ -33,13 +51,20 @@ namespace WishfulDroplet {
 				IList firstWatcher = watchers.FirstOrDefault();
 				if(firstWatcher != null) {
 					watcher.Clear();
-					watcher.AddRange((List<T>)firstWatcher);
+					foreach(var data in firstWatcher) {
+						watcher.Add(data);
+					}
 				}
 			}
 		}
 
 		public static void RemoveWatcher<T>(List<T> watcher) {
-			IList<IList> watchers = GetWatchers(watcher.GetType());
+			IList cast = watcher;
+			RemoveWatcher(typeof(T), watcher);
+		}
+
+		public static void RemoveWatcher(Type type, IList watcher) {
+			IList<IList> watchers = GetWatchers(type);
 			if(watchers != null) {
 				watchers.Remove(watcher);
 				//Debug.Log(string.Format("Watcher removed successfully, watcher data count: {0}", watchers.Count));

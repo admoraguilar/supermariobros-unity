@@ -14,7 +14,7 @@ STUFF THAT COULD BE DONE:
 REFACTOR:
 v StateMachine
 v SingletonConfig
-* DataBinder
+v DataBinder - DataWatcher
 
 =========================================
 
