@@ -88,10 +88,10 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 	[Header("Internal")]
 	public Vector2 inputAxis = Vector2.zero;
 	public Vector2 lastJumpPos = Vector2.zero;
-	public StateController stateController = new StateController();
-	public StateMachine<CharacterActor, FormStates.FormState> formStateMachine = new StateMachine<CharacterActor, FormStates.FormState>("FORM");
-	public StateMachine<CharacterActor, CharacterState> movementStateMachine = new StateMachine<CharacterActor, CharacterState>("MOVEMENT");
-	public StateMachine<CharacterActor, CharacterState> statusStateMachine = new StateMachine<CharacterActor, CharacterState>("STATUS");
+	//public StateController stateController = new StateController();
+	public StateMachine<CharacterActor, FormStates.FormState> formStateMachine = new StateMachine<CharacterActor, FormStates.FormState>();
+	public StateMachine<CharacterActor, CharacterState> movementStateMachine = new StateMachine<CharacterActor, CharacterState>();
+	public StateMachine<CharacterActor, CharacterState> statusStateMachine = new StateMachine<CharacterActor, CharacterState>();
 
 	[Header("References")]
 	[SerializeField] private Rigidbody2D _thisRigidbody2D;
@@ -181,9 +181,9 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 	}
 
 	private void Start() {
-		stateController.AddStateMachine(formStateMachine, this);
-		stateController.AddStateMachine(movementStateMachine, this);
-		stateController.AddStateMachine(statusStateMachine, this);
+		//stateController.AddStateMachine(formStateMachine, this);
+		//stateController.AddStateMachine(movementStateMachine, this);
+		//stateController.AddStateMachine(statusStateMachine, this);
 
 		if(brain) {
 			brain.DoStart(this);
@@ -201,7 +201,7 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 			brain.DoUpdate(this);
 		}
 
-		stateController.Update();
+		//stateController.Update();
 	}
 
 	private void FixedUpdate() {
@@ -209,7 +209,7 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 			brain.DoFixedUpdate(this);
 		}
 
-		stateController.FixedUpdate();
+		//stateController.FixedUpdate();
 	}
 
 	private void _OnCollisionEnter2D(Collision2D collision) {

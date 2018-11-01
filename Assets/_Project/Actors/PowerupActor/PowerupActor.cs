@@ -36,7 +36,7 @@ public class PowerupActor : Actor<PowerupActor, PowerupActor.PowerupBrain> {
 
 	[Header("Internal")]
 	public Vector2 moveDirection;
-	[HideInInspector] public StateMachine<PowerupActor, PowerupState> movementStateMachine = new StateMachine<PowerupActor, PowerupState>("MOVEMENT");
+	[HideInInspector] public StateMachine<PowerupActor, PowerupState> movementStateMachine = new StateMachine<PowerupActor, PowerupState>();
 
 	[Header("References")]
 	[SerializeField] private Rigidbody2D _thisRigidbody2D;

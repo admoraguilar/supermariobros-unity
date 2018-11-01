@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
+using System;
+using System.Collections.Generic;
 using System.IO;
 
 
 namespace WishfulDroplet.Editor {
     public static class Utilities {
-        public static T CreateScriptableObjectAsset<T>(string path) where T : ScriptableObject {
+		public static T CreateScriptableObjectAsset<T>(string path) where T : ScriptableObject {
             T so = ScriptableObject.CreateInstance<T>();
 
             AssetDatabase.CreateAsset(so, string.Format("{0}/{1}.asset", path, typeof(T).Name));

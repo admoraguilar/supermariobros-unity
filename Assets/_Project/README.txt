@@ -11,6 +11,13 @@ STUFF THAT COULD BE DONE:
 
 =========================================
 
+REFACTOR:
+v StateMachine
+v SingletonConfig
+* DataBinder
+
+=========================================
+
 WORKFLOW:
 * Objects should only have one "Controller" script which drives the whole thing.
 	* The "Controller" will have "Component" which could be shared with other "Controllers".
@@ -25,7 +32,10 @@ WORKFLOW:
 
 BUGS:
 * Transitioning from small to big, when picking up a mushroom timescale stop and animation doesn't work.
-
+* PowerupActor movement slows down when changing move direction. 
+* Mario can interact with the side of a BlockActor which can lead to different problems
+   * Mario's Character2D touched colliders could malfunction hence making Mario not be able to move on certain directions
+   * Mario falls down when jumping on stacks of bricks
 
 =========================================
 
