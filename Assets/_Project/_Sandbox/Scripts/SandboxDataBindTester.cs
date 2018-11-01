@@ -10,7 +10,7 @@ public class SandboxDataBindTester : MonoBehaviour {
 
 
 	private void Start() {
-		DataWatcher.AddWatcher(ref cameraWatcher);
+		DataWatcher.AddWatcher(cameraWatcher);
 		//DataWatcher.AddData(gameObject);
 	}
 
@@ -20,6 +20,8 @@ public class SandboxDataBindTester : MonoBehaviour {
 
 	private void OnDestroy() {
 		DataWatcher.RemoveWatcher(cameraWatcher);
-		Debug.Log(string.Format("Removing watcher, count now: {0}", DataWatcher.GetWatchers<Camera>().Count));
+		List<List<Camera>> watchers = new List<List<Camera>>();
+		DataWatcher.GetWatchers(watchers);
+		Debug.Log(string.Format("Removing watcher, count now: {0}", watchers.Count));
 	}
 }

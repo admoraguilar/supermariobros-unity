@@ -10,6 +10,17 @@ namespace WishfulDroplet {
 		private static Dictionary<Type, IList<IList>> dataWatchers = new Dictionary<Type, IList<IList>>();
 
 
+		public static void GetWatchers<T>(List<List<T>> results) {
+			IList<IList> watchers = GetWatchers(typeof(T));
+
+			foreach(var watcher in watchers) {
+				List<T> castWatcher = watcher as List<T>;
+				if(castWatcher != null) {
+					results.Add(castWatcher);
+				}
+			}
+		} 
+
 		public static List<List<T>> GetWatchers<T>() {
 			// Plz optimize this code this is the headache of the bunch
 			IList<IList> watchers = GetWatchers(typeof(T));
@@ -28,7 +39,8 @@ namespace WishfulDroplet {
 		public static IList<IList> GetWatchers(Type type) {
 			IList<IList> value = null;
 			if(!dataWatchers.TryGetValue(type, out value)) {
-				dataWatchers.Add(type, value = new List<IList>());
+				value = new List<IList>();
+				dataWatchers.Add(type, value);
 				value.Add(new ArrayList());
 				//Debug.Log(string.Format("Creating new data watcher set of type: {0}", type.Name));
 			}
@@ -37,12 +49,12 @@ namespace WishfulDroplet {
 			return watchers;
 		}
 
-		public static void AddWatcher<T>(ref List<T> watcher) {
+		public static void AddWatcher<T>(List<T> watcher) {
 			IList cast = watcher;
-			AddWatcher(typeof(T), ref cast);
+			AddWatcher(typeof(T), cast);
 		}
 
-		public static void AddWatcher(Type type, ref IList watcher) {
+		public static void AddWatcher(Type type, IList watcher) {
 			IList<IList> watchers = GetWatchers(type);
 			if(watchers != null) {
 				watchers.Add(watcher);
