@@ -18,16 +18,22 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
 	}
 
 	public override void DoInteractionHit(CharacterActor characterActor, Direction direction, RaycastHit2D hit, Collider2D collider) {
+		Interactable interactable = collider.transform.root.GetComponent<Interactable>();
+
 		switch(direction) {
 			case Direction.Up:
-				Interactable interactable = collider.transform.root.GetComponent<Interactable>();
 				if(interactable) {
-					//Debug.Log(string.Format("Mario interacting up: {0}.{1}", collider.transform.root.name, collider.name));
 					interactable.Interact(characterActor.gameObject);
-					//Debug.Log(string.Format("Found interactable: {0}.{1}", collider.transform.root.name, collider.name));
+				}
+				break;
+			case Direction.Down:
+				if(interactable) {
+					interactable.Interact(characterActor.gameObject);
 				}
 				break;
 		}
+
+		
 	}
 
 	public override bool DoInteracted(CharacterActor characterActor, GameObject interactor) {
@@ -71,6 +77,14 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
 
 		if(Input.GetKeyDown(KeyCode.T)) {
 			characterActor.SetForm(characterActor.powerFormState);
+		}
+
+		if(Input.GetKeyDown(KeyCode.F)) {
+			characterActor.statusStateMachine.SetState(characterActor.normalStatusState);
+		}
+
+		if(Input.GetKeyDown(KeyCode.G)) {
+			characterActor.statusStateMachine.SetState(characterActor.deadStatusState);
 		}
 	}
 

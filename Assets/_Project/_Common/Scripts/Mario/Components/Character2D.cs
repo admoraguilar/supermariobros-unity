@@ -243,6 +243,6 @@ public class Character2D : MonoBehaviour {
 		};
 		_collisionCaster.boxCastMask = new List<Collider2D>(GetComponentsInChildren<Collider2D>(true));
 		_collisionCaster.referenceCollider = thisCollisionCollider2D;
-		_collisionCaster.layerMask = LayerMask.NameToLayer("Everything");
+		_collisionCaster.layerMask = LayerMask.GetMask("Default");
 	}
 }

@@ -228,6 +228,9 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 		// Setup interactor
 		thisInteractor = thisGameObject.AddOrGetComponent<Interactor>();
 
+		// Setup interactable
+		thisInteractable = thisGameObject.AddOrGetComponent<Interactable>();
+
 		// Setup Animator
 		thisAnimator = this.GetComponentInChildren<Animator>(true);
 		if(thisAnimator) {

@@ -5,23 +5,14 @@ using WishfulDroplet;
 [CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/Goomba")]
 public class GoombaCharacterBrain : CharacterActor.CharacterBrain {
 	public override void DoInteractionHit(CharacterActor characterActor, Direction direction, RaycastHit2D hitDetails, Collider2D collider) {
-		switch(direction) {
-			case Direction.Down:
-			case Direction.Left:
-			case Direction.Right:
-				Interactable interactable = collider.transform.root.GetComponent<Interactable>();
-				if(interactable) {
-					//Debug.Log(string.Format("Mario interacting up: {0}.{1}", collider.transform.root.name, collider.name));
-					interactable.Interact(characterActor.gameObject);
-				}
-				break;
+		Interactable interactable = collider.transform.root.GetComponent<Interactable>();
+		if(interactable) {
+			//Debug.Log(string.Format("Mario interacting up: {0}.{1}", collider.transform.root.name, collider.name));
+			interactable.Interact(characterActor.gameObject);
 		}
 	}
 
 	public override bool DoInteracted(CharacterActor characterActor, GameObject interactor) {
-		var actor = interactor.GetComponent<MonoActor>();
-		Debug.Log(actor.brain.name);
-
 		CharacterActor otherCharacterActor = interactor.GetComponent<CharacterActor>();
 		if(otherCharacterActor) {
 			Collider2D collision = otherCharacterActor.thisInteractionCollider2D;

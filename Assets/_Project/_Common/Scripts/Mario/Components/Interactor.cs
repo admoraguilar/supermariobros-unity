@@ -54,6 +54,20 @@ public class Interactor : MonoBehaviour {
 		_interactionCaster.UpdateHits();
 	}
 
+	private void OnDrawGizmos() {
+		// Draw gizmos for the collision caster
+		Gizmos.color = Color.yellow;
+		if(_interactionCaster.boxCastInfos != null) {
+			for(int i = 0; i < _interactionCaster.boxCastInfos.Count; i++) {
+				Gizmos.DrawWireCube(_interactionCaster.boxCastInfos[i].origin,
+									_interactionCaster.boxCastInfos[i].size);
+
+				Gizmos.DrawRay(_interactionCaster.boxCastInfos[i].origin,
+							   _interactionCaster.boxCastInfos[i].castDirection * _interactionCaster.boxCastInfos[i].distance);
+			}
+		}
+	}
+
 	private void Reset() {
 		thisGameObject = gameObject;
 		thisTransform = _thisGameObject.GetComponent<Transform>();
