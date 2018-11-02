@@ -27,7 +27,7 @@ public class PowerupActor : Actor<PowerupActor, PowerupActor.PowerupBrain> {
 
 	[InspectorNote("Powerup Actor")]
 	[Header("Data")]
-	public _InternalActorBrain[] buffableBrains;
+	public ScriptableActorBrain[] buffableBrains;
 	public float moveSpeed;
 
 	[Header("States")]
@@ -45,7 +45,7 @@ public class PowerupActor : Actor<PowerupActor, PowerupActor.PowerupBrain> {
 	[SerializeField] private BoxCollider2D _thisInteractionCollider2D;
 
 
-	public bool IsBrainBuffable(_InternalActorBrain brain) {
+	public bool IsBrainBuffable(ScriptableActorBrain brain) {
 		return IsBrainOnSet(buffableBrains, brain);
 	}
 

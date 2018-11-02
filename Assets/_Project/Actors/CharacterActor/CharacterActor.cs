@@ -46,12 +46,6 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 		private set { _thisInteractionCollider2D = value; }
 	}
 
-	public CollisionEvents2D thisInteractionColliderEvents {
-		get { return _thisInteractionColliderEvents; }
-		private set { _thisInteractionColliderEvents = value; }
-	}
-
-
 	[InspectorNote("Character Actor")]
 	[Header("Data")]
 	[SerializeField] private CharacterBrain[] enemyBrains;
@@ -88,7 +82,7 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 	[Header("Internal")]
 	public Vector2 inputAxis = Vector2.zero;
 	public Vector2 lastJumpPos = Vector2.zero;
-	//public StateController stateController = new StateController();
+	public StateMachineController<string> stateController = new StateMachineController<string>();
 	public StateMachine<CharacterActor, FormStates.FormState> formStateMachine = new StateMachine<CharacterActor, FormStates.FormState>();
 	public StateMachine<CharacterActor, CharacterState> movementStateMachine = new StateMachine<CharacterActor, CharacterState>();
 	public StateMachine<CharacterActor, CharacterState> statusStateMachine = new StateMachine<CharacterActor, CharacterState>();
@@ -96,13 +90,13 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 	[Header("References")]
 	[SerializeField] private Rigidbody2D _thisRigidbody2D;
 	[SerializeField] private Character2D _thisCharacter2D;
+	[SerializeField] private Interactor _thisInteractor;
 	[SerializeField] private Interactable _thisInteractable;
 	[SerializeField] private Animator _thisAnimator;
 	[SerializeField] private Transform _thisCharacterObject;
 	[SerializeField] private SpriteRenderer _thisSpriteRenderer;
 	[SerializeField] private BoxCollider2D _thisCollisionCollider2D;
 	[SerializeField] private BoxCollider2D _thisInteractionCollider2D;
-	[SerializeField] private CollisionEvents2D _thisInteractionColliderEvents;
 
 
 	public bool IsBrainEnemy(CharacterBrain brain) {
@@ -121,14 +115,14 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 	private void UpdateCharacterObjectFlipping() {
 		Vector2 characterFlip = thisCharacterObject.localScale;
 
-		if(isFlipOnX && thisCharacter2D.FaceAxis.x != 0f) {
-			if(thisCharacter2D.FaceAxis.x != Mathf.Sign(thisCharacterObject.localScale.x)) {
+		if(isFlipOnX && thisCharacter2D.faceAxis.x != 0f) {
+			if(thisCharacter2D.faceAxis.x != Mathf.Sign(thisCharacterObject.localScale.x)) {
 				characterFlip.x *= -1f;
 			}
 		}
 
-		if(isFlipOnY && thisCharacter2D.FaceAxis.y != 0f) {
-			if(thisCharacter2D.FaceAxis.y != Mathf.Sign(thisCharacterObject.localScale.y)) {
+		if(isFlipOnY && thisCharacter2D.faceAxis.y != 0f) {
+			if(thisCharacter2D.faceAxis.y != Mathf.Sign(thisCharacterObject.localScale.y)) {
 				characterFlip.y *= -1f;
 			}
 		}
@@ -157,12 +151,8 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 
 		thisInteractable.OnInteract += OnInteract;
 
-		thisInteractionColliderEvents.OnCollisionEnter2DCallback += _OnCollisionEnter2D;
-		thisInteractionColliderEvents.OnCollisionStay2DCallback += _OnCollisionStay2D;
-		thisInteractionColliderEvents.OnCollisionExit2DCallback += _OnCollisionExit2D;
-		thisInteractionColliderEvents.OnTriggerEnter2DCallback += _OnTriggerEnter2D;
-		thisInteractionColliderEvents.OnTriggerStay2DCallback += _OnTriggerStay2D;
-		thisInteractionColliderEvents.OnTriggerExit2DCallback += _OnTriggerExit2D;
+		thisCharacter2D.OnDirectionalBoxCastHit += OnCollisionDirectionalBoxCastHit;
+		_thisInteractor.OnDirectionalBoxCastHit += OnInteractionDirectionalBoxCastHit;
 	}
 
 	private void OnDisable() {
@@ -172,18 +162,14 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 
 		thisInteractable.OnInteract -= OnInteract;
 
-		thisInteractionColliderEvents.OnCollisionEnter2DCallback -= _OnCollisionEnter2D;
-		thisInteractionColliderEvents.OnCollisionStay2DCallback -= _OnCollisionStay2D;
-		thisInteractionColliderEvents.OnCollisionExit2DCallback -= _OnCollisionExit2D;
-		thisInteractionColliderEvents.OnTriggerEnter2DCallback -= _OnTriggerEnter2D;
-		thisInteractionColliderEvents.OnTriggerStay2DCallback -= _OnTriggerStay2D;
-		thisInteractionColliderEvents.OnTriggerExit2DCallback -= _OnTriggerExit2D;
+		thisCharacter2D.OnDirectionalBoxCastHit -= OnCollisionDirectionalBoxCastHit;
+		_thisInteractor.OnDirectionalBoxCastHit -= OnInteractionDirectionalBoxCastHit;
 	}
 
 	private void Start() {
-		//stateController.AddStateMachine(formStateMachine, this);
-		//stateController.AddStateMachine(movementStateMachine, this);
-		//stateController.AddStateMachine(statusStateMachine, this);
+		stateController.AddStateMachine(this, "FORM", formStateMachine);
+		stateController.AddStateMachine(this, "MOVEMENT", movementStateMachine);
+		stateController.AddStateMachine(this, "STATUS", statusStateMachine);
 
 		if(brain) {
 			brain.DoStart(this);
@@ -201,7 +187,7 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 			brain.DoUpdate(this);
 		}
 
-		//stateController.Update();
+		stateController.Update();
 	}
 
 	private void FixedUpdate() {
@@ -209,42 +195,18 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 			brain.DoFixedUpdate(this);
 		}
 
-		//stateController.FixedUpdate();
+		stateController.FixedUpdate();
 	}
 
-	private void _OnCollisionEnter2D(Collision2D collision) {
+	private void OnCollisionDirectionalBoxCastHit(Direction direction, RaycastHit2D hit, Collider2D collider) {
 		if(brain) {
-			brain.DoCollisionEnter2D(this, collision);
+			brain.DoCollisionDirectionalBoxCastHit(this, direction, hit, collider);
 		}
 	}
 
-	private void _OnCollisionStay2D(Collision2D collision) {
+	private void OnInteractionDirectionalBoxCastHit(Direction direction, RaycastHit2D hit, Collider2D collider) {
 		if(brain) {
-			brain.DoCollisionStay2D(this, collision);
-		}
-	}
-
-	private void _OnCollisionExit2D(Collision2D collision) {
-		if(brain) {
-			brain.DoCollisionExit2D(this, collision);
-		}
-	}
-
-	private void _OnTriggerEnter2D(Collider2D collision) {
-		if(brain) {
-			brain.DoTriggerEnter2D(this, collision);
-		}
-	}
-
-	private void _OnTriggerStay2D(Collider2D collision) {
-		if(brain) {
-			brain.DoTriggerStay2D(this, collision);
-		}
-	}
-
-	private void _OnTriggerExit2D(Collider2D collision) {
-		if(brain) {
-			brain.DoTriggerExit2D(this, collision);
+			brain.DoInteractionDirectionalBoxCastHit(this, direction, hit, collider);
 		}
 	}
 
@@ -272,6 +234,9 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 		// Setup Character2D
 		thisCharacter2D = thisGameObject.AddOrGetComponent<Character2D>();
 
+		// Setup interactor
+		_thisInteractor = thisGameObject.AddOrGetComponent<Interactor>();
+
 		// Setup Animator
 		thisAnimator = this.GetComponentInChildren<Animator>(true);
 		if(thisAnimator) {
@@ -290,9 +255,6 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 		thisInteractionCollider2D = Utilities.CreateObject("Interaction", thisTransform).AddOrGetComponent<BoxCollider2D>();
 		thisInteractionCollider2D.isTrigger = true;
 		thisInteractionCollider2D.size = thisCollisionCollider2D.size;
-
-		// Setup interaction collider events
-		thisInteractionColliderEvents = thisInteractionCollider2D.gameObject.AddOrGetComponent<CollisionEvents2D>();
 	}
 
 
@@ -302,6 +264,8 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 
 		public virtual void UpdateInput(CharacterActor characterActor) { }
 		public virtual bool DoInteract(CharacterActor characterActor, GameObject interactor) { return false; }
+		public virtual void DoCollisionDirectionalBoxCastHit(CharacterActor characterActor, Direction direction, RaycastHit2D hit, Collider2D collider) { }
+		public virtual void DoInteractionDirectionalBoxCastHit(CharacterActor characterActor, Direction direction, RaycastHit2D hit, Collider2D collider) { }
 	}
 
 
@@ -392,8 +356,8 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 
 			public override void DoUpdate(CharacterActor characterActor) {
 				characterActor.thisAnimator.SetFloat("WalkSpeedMultiplier",
-											2.5f * Mathf.Max(0.1f, Mathf.InverseLerp(0f, characterActor.thisCharacter2D.MaxVelocity.x,
-																						 Mathf.Abs(characterActor.thisCharacter2D.Velocity.x))));
+											2.5f * Mathf.Max(0.1f, Mathf.InverseLerp(0f, characterActor.thisCharacter2D.maxVelocity.x,
+																						 Mathf.Abs(characterActor.thisCharacter2D.thisRigidbody2D.velocity.x))));
 			}
 
 			public override void DoFixedUpdate(CharacterActor characterActor) {
@@ -472,7 +436,7 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 				timer = 0f;
 
 				characterActor.thisAnimator.PlayNoRepeat("Jump");
-				characterActor.thisCharacter2D.SetVelocity(new Vector2(characterActor.thisCharacter2D.Velocity.x, 0f));
+				characterActor.thisCharacter2D.SetVelocity(new Vector2(characterActor.thisCharacter2D.thisRigidbody2D.velocity.x, 0f));
 				Singleton.Get<IAudioController>().PlayOneShot(stepSound);
 			}
 

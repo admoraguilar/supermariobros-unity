@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 #if UNITY_EDITOR
@@ -20,131 +21,170 @@ namespace WishfulDroplet {
 	}
 
 
+	public enum CollisionFilter {
+		OnlyNonTrigger,
+		OnlyTrigger,
+		Both
+	}
+
+
 	[Serializable]
 	public class DirectionalBoxCast2D {
-		public DirectionalBoxCast2D(int maxHitBufferSize = 20) {
-			hitBuffer = new RaycastHit2D[maxHitBufferSize];
+		public event Action<Direction, RaycastHit2D, Collider2D> OnHit = delegate { };
+
+		public List<BoxCastInfo> boxCastInfos = new List<BoxCastInfo>();
+		public LayerMask layerMask;
+		public BoxCollider2D referenceCollider;
+		public List<Collider2D> castMask = new List<Collider2D>();
+
+		private RaycastHit2D[] _hitBuffer;
+
+
+		public DirectionalBoxCast2D(int hitBufferSize = 20) {
+			SetHitBufferSize(hitBufferSize);
 		}
 
-		[SerializeField] public BoxCastInfo[] BoxInfos;
-		[SerializeField] public BoxCollider2D ReferenceCollider;
-
-		private RaycastHit2D[] hitBuffer;
-
-
-		public bool IsHit(Collider2D collider = null) {
-			bool isHit = false;
-
-			for(int i = 0; i < BoxInfos.Length; i++) {
-				if(!collider) {
-					if(BoxInfos[i].Hits.Count != 0) {
-						isHit = true;
-						break;
-					}
-				} else {
-					if(BoxInfos[i].Hits.Contains(collider)) {
-						isHit = true;
-						break;
-					}
-				}
-			}
-
-			return isHit;
-		}
-
-		public bool IsHit(Direction direction, Collider2D collider = null) {
-			for(int i = 0; i < BoxInfos.Length; i++) {
-				if(BoxInfos[i].Direction == direction) {
-					if(!collider) {
-						return BoxInfos[i].Hits.Count != 0;
-					} else {
-						return BoxInfos[i].Hits.Contains(collider);
-					}
+		public bool IsHittingAtAnyDirection(CollisionFilter filter) {
+			for(int i = 0; i < boxCastInfos.Count; i++) {
+				if(IsEvaluateHits(filter, boxCastInfos[i].hits)) {
+					return true;
 				}
 			}
 
 			return false;
 		}
 
-		public void SetHitBufferSize(int size) {
-			hitBuffer = new RaycastHit2D[size];
+		public bool IsHittingAtAnyDirection(Collider2D collider) {
+			for(int i = 0; i < boxCastInfos.Count; i++) {
+				if(boxCastInfos[i].hits.Contains(collider)) {
+					return true;
+				}
+			}
+
+			return false;
 		}
 
-		public void GetHits(IList<Collider2D> touchColliderMask = null, IList<Collider2D> boxCastMask = null, Action<Direction, RaycastHit2D, Collider2D> onHit = null) {
-			for(int i = 0; i < BoxInfos.Length; i++) {
-				switch(BoxInfos[i].Direction) {
+		public bool IsHittingAt(Direction direction, CollisionFilter filter) {
+			BoxCastInfo info = GetBoxCastInfo(direction);
+			if(info != null) {
+				return IsEvaluateHits(filter, info.hits);
+			}
+
+			return false;
+		}
+
+		public bool IsHittingAt(Direction direction, Collider2D collider) {
+			BoxCastInfo info = GetBoxCastInfo(direction);
+			if(info != null) {
+				return info.hits.Contains(collider);
+			}
+
+			return false;
+		}
+
+		public BoxCastInfo GetBoxCastInfo(Direction direction) {
+			for(int i = 0; i < boxCastInfos.Count; i++) {
+				if(boxCastInfos[i].direction == direction) {
+					return boxCastInfos[i];
+				}
+			}
+
+			return null;
+		}
+
+		public void SetHitBufferSize(int size) {
+			_hitBuffer = new RaycastHit2D[size];
+		}
+
+		public void UpdateHits() {
+			for(int i = 0; i < boxCastInfos.Count; i++) {
+				boxCastInfos[i].hits.Clear();
+
+				switch(boxCastInfos[i].direction) {
 					case Direction.Up:
-						BoxInfos[i].origin = new Vector2(ReferenceCollider.bounds.center.x, ReferenceCollider.bounds.max.y);
-						BoxInfos[i].size = new Vector2(ReferenceCollider.size.x, 1f * BoxInfos[i].SizeMultiplier);
-						BoxInfos[i].castDirection = Vector2.up;
+						boxCastInfos[i]._origin = new Vector2(referenceCollider.bounds.center.x, referenceCollider.bounds.max.y) + boxCastInfos[i]._offset;
+						boxCastInfos[i]._size = new Vector2(referenceCollider.size.x * boxCastInfos[i].referenceSizeMultiplier, 1f * boxCastInfos[i].directionSizeMultiplier);
+						boxCastInfos[i]._castDirection = Vector2.up;
 						break;
 					case Direction.Down:
-						BoxInfos[i].origin = new Vector2(ReferenceCollider.bounds.center.x, ReferenceCollider.bounds.min.y);
-						BoxInfos[i].size = new Vector2(ReferenceCollider.size.x, 1f * BoxInfos[i].SizeMultiplier);
-						BoxInfos[i].castDirection = Vector2.down;
+						boxCastInfos[i]._origin = new Vector2(referenceCollider.bounds.center.x, referenceCollider.bounds.min.y) + boxCastInfos[i]._offset;
+						boxCastInfos[i]._size = new Vector2(referenceCollider.size.x * boxCastInfos[i].referenceSizeMultiplier, 1f * boxCastInfos[i].directionSizeMultiplier);
+						boxCastInfos[i]._castDirection = Vector2.down;
 						break;
 					case Direction.Left:
-						BoxInfos[i].origin = new Vector2(ReferenceCollider.bounds.min.x, ReferenceCollider.bounds.center.y);
-						BoxInfos[i].size = new Vector2(1f * BoxInfos[i].SizeMultiplier, ReferenceCollider.size.y);
-						BoxInfos[i].castDirection = Vector2.left;
+						boxCastInfos[i]._origin = new Vector2(referenceCollider.bounds.min.x, referenceCollider.bounds.center.y) + boxCastInfos[i]._offset;
+						boxCastInfos[i]._size = new Vector2(1f * boxCastInfos[i].directionSizeMultiplier * boxCastInfos[i].referenceSizeMultiplier, referenceCollider.size.y);
+						boxCastInfos[i]._castDirection = Vector2.left;
 						break;
 					case Direction.Right:
-						BoxInfos[i].origin = new Vector2(ReferenceCollider.bounds.max.x, ReferenceCollider.bounds.center.y);
-						BoxInfos[i].size = new Vector2(1f * BoxInfos[i].SizeMultiplier, ReferenceCollider.size.y);
-						BoxInfos[i].castDirection = Vector2.right;
+						boxCastInfos[i]._origin = new Vector2(referenceCollider.bounds.max.x, referenceCollider.bounds.center.y) + boxCastInfos[i]._offset;
+						boxCastInfos[i]._size = new Vector2(1f * boxCastInfos[i].directionSizeMultiplier * boxCastInfos[i].referenceSizeMultiplier, referenceCollider.size.y);
+						boxCastInfos[i]._castDirection = Vector2.right;
 						break;
 				}
 
-				int hitCount = Physics2D.BoxCastNonAlloc(BoxInfos[i].Origin,
-														 BoxInfos[i].Size,
+				int hitCount = Physics2D.BoxCastNonAlloc(boxCastInfos[i].origin,
+														 boxCastInfos[i].size,
 														 0f,
-														 BoxInfos[i].CastDirection,
-														 hitBuffer,
-														 BoxInfos[i].Distance);
+														 boxCastInfos[i].castDirection,
+														 _hitBuffer,
+														 boxCastInfos[i].distance,
+														 layerMask);
 
 				for(int a = 0; a < hitCount; a++) {
-					if(touchColliderMask != null) {
-						if(!touchColliderMask.Contains(hitBuffer[a].collider)) {
-							continue;
-						}
+					if(castMask.Contains(_hitBuffer[a].collider)) {
+						continue;
 					}
 
-					if(boxCastMask != null) {
-						if(boxCastMask.Contains(hitBuffer[a].collider)) {
-							continue;
-						}
-					}
-
-					if(!BoxInfos[i].Hits.Contains(hitBuffer[a].collider)) {
-						BoxInfos[i].Hits.Add(hitBuffer[a].collider);
-						if(onHit != null) {
-							onHit(BoxInfos[i].Direction, hitBuffer[a], hitBuffer[a].collider);
-						}
+					if(!boxCastInfos[i].hits.Contains(_hitBuffer[a].collider)) {
+						boxCastInfos[i].hits.Add(_hitBuffer[a].collider);
+						OnHit(boxCastInfos[i].direction, _hitBuffer[a], _hitBuffer[a].collider);
 					}
 				}
 			}
 		}
-
-		public void RemoveHit(Collider2D collider) {
-			for(int i = 0; i < BoxInfos.Length; i++) {
-				BoxInfos[i].Hits.Remove(collider);
+		
+		private bool IsEvaluateHits(CollisionFilter filter, List<Collider2D> hits) {
+			switch(filter) {
+				case CollisionFilter.OnlyNonTrigger:
+					for(int i = 0; i < hits.Count; i++) {
+						if(!hits[i].isTrigger) {
+							return true;
+						}
+					}
+					break;
+				case CollisionFilter.OnlyTrigger:
+					for(int i = 0; i < hits.Count; i++) {
+						if(hits[i].isTrigger) {
+							return true;
+						}
+					}
+					break;
+				default:
+					return hits.Count != 0;
 			}
+
+			return false;
 		}
+
 
 		[Serializable]
 		public class BoxCastInfo {
-			public Vector2 Origin { get { return origin; } }
-			public Vector2 Size { get { return size; } }
-			public Vector2 CastDirection { get { return castDirection; } }
+			public Vector2 origin { get { return _origin; } }
+			public Vector2 size { get { return _size; } }
+			public Vector2 castDirection { get { return _castDirection; } }
+			public List<Collider2D> hits { get { return _hits; } }
 
-			public Direction Direction;
-			public float SizeMultiplier = 1f;
-			public float Distance = 1f;
-			public List<Collider2D> Hits = new List<Collider2D>();
+			public Direction direction;
+			public Vector2 _offset = Vector2.zero;
+			public float referenceSizeMultiplier = 1f;
+			public float directionSizeMultiplier = 1f;
+			public float distance = 1f;
 
-			internal Vector2 origin;
-			internal Vector2 size;
-			internal Vector2 castDirection;
+			[SerializeField] internal List<Collider2D> _hits = new List<Collider2D>();
+			internal Vector2 _origin;
+			internal Vector2 _size;
+			internal Vector2 _castDirection;
 		}
 	}
 
@@ -172,19 +212,6 @@ namespace WishfulDroplet {
 
 
 		public static bool CheckOtherColliderDirection2D(Direction direction, Collider2D collider, Collider2D otherCollider, float maxDistanceDelta = 1f) {
-			//Debug.Log(string.Format("Comparison: {0}: {1} | {2}: {3} {4} Distance: {5}",
-			//								collider.transform.root.name,
-			//								collider.bounds.max.y,
-			//								otherCollider.transform.root.name,
-			//								otherCollider.bounds.max.y,
-			//								Environment.NewLine,
-			//								Mathf.Abs(collider.bounds.max.y - otherCollider.bounds.max.y)));
-
-			//Debug.Log(string.Format("Collision: {0} {1} Distance: {2}",
-			//						(collider.bounds.max.y < otherCollider.bounds.max.y).ToString(),
-			//						Environment.NewLine,
-			//						(Mathf.Abs(collider.bounds.max.y - otherCollider.bounds.max.y) <= maxDistanceDelta).ToString()));
-
 			switch(direction) {
 				case Direction.Up:
 					return collider.bounds.max.y < otherCollider.bounds.max.y &&
@@ -224,15 +251,10 @@ namespace WishfulDroplet {
 		// Runtime editor methods
 #if UNITY_EDITOR
 		public static void SetExecutionOrder(Type type, int order) {
-			// Get the name of the script we want to change it's execution order
 			string scriptName = type.Name;
 
-			// Iterate through all scripts (Might be a better way to do this?)
 			foreach(MonoScript monoScript in MonoImporter.GetAllRuntimeMonoScripts()) {
-				// If found our script
 				if(monoScript.name == scriptName) {
-					// And it's not at the execution time we want already
-					// (Without this we will get stuck in an infinite loop)
 					if(MonoImporter.GetExecutionOrder(monoScript) != order) {
 						MonoImporter.SetExecutionOrder(monoScript, order);
 					}

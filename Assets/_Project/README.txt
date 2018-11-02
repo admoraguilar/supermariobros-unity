@@ -15,6 +15,9 @@ REFACTOR:
 v StateMachine
 v SingletonConfig
 v DataBinder - DataWatcher
+v Actor
+v Directional Boxcast
+v Character2D
 
 =========================================
 

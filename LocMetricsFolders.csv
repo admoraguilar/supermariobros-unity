@@ -1,0 +1,27 @@
+Folder,Files,LOC,SLOC-P,SLOC-L,MVG,BLOC,C&SLOC,CLOC,CWORD,HCLOC,HCWORD
+Total,38,3297,2306,1600,253,714,0,277,1000,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros,38,3297,2306,1600,253,714,0,277,1000,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets,38,3297,2306,1600,253,714,0,277,1000,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project,38,3297,2306,1600,253,714,0,277,1000,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\Actors,8,1317,899,595,77,278,0,140,400,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\Actors\BlockActor,2,200,109,84,11,40,0,51,131,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\Actors\BlockActor\Brick,1,90,34,27,7,15,0,41,101,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\Actors\CharacterActor,3,950,666,426,55,198,0,86,256,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\Actors\CharacterActor\Goomba,1,136,89,48,6,22,0,25,93,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\Actors\CharacterActor\Mario,1,254,160,87,21,40,0,54,145,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\Actors\PowerupActor,3,167,124,85,11,40,0,3,13,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\Actors\PowerupActor\Flower,1,24,20,14,3,3,0,1,4,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\Actors\PowerupActor\Mushroom,1,23,18,11,3,4,0,1,4,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Common,23,1749,1270,904,174,368,0,111,514,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Common\Scripts,23,1749,1270,904,174,368,0,111,514,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Common\Scripts\Mario,3,285,210,149,18,54,0,21,117,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Common\Scripts\Mario\Components,2,253,187,131,18,45,0,21,117,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Common\Scripts\Mario\Singletons,1,32,23,18,0,9,0,0,0,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Common\Scripts\WishfulDroplet,20,1464,1060,755,156,314,0,90,397,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Common\Scripts\WishfulDroplet\Components,3,99,73,54,4,26,0,0,0,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Common\Scripts\WishfulDroplet\Editor,4,186,128,97,21,43,0,15,65,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Common\Scripts\WishfulDroplet\Editor\PropertyDrawers,1,68,39,31,2,14,0,15,65,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Common\Scripts\WishfulDroplet\Extensions,5,104,79,51,16,25,0,0,0,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Common\Scripts\WishfulDroplet\ScriptableObjects,1,61,47,33,10,14,0,0,0,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Sandbox,7,231,137,101,2,68,0,26,86,0,0
+D:\Projects\Unity Projects\_Clones\unity_supermariobros\Assets\_Project\_Sandbox\Scripts,7,231,137,101,2,68,0,26,86,0,0

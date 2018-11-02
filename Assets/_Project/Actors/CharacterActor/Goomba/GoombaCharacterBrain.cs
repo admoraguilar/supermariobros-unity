@@ -5,7 +5,7 @@ using WishfulDroplet;
 [CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/Goomba")]
 public class GoombaCharacterBrain : CharacterActor.CharacterBrain {
 	public override bool DoInteract(CharacterActor characterActor, GameObject interactor) {
-		var actor = interactor.GetComponent<_InternalActor>();
+		var actor = interactor.GetComponent<MonoActor>();
 		Debug.Log(actor.brain.name);
 
 		CharacterActor otherCharacterActor = interactor.GetComponent<CharacterActor>();

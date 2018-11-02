@@ -14,8 +14,17 @@ namespace WishfulDroplet {
 			Type type = typeof(T);
 			object value = null;
 
-			singletons.TryGetValue(type, out value);
-			return value != null ? (T)value : default(T);
+			if(!singletons.TryGetValue(type, out value)) {
+				foreach(var singleton in singletons.Values) {
+					if(type.IsAssignableFrom(singleton.GetType())) {
+						value = singleton;
+						Add(type, value);
+						break;
+					}
+				}
+			}
+
+			return (T)value;
         }
 
 		public static void Add<T>(T singleton) where T : class {

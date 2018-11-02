@@ -25,14 +25,9 @@ public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
         private set { _thisInteractionCollider2D = value; }
     }
 
-	public CollisionEvents2D thisInteractionColliderEvents {
-		get { return _thisInteractionColliderEvents; }
-		private set { _thisInteractionColliderEvents = value; }
-	}
-
     [InspectorNote("Block Actor")]
     [Header("Data")]
-    public _InternalActorBrain[] interactorBrains;
+    public ScriptableActorBrain[] interactorBrains;
     public GameObject content;
     public Sprite filledSprite;
     public Sprite emptySprite;
@@ -46,10 +41,9 @@ public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
     [SerializeField] private SpriteRenderer _thisSpriteRenderer;
     [SerializeField] private BoxCollider2D _thisCollisionCollider2D;
     [SerializeField] private BoxCollider2D _thisInteractionCollider2D;
-	[SerializeField] private CollisionEvents2D _thisInteractionColliderEvents;
 
 
-    public bool IsBrainInteractor(_InternalActorBrain brain) {
+    public bool IsBrainInteractor(ScriptableActorBrain brain) {
         return IsBrainOnSet(interactorBrains, brain);
     }
 
@@ -63,31 +57,11 @@ public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
 
 	private void OnEnable() {
 		thisInteractable.OnInteract += OnInteract;
-
-		//thisInteractionColliderEvents.OnCollisionEnter2DCallback += _OnCollisionEnter2D;
-		//thisInteractionColliderEvents.OnCollisionStay2DCallback += _OnCollisionStay2D;
-		//thisInteractionColliderEvents.OnCollisionExit2DCallback += _OnCollisionExit2D;
-		thisInteractionColliderEvents.OnTriggerEnter2DCallback += _OnTriggerEnter2D;
-		//thisInteractionColliderEvents.OnTriggerStay2DCallback += _OnTriggerStay2D;
-		//thisInteractionColliderEvents.OnTriggerExit2DCallback += _OnTriggerExit2D;
 	}
 
 	private void OnDisable() {
 		thisInteractable.OnInteract -= OnInteract;
-
-		//thisInteractionColliderEvents.OnCollisionEnter2DCallback -= _OnCollisionEnter2D;
-		//thisInteractionColliderEvents.OnCollisionStay2DCallback -= _OnCollisionStay2D;
-		//thisInteractionColliderEvents.OnCollisionExit2DCallback -= _OnCollisionExit2D;
-		thisInteractionColliderEvents.OnTriggerEnter2DCallback -= _OnTriggerEnter2D;
-		//thisInteractionColliderEvents.OnTriggerStay2DCallback -= _OnTriggerStay2D;
-		//thisInteractionColliderEvents.OnTriggerExit2DCallback -= _OnTriggerExit2D;
 	}
-
-	private void _OnTriggerEnter2D(Collider2D collision) {
-        if(brain) {
-            brain.DoTriggerEnter2D(this, collision);
-        }
-    }
 
     protected override void Reset() {
         base.Reset();

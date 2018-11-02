@@ -2,7 +2,7 @@
 using WishfulDroplet;
 
 
-public class DataBinder : MonoBehaviour {
+public class DataWatcherBinder : MonoBehaviour {
 	[SerializeField] private Object[] toBinds;
 
 

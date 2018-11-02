@@ -1,46 +1,40 @@
 ﻿using UnityEngine;
+using System;
 
 
 namespace WishfulDroplet {
-    public abstract class Actor<TActor, TBrain> : _InternalActor
+    public abstract class Actor<TActor, TBrain> : MonoActor
         where TActor : Actor<TActor, TBrain>
         where TBrain : ActorBrain<TActor> {
 		public new TBrain brain {
 			get {
 				// We cache it so we don't cast everytime
 				// #MICRO-OPTIMIZATIIIIION
-				if(cachedBrain != base.brain) {
-					cachedBrain = (TBrain)base.brain;
+				if(_cachedBrain != _brain) {
+					_cachedBrain = (TBrain)_brain;
 					Debug.Log("Caching brain");
 				}
-				return cachedBrain;
+				return _cachedBrain;
 			}
 			private set {
-				base.brain = value;
+				_brain = value;
 			}
 		}
 
-		public GameObject thisGameObject {
-            get { return _thisGameObject; }
-            private set { _thisGameObject = value; }
-        }
-
-        public Transform thisTransform {
-            get { return _thisTransform; }
-            private set { _thisTransform = value; }
-        }
+		public TActor thisActor {
+			get { return _thisActor; }
+			private set { _thisActor = value; }
+		}
 
 		[InspectorNote("Actor")]
 		[Header("Base Refereces")]
         [SerializeField] protected TActor _thisActor;
-        [SerializeField] protected GameObject _thisGameObject;
-        [SerializeField] protected Transform _thisTransform;
 
-        [Header("Base Editor Internal")]
-		[SerializeField] protected TBrain cachedBrain; 
+		[Header("Base Editor Internal")]
+		[SerializeField] protected TBrain _cachedBrain;
 
 
-        protected bool IsBrainOnSet<T>(T[] brainSet, T brain) {
+		protected bool IsBrainOnSet<T>(T[] brainSet, T brain) {
             if(brain == null) return false;
 
             for(int i = 0; i < brainSet.Length; i++) {
@@ -52,25 +46,24 @@ namespace WishfulDroplet {
             return false;
         }
 
-        protected virtual void OnValidate() {
-            if(brain) {
-				if(brain != cachedBrain) {
-                    brain.DoReset(_thisActor);
-					cachedBrain = brain;
-                }
-            }
+		protected virtual void OnValidate() {
+			if(brain != null) {
+				if(!Equals(brain, _cachedBrain)) {
+					brain.DoReset(_thisActor);
+					_cachedBrain = brain;
+				}
+			}
+		}
+
+		protected override void Reset() {
+			base.Reset();
+
+            thisActor = (TActor)this;
         }
+	}
 
-        protected virtual void Reset() {
-            _thisActor = (TActor)this;
-
-            _thisGameObject = gameObject;
-            _thisTransform = GetComponent<Transform>();
-        }
-    }
-
-    public abstract class ActorBrain<TActor> : _InternalActorBrain
-        where TActor : _InternalActor {
+    public abstract class ActorBrain<TActor> : ScriptableActorBrain
+        where TActor : IActor {
         public virtual void DoAwake(TActor actor) { }
         public virtual void DoOnEnable(TActor actor) { }
         public virtual void DoOnDisable(TActor actor) { }
@@ -88,13 +81,57 @@ namespace WishfulDroplet {
     }
 
 
-    public abstract class _InternalActor : MonoBehaviour {
-		[InspectorNote("_Internal Actor")]
-		[Header("Base Data")]
-		public _InternalActorBrain brain;
+	[Serializable]
+	public abstract class MonoActor : MonoBehaviour, IActor {
+		public ScriptableActorBrain brain {
+			get { return _brain; }
+			set { _brain = value; }
+		}
+
+		public GameObject thisGameObject {
+			get { return _thisGameObject; }
+			private set { _thisGameObject = value; }
+		}
+
+		public Transform thisTransform {
+			get { return _thisTransform; }
+			private set { _thisTransform = value; }
+		}
+
+		[InspectorNote("Mono Actor")]
+		[Header("Base Refereces")]
+		[SerializeField] protected ScriptableActorBrain _brain;
+		[SerializeField] protected GameObject _thisGameObject;
+		[SerializeField] protected Transform _thisTransform;
+
+
+		protected virtual void Reset() {
+			thisGameObject = gameObject;
+			thisTransform = GetComponent<Transform>();
+		}
+
+
+		IActorBrain IActor.brain {
+			get { return _brain; }
+			set { _brain = (ScriptableActorBrain)value; }
+		}
 	}
 
-    public abstract class _InternalActorBrain : ScriptableObject { }
+
+	[Serializable]
+	public abstract class ScriptableActorBrain : ScriptableObject, IActorBrain {
+
+	}
+
+
+	public interface IActor {
+		IActorBrain brain { get; set; }
+	}
+
+
+	public interface IActorBrain {
+
+	}
 
 	//public class LevelItemActor : LevelItemActor<LevelItemActor, LevelItemActor.LevelItemBrain> {
 	//    public abstract class LevelItemBrain : ActorBrain<LevelItemActor> {
