@@ -6,51 +6,63 @@ using WishfulDroplet.Extensions;
 
 
 public class Interactor : MonoBehaviour {
-	public event Action<Direction, RaycastHit2D, Collider2D> OnDirectionalBoxCastHit = delegate { };
+	public event Action<Direction, RaycastHit2D, Collider2D>		OnCasterHit = delegate { };
 
 	[Header("Collision Detector")]
-	[SerializeField] private DirectionalBoxCast2D directionalBoxCast = new DirectionalBoxCast2D();
-	[SerializeField] private int maxHitBufferSize = 20;
+	[SerializeField] private DirectionalBoxCast2D					_interactionCaster = new DirectionalBoxCast2D();
+	[SerializeField] private int									_maxCasterBufferSize = 20;
 
 	[Header("References")]
-	[SerializeField] private GameObject _thisGameObject;
-	[SerializeField] private Transform _thisTransform;
-	[SerializeField] private BoxCollider2D _thisInteractionCollider;
+	[SerializeField] private GameObject								_thisGameObject;
+	[SerializeField] private Transform								_thisTransform;
+	[SerializeField] private BoxCollider2D							_thisInteractionCollider;
+
+	public GameObject												thisGameObject {
+		get { return _thisGameObject; }
+		private set { _thisGameObject = value; }
+	}
+
+	public Transform												thisTransform {
+		get { return _thisTransform; }
+		private set { _thisTransform = value; }
+	}
+
+	public BoxCollider2D											thisInteractionCollider {
+		get { return _thisInteractionCollider; }
+		private set { _thisInteractionCollider = value; }
+	}
 
 
 	private void Awake() {
-		directionalBoxCast.SetHitBufferSize(maxHitBufferSize);
-	}
-
-	private void Start() {
-		//directionalBoxCast.OnHit += OnDirectionalBoxCastHit;
+		_interactionCaster.SetHitBufferSize(_maxCasterBufferSize);
 	}
 
 	private void OnEnable() {
-		directionalBoxCast.OnHit += OnDirectionalBoxCastHit;
+		_interactionCaster.OnHit += OnCasterHit;
 	}
 
 	private void OnDisable() {
-		directionalBoxCast.OnHit -= OnDirectionalBoxCastHit;
+		_interactionCaster.OnHit -= OnCasterHit;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision) {
-		directionalBoxCast.UpdateHits();
+		//Debug.Log(string.Format("Interacted by: {0}.{1}", collision.transform.root.name, collision.name));
+		_interactionCaster.UpdateHits();
 	}
 
 	private void OnTriggerExit2D(Collider2D collision) {
-		directionalBoxCast.UpdateHits();
+		_interactionCaster.UpdateHits();
 	}
 
 	private void Reset() {
-		_thisGameObject = gameObject;
-		_thisTransform = _thisGameObject.GetComponent<Transform>();
+		thisGameObject = gameObject;
+		thisTransform = _thisGameObject.GetComponent<Transform>();
 
 		// Set interaction collider
-		_thisInteractionCollider = Utilities.CreateObject("Collision", _thisTransform).AddOrGetComponent<BoxCollider2D>();
+		thisInteractionCollider = Utilities.CreateObject("Collision", _thisTransform).AddOrGetComponent<BoxCollider2D>();
 
 		// Set directional boxcast
-		directionalBoxCast.boxCastInfos = new List<DirectionalBoxCast2D.BoxCastInfo> {
+		_interactionCaster.boxCastInfos = new List<DirectionalBoxCast2D.BoxCastInfo> {
 			new DirectionalBoxCast2D.BoxCastInfo {
 				direction = Direction.Up,
 				directionSizeMultiplier = .02f,
@@ -76,7 +88,8 @@ public class Interactor : MonoBehaviour {
 				distance = .02f
 			}
 		};
-		directionalBoxCast.referenceCollider = _thisInteractionCollider;
-		directionalBoxCast.castMask = new List<Collider2D>(GetComponentsInChildren<Collider2D>(true));
+		_interactionCaster.boxCastMask = new List<Collider2D>(GetComponentsInChildren<Collider2D>(true));
+		_interactionCaster.referenceCollider = _thisInteractionCollider;
+		_interactionCaster.layerMask = LayerMask.GetMask("Interaction");
 	}
 }

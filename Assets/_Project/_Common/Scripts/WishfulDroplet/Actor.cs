@@ -3,10 +3,23 @@ using System;
 
 
 namespace WishfulDroplet {
+	/// <summary>
+	/// Base class for Actor components, this is kind of inspired by Unreal Engine's Actor classes but fused,
+	/// with the power of Unity's Scriptable Objects for pluggable behaviours.
+	/// </summary>
+	/// <typeparam name="TActor"></typeparam>
+	/// <typeparam name="TBrain"></typeparam>
     public abstract class Actor<TActor, TBrain> : MonoActor
         where TActor : Actor<TActor, TBrain>
         where TBrain : ActorBrain<TActor> {
-		public new TBrain brain {
+		[InspectorNote("Actor")]
+		[Header("Base Refereces")]
+		[SerializeField] protected TActor		_thisActor;
+
+		[Header("Base Editor Internal")]
+		[SerializeField] protected TBrain		_cachedBrain;
+
+		public new TBrain						brain {
 			get {
 				// We cache it so we don't cast everytime
 				// #MICRO-OPTIMIZATIIIIION
@@ -21,17 +34,10 @@ namespace WishfulDroplet {
 			}
 		}
 
-		public TActor thisActor {
+		public TActor							thisActor {
 			get { return _thisActor; }
 			private set { _thisActor = value; }
 		}
-
-		[InspectorNote("Actor")]
-		[Header("Base Refereces")]
-        [SerializeField] protected TActor _thisActor;
-
-		[Header("Base Editor Internal")]
-		[SerializeField] protected TBrain _cachedBrain;
 
 
 		protected bool IsBrainOnSet<T>(T[] brainSet, T brain) {
@@ -62,6 +68,11 @@ namespace WishfulDroplet {
         }
 	}
 
+
+	/// <summary>
+	/// The object to plug on Actors for it to behave.
+	/// </summary>
+	/// <typeparam name="TActor"></typeparam>
     public abstract class ActorBrain<TActor> : ScriptableActorBrain
         where TActor : IActor {
         public virtual void DoAwake(TActor actor) { }
@@ -83,27 +94,26 @@ namespace WishfulDroplet {
 
 	[Serializable]
 	public abstract class MonoActor : MonoBehaviour, IActor {
-		public ScriptableActorBrain brain {
+		[InspectorNote("Mono Actor")]
+		[Header("Base Refereces")]
+		[SerializeField] protected ScriptableActorBrain		_brain;
+		[SerializeField] protected GameObject				_thisGameObject;
+		[SerializeField] protected Transform				_thisTransform;
+
+		public ScriptableActorBrain							brain {
 			get { return _brain; }
 			set { _brain = value; }
 		}
 
-		public GameObject thisGameObject {
+		public GameObject									thisGameObject {
 			get { return _thisGameObject; }
 			private set { _thisGameObject = value; }
 		}
 
-		public Transform thisTransform {
+		public Transform									thisTransform {
 			get { return _thisTransform; }
 			private set { _thisTransform = value; }
 		}
-
-		[InspectorNote("Mono Actor")]
-		[Header("Base Refereces")]
-		[SerializeField] protected ScriptableActorBrain _brain;
-		[SerializeField] protected GameObject _thisGameObject;
-		[SerializeField] protected Transform _thisTransform;
-
 
 		protected virtual void Reset() {
 			thisGameObject = gameObject;

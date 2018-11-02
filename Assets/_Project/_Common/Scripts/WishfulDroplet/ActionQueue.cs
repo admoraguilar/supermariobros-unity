@@ -31,39 +31,39 @@ namespace WishfulDroplet {
     /// actions.Start();
     /// </summary>
     public class ActionQueue {
-        public ActionQueue(string name = "Action", bool dontDestroyOnLoad = true) {
-            ActionName = string.Format("[Action]: {0}", name);
-            DontDestroyOnLoad = dontDestroyOnLoad;
-        }
+        public MonoBehaviour			actionRunner { get; private set; }
 
-        public MonoBehaviour ActionRunner { get; private set; }
+        private Queue<Action>			_actions = new Queue<Action>();
+        private Coroutine				_routineAction;
 
-        private Queue<Action> actions = new Queue<Action>();
-        private Coroutine routineAction;
-
-        public string ActionName { get; private set; }
-        public bool DontDestroyOnLoad { get; private set; }
-        public bool IsStarted { get; private set; }
-        public bool IsPaused { get; private set; }
+        public string					actionName { get; private set; }
+        public bool						dontDestroyOnLoad { get; private set; }
+        public bool						isStarted { get; private set; }
+        public bool						isPaused { get; private set; }
 
 
-        public ActionDelegate AddAction(ActionDelegate action) {
-            actions.Enqueue(new Action(action));
+		public ActionQueue(string name = "Action", bool dontDestroyOnLoad = true) {
+			actionName = string.Format("[Action]: {0}", name);
+			this.dontDestroyOnLoad = dontDestroyOnLoad;
+		}
+
+		public ActionDelegate AddAction(ActionDelegate action) {
+            _actions.Enqueue(new Action(action));
             return action;
         }
 
         public IEnumerator AddAction(IEnumerator action) {
-            actions.Enqueue(new Action(action));
+            _actions.Enqueue(new Action(action));
             return action;
         }
 
         public YieldInstruction AddAction(YieldInstruction action) {
-            actions.Enqueue(new Action(action));
+            _actions.Enqueue(new Action(action));
             return action;
         }
 
         public Coroutine AddAction(Coroutine action) {
-            actions.Enqueue(new Action(action));
+            _actions.Enqueue(new Action(action));
             return action;
         }
 
@@ -72,32 +72,32 @@ namespace WishfulDroplet {
         /// </summary>
         /// <returns>The action runner, useful if you need to do something with the runner like attaching a component or something.</returns>
         public MonoBehaviour Start() {
-            Assert.IsFalse(IsStarted, "ActionQueue has already been started.");
-            if(IsStarted) return ActionRunner;
+            Assert.IsFalse(isStarted, "ActionQueue has already been started.");
+            if(isStarted) return actionRunner;
 
-            IsPaused = false;
-            IsStarted = true;
+            isPaused = false;
+            isStarted = true;
 
-            if(!ActionRunner) {
-                ActionRunner = new GameObject(ActionName).AddComponent<ActionRunner>();
-                if(DontDestroyOnLoad) Object.DontDestroyOnLoad(ActionRunner);
+            if(!actionRunner) {
+                actionRunner = new GameObject(actionName).AddComponent<ActionRunner>();
+                if(dontDestroyOnLoad) Object.DontDestroyOnLoad(actionRunner);
             }
 
-            routineAction = ActionRunner.StartCoroutine(RoutineRunQueue());
-            return ActionRunner;
+            _routineAction = actionRunner.StartCoroutine(RoutineRunQueue());
+            return actionRunner;
         }
 
         /// <summary>
         /// Stops the action.
         /// </summary>
         public void Stop() {
-            IsPaused = false;
-            IsStarted = false;
+            isPaused = false;
+            isStarted = false;
 
-            actions.Clear();
-            if(ActionRunner) {
-                ActionRunner.StopCoroutine(routineAction);
-                Object.Destroy(ActionRunner.gameObject);
+            _actions.Clear();
+            if(actionRunner) {
+                actionRunner.StopCoroutine(_routineAction);
+                Object.Destroy(actionRunner.gameObject);
             }
         }
 
@@ -105,21 +105,21 @@ namespace WishfulDroplet {
         /// Resumes the action.
         /// </summary>
         public void Resume() {
-            IsPaused = false;
+            isPaused = false;
         }
 
         /// <summary>
         /// Pauses the action.
         /// </summary>
         public void Pause() {
-            IsPaused = true;
+            isPaused = true;
         }
 
         private IEnumerator RoutineRunQueue() {
-            while(actions.Count != 0) {
-                if(IsPaused) yield return null;
+            while(_actions.Count != 0) {
+                if(isPaused) yield return null;
 
-                Action a = actions.Dequeue();
+                Action a = _actions.Dequeue();
 
                 switch(a.GetActionType()) {
                     case "Delegate":
@@ -127,7 +127,7 @@ namespace WishfulDroplet {
                         yield return null;
                         break;
                     case "Routine":
-                        yield return ActionRunner.StartCoroutine(a.GetActionRoutine());
+                        yield return actionRunner.StartCoroutine(a.GetActionRoutine());
                         break;
                     case "YieldInstruction":
                         yield return a.GetActionYieldInstruction();
@@ -138,10 +138,10 @@ namespace WishfulDroplet {
                 }
             }
 
-            IsStarted = false;
-            IsPaused = false;
+            isStarted = false;
+            isPaused = false;
 
-            Object.Destroy(ActionRunner.gameObject);
+            Object.Destroy(actionRunner.gameObject);
         }
 
 

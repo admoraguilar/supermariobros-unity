@@ -159,8 +159,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 5198808}
   _thisAnimator: {fileID: 1943596097}
   _thisSpriteRenderer: {fileID: 166977333}
-  _thisCollisionCollider2D: {fileID: 111156840}
-  _thisInteractionCollider2D: {fileID: 742669892}
+  _thisCollisionCollider: {fileID: 111156840}
+  _thisInteractionCollider: {fileID: 742669892}
 --- !u!114 &5198808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!50 &5198809
 Rigidbody2D:
   serializedVersion: 4
@@ -480,8 +480,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 27815297}
   _thisAnimator: {fileID: 2085265272}
   _thisSpriteRenderer: {fileID: 355129950}
-  _thisCollisionCollider2D: {fileID: 607366551}
-  _thisInteractionCollider2D: {fileID: 986245878}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &27815297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,7 +495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &29941969
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,8 +896,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1152739482}
   _thisSpriteRenderer: {fileID: 80922443}
-  _thisCollisionCollider2D: {fileID: 1989544582}
-  _thisInteractionCollider2D: {fileID: 308108221}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!1 &45308204
 GameObject:
   m_ObjectHideFlags: 0
@@ -2625,8 +2625,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 103339258}
   _thisAnimator: {fileID: 787827343}
   _thisSpriteRenderer: {fileID: 505203599}
-  _thisCollisionCollider2D: {fileID: 285683291}
-  _thisInteractionCollider2D: {fileID: 2105565372}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &103339258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2640,7 +2640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &103509010
 GameObject:
   m_ObjectHideFlags: 0
@@ -3493,8 +3493,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 156092166}
   _thisAnimator: {fileID: 1746233075}
   _thisSpriteRenderer: {fileID: 260568547}
-  _thisCollisionCollider2D: {fileID: 1293258312}
-  _thisInteractionCollider2D: {fileID: 2098534041}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &156092166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3508,7 +3508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!4 &156092167
 Transform:
   m_ObjectHideFlags: 0
@@ -4496,8 +4496,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 200087292}
   _thisAnimator: {fileID: 767588153}
   _thisSpriteRenderer: {fileID: 952757289}
-  _thisCollisionCollider2D: {fileID: 595887605}
-  _thisInteractionCollider2D: {fileID: 1068709644}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &200087292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4511,7 +4511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &202125576
 GameObject:
   m_ObjectHideFlags: 0
@@ -5353,6 +5353,10 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0}
   _thisRigidbody2D: {fileID: 256596579}
   _thisCharacter2D: {fileID: 0}
+  _thisInteractable: {fileID: 0}
+  _thisAnimator: {fileID: 0}
+  _thisCharacterObject: {fileID: 0}
+  _thisSpriteRenderer: {fileID: 0}
   _thisCollisionCollider2D: {fileID: 256596578}
   _thisInteractionCollider2D: {fileID: 19866548}
 --- !u!61 &256596578
@@ -5978,8 +5982,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 526416354}
   _thisSpriteRenderer: {fileID: 292518961}
-  _thisCollisionCollider2D: {fileID: 1223222201}
-  _thisInteractionCollider2D: {fileID: 580150112}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!1 &279206049
 GameObject:
   m_ObjectHideFlags: 0
@@ -6842,8 +6846,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 293762626}
   _thisAnimator: {fileID: 1936858157}
   _thisSpriteRenderer: {fileID: 1526378487}
-  _thisCollisionCollider2D: {fileID: 1923225101}
-  _thisInteractionCollider2D: {fileID: 1445754540}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &293762626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6857,7 +6861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &295021394
 GameObject:
   m_ObjectHideFlags: 0
@@ -9932,8 +9936,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 411372427}
   _thisAnimator: {fileID: 1248142177}
   _thisSpriteRenderer: {fileID: 1221892086}
-  _thisCollisionCollider2D: {fileID: 607044505}
-  _thisInteractionCollider2D: {fileID: 732190194}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &411372427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9947,7 +9951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1001 &423238894
 Prefab:
   m_ObjectHideFlags: 0
@@ -10096,8 +10100,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 434030557}
   _thisAnimator: {fileID: 774262171}
   _thisSpriteRenderer: {fileID: 30396162}
-  _thisCollisionCollider2D: {fileID: 465919969}
-  _thisInteractionCollider2D: {fileID: 1485699146}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &434030557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10111,7 +10115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1001 &435835733
 Prefab:
   m_ObjectHideFlags: 0
@@ -11149,8 +11153,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 2039934700}
   _thisSpriteRenderer: {fileID: 1400403434}
-  _thisCollisionCollider2D: {fileID: 1297984708}
-  _thisInteractionCollider2D: {fileID: 1975045082}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!1 &476043670
 GameObject:
   m_ObjectHideFlags: 0
@@ -11696,8 +11700,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 586747081}
   _thisSpriteRenderer: {fileID: 1740831422}
-  _thisCollisionCollider2D: {fileID: 295021395}
-  _thisInteractionCollider2D: {fileID: 2071016270}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!1 &505203597
 GameObject:
   m_ObjectHideFlags: 0
@@ -13686,8 +13690,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 595363560}
   _thisAnimator: {fileID: 1149334969}
   _thisSpriteRenderer: {fileID: 72259239}
-  _thisCollisionCollider2D: {fileID: 2027157796}
-  _thisInteractionCollider2D: {fileID: 15406362}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &595363560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13701,7 +13705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &595887603
 GameObject:
   m_ObjectHideFlags: 0
@@ -13907,14 +13911,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!62 &601607592
-PhysicsMaterial2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Slippery
-  friction: 0.05
-  bounciness: 0
 --- !u!1001 &601791645
 Prefab:
   m_ObjectHideFlags: 0
@@ -14812,8 +14808,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 618751207}
   _thisAnimator: {fileID: 1997386678}
   _thisSpriteRenderer: {fileID: 1362249536}
-  _thisCollisionCollider2D: {fileID: 1896984633}
-  _thisInteractionCollider2D: {fileID: 1028509258}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &618751207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14827,7 +14823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1001 &622494213
 Prefab:
   m_ObjectHideFlags: 0
@@ -15081,8 +15077,6 @@ MonoBehaviour:
   _cachedBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
   enemyBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
-  powerUpBrains: []
-  gravity: 9.8
   landMoveSpeed: 0.7
   landSprintSpeed: 4.2
   airMoveSpeed: 0.5
@@ -15176,23 +15170,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVelocity: {x: 5, y: 8}
-  isUpdateFaceAxisOnlyOnGround: 1
+  isUpdateFaceDirectionOnlyOnGround: 1
   isGroundCheckIncludeYVelocity: 1
-  directionalBoxCast:
+  _collisionCaster:
     boxCastInfos: []
+    boxCastMask: []
+    referenceCollider: {fileID: 0}
     layerMask:
       serializedVersion: 2
       m_Bits: 0
-    referenceCollider: {fileID: 0}
-    castMask: []
-  maxHitBufferSize: 20
+  _maxCasterHitBufferSize: 0
   _moveDirection: {x: 0, y: 0}
-  _faceAxis: {x: 0, y: 0}
+  _faceDirection: {x: 0, y: 0}
   _isGrounded: 0
   _thisGameObject: {fileID: 627655039}
   _thisTransform: {fileID: 627655043}
   _thisRigidbody2D: {fileID: 627655042}
-  _thisBoxCollider2D: {fileID: 1952387746}
+  _thisCollisionCollider2D: {fileID: 0}
 --- !u!50 &627655042
 Rigidbody2D:
   serializedVersion: 4
@@ -16139,6 +16133,14 @@ Transform:
   m_Father: {fileID: 1158343030}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!62 &706110627
+PhysicsMaterial2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Slippery
+  friction: 0.05
+  bounciness: 0
 --- !u!1 &707259303
 GameObject:
   m_ObjectHideFlags: 0
@@ -16703,25 +16705,13 @@ GameObject:
   m_Component:
   - component: {fileID: 742669891}
   - component: {fileID: 742669892}
-  - component: {fileID: 742669890}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: Interaction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &742669890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 742669889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95b0a7471ef4df94993f8b3590c4e463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &742669891
 Transform:
   m_ObjectHideFlags: 0
@@ -17280,8 +17270,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 786406041}
   _thisAnimator: {fileID: 608505353}
   _thisSpriteRenderer: {fileID: 1271591093}
-  _thisCollisionCollider2D: {fileID: 1469855070}
-  _thisInteractionCollider2D: {fileID: 676612252}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &786406041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17295,7 +17285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1001 &787108564
 Prefab:
   m_ObjectHideFlags: 0
@@ -18865,8 +18855,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 484405036}
   _thisSpriteRenderer: {fileID: 452503179}
-  _thisCollisionCollider2D: {fileID: 2005600380}
-  _thisInteractionCollider2D: {fileID: 264774367}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!62 &884628699
 PhysicsMaterial2D:
   m_ObjectHideFlags: 0
@@ -19182,8 +19172,6 @@ MonoBehaviour:
   _cachedBrain: {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
   enemyBrains:
   - {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
-  powerUpBrains: []
-  gravity: 9.8
   landMoveSpeed: 0.7
   landSprintSpeed: 4.2
   airMoveSpeed: 0.5
@@ -19280,49 +19268,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVelocity: {x: 5, y: 8}
-  isUpdateFaceAxisOnlyOnGround: 1
+  isUpdateFaceDirectionOnlyOnGround: 1
   isGroundCheckIncludeYVelocity: 1
-  directionalBoxCast:
+  _collisionCaster:
     boxCastInfos:
     - direction: 0
-      _offset: {x: 0, y: 0}
+      offset: {x: 0, y: 0}
       referenceSizeMultiplier: 0.9
-      directionSizeMultiplier: 0.01
-      distance: 0.01
-      _hits: []
-    - direction: 1
-      _offset: {x: 0, y: 0}
-      referenceSizeMultiplier: 1
       directionSizeMultiplier: 0.02
       distance: 0.02
       _hits: []
+    - direction: 1
+      offset: {x: 0, y: 0}
+      referenceSizeMultiplier: 1
+      directionSizeMultiplier: 0.02
+      distance: 0.05
+      _hits: []
     - direction: 2
-      _offset: {x: 0, y: 0}
+      offset: {x: 0, y: 0}
       referenceSizeMultiplier: 1
       directionSizeMultiplier: 0.02
       distance: 0.02
       _hits: []
     - direction: 3
-      _offset: {x: 0, y: 0}
+      offset: {x: 0, y: 0}
       referenceSizeMultiplier: 1
       directionSizeMultiplier: 0.02
       distance: 0.02
       _hits: []
+    boxCastMask:
+    - {fileID: 641105447}
+    - {fileID: 1636895614}
+    referenceCollider: {fileID: 641105447}
     layerMask:
       serializedVersion: 2
       m_Bits: 4294967295
-    referenceCollider: {fileID: 641105447}
-    castMask:
-    - {fileID: 641105447}
-    - {fileID: 1636895614}
-  maxHitBufferSize: 20
+  _maxCasterHitBufferSize: 20
   _moveDirection: {x: 0, y: 0}
-  _faceAxis: {x: 0, y: 0}
+  _faceDirection: {x: 0, y: 0}
   _isGrounded: 0
   _thisGameObject: {fileID: 904922364}
   _thisTransform: {fileID: 904922369}
   _thisRigidbody2D: {fileID: 904922368}
-  _thisBoxCollider2D: {fileID: 641105447}
+  _thisCollisionCollider2D: {fileID: 641105447}
 --- !u!114 &904922367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19336,7 +19324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!50 &904922368
 Rigidbody2D:
   serializedVersion: 4
@@ -19353,7 +19341,7 @@ Rigidbody2D:
   m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 5
-  m_Material: {fileID: 601607592}
+  m_Material: {fileID: 706110627}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -19403,40 +19391,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 252836db396df4e40a932bddf8988dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionalBoxCast:
+  _interactionCaster:
     boxCastInfos:
     - direction: 0
-      _offset: {x: 0, y: 0}
+      offset: {x: 0, y: 0}
       referenceSizeMultiplier: 0.9
-      directionSizeMultiplier: 0.01
-      distance: 0.01
+      directionSizeMultiplier: 0.02
+      distance: 0.02
       _hits: []
     - direction: 1
-      _offset: {x: 0, y: 0}
+      offset: {x: 0, y: 0}
       referenceSizeMultiplier: 1
       directionSizeMultiplier: 0.02
       distance: 0.1
       _hits: []
     - direction: 2
-      _offset: {x: 0, y: 0}
+      offset: {x: 0, y: 0}
       referenceSizeMultiplier: 1
       directionSizeMultiplier: 0.02
       distance: 0.02
       _hits: []
     - direction: 3
-      _offset: {x: 0, y: 0}
+      offset: {x: 0, y: 0}
       referenceSizeMultiplier: 1
       directionSizeMultiplier: 0.02
       distance: 0.02
       _hits: []
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 2048
-    referenceCollider: {fileID: 641105447}
-    castMask:
+    boxCastMask:
     - {fileID: 641105447}
     - {fileID: 1636895614}
-  maxHitBufferSize: 20
+    referenceCollider: {fileID: 641105447}
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 512
+  _maxCasterBufferSize: 20
   _thisGameObject: {fileID: 904922364}
   _thisTransform: {fileID: 904922369}
   _thisInteractionCollider: {fileID: 641105447}
@@ -19847,8 +19835,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 935052868}
   _thisAnimator: {fileID: 921762582}
   _thisSpriteRenderer: {fileID: 1430877596}
-  _thisCollisionCollider2D: {fileID: 2074008595}
-  _thisInteractionCollider2D: {fileID: 205631853}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &935052868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19862,7 +19850,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1001 &938132633
 Prefab:
   m_ObjectHideFlags: 0
@@ -20076,8 +20064,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 942174769}
   _thisAnimator: {fileID: 1084991459}
   _thisSpriteRenderer: {fileID: 1357068481}
-  _thisCollisionCollider2D: {fileID: 1053349485}
-  _thisInteractionCollider2D: {fileID: 806080194}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &942174769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20091,7 +20079,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &942989264
 GameObject:
   m_ObjectHideFlags: 0
@@ -20894,8 +20882,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 968234462}
   _thisAnimator: {fileID: 1517054752}
   _thisSpriteRenderer: {fileID: 137710502}
-  _thisCollisionCollider2D: {fileID: 67913750}
-  _thisInteractionCollider2D: {fileID: 408906951}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &968234462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20909,7 +20897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &977370773
 GameObject:
   m_ObjectHideFlags: 0
@@ -22021,8 +22009,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 160910325}
   _thisSpriteRenderer: {fileID: 120432489}
-  _thisCollisionCollider2D: {fileID: 2051644367}
-  _thisInteractionCollider2D: {fileID: 1756623684}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!1001 &1063034747
 Prefab:
   m_ObjectHideFlags: 0
@@ -22171,8 +22159,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 1063464798}
   _thisAnimator: {fileID: 789705299}
   _thisSpriteRenderer: {fileID: 56228130}
-  _thisCollisionCollider2D: {fileID: 1316592316}
-  _thisInteractionCollider2D: {fileID: 288369237}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &1063464798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22186,7 +22174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &1066775793
 GameObject:
   m_ObjectHideFlags: 0
@@ -22314,8 +22302,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 1067421759}
   _thisAnimator: {fileID: 1138789182}
   _thisSpriteRenderer: {fileID: 860129179}
-  _thisCollisionCollider2D: {fileID: 2139123821}
-  _thisInteractionCollider2D: {fileID: 1708832126}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &1067421759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22329,7 +22317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &1067798556
 GameObject:
   m_ObjectHideFlags: 0
@@ -23600,8 +23588,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 1137000745}
   _thisAnimator: {fileID: 58928028}
   _thisSpriteRenderer: {fileID: 1150277186}
-  _thisCollisionCollider2D: {fileID: 2070379569}
-  _thisInteractionCollider2D: {fileID: 200025674}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &1137000745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23615,7 +23603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1001 &1138076990
 Prefab:
   m_ObjectHideFlags: 0
@@ -24636,8 +24624,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 1158343032}
   _thisAnimator: {fileID: 1620508115}
   _thisSpriteRenderer: {fileID: 154358178}
-  _thisCollisionCollider2D: {fileID: 703695112}
-  _thisInteractionCollider2D: {fileID: 326530994}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &1158343032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24651,7 +24639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &1173973151
 GameObject:
   m_ObjectHideFlags: 0
@@ -25468,8 +25456,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 904163249}
   _thisSpriteRenderer: {fileID: 954964127}
-  _thisCollisionCollider2D: {fileID: 2138069266}
-  _thisInteractionCollider2D: {fileID: 1155484379}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!1 &1211196343
 GameObject:
   m_ObjectHideFlags: 0
@@ -25585,8 +25573,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 0}
   _thisAnimator: {fileID: 1067798558}
   _thisSpriteRenderer: {fileID: 1979828059}
-  _thisCollisionCollider2D: {fileID: 1821605649}
-  _thisInteractionCollider2D: {fileID: 477396775}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!1001 &1221456269
 Prefab:
   m_ObjectHideFlags: 0
@@ -27670,8 +27658,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 1382008696}
   _thisAnimator: {fileID: 1909954388}
   _thisSpriteRenderer: {fileID: 1353835772}
-  _thisCollisionCollider2D: {fileID: 1211196345}
-  _thisInteractionCollider2D: {fileID: 42214907}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &1382008696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27685,7 +27673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1001 &1395103482
 Prefab:
   m_ObjectHideFlags: 0
@@ -28879,6 +28867,10 @@ MonoBehaviour:
   moveDirection: {x: -1, y: 0}
   _thisRigidbody2D: {fileID: 1466064064}
   _thisCharacter2D: {fileID: 1466064066}
+  _thisInteractable: {fileID: 0}
+  _thisAnimator: {fileID: 0}
+  _thisCharacterObject: {fileID: 0}
+  _thisSpriteRenderer: {fileID: 0}
   _thisCollisionCollider2D: {fileID: 1466064063}
   _thisInteractionCollider2D: {fileID: 1718532345}
 --- !u!61 &1466064063
@@ -28955,23 +28947,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVelocity: {x: 5, y: 8}
-  isUpdateFaceAxisOnlyOnGround: 1
+  isUpdateFaceDirectionOnlyOnGround: 1
   isGroundCheckIncludeYVelocity: 1
-  directionalBoxCast:
+  _collisionCaster:
     boxCastInfos: []
+    boxCastMask: []
+    referenceCollider: {fileID: 0}
     layerMask:
       serializedVersion: 2
       m_Bits: 0
-    referenceCollider: {fileID: 0}
-    castMask: []
-  maxHitBufferSize: 20
+  _maxCasterHitBufferSize: 0
   _moveDirection: {x: 0, y: 0}
-  _faceAxis: {x: 0, y: 0}
+  _faceDirection: {x: 0, y: 0}
   _isGrounded: 0
   _thisGameObject: {fileID: 1466064061}
   _thisTransform: {fileID: 1466064065}
   _thisRigidbody2D: {fileID: 1466064064}
-  _thisBoxCollider2D: {fileID: 1466064063}
+  _thisCollisionCollider2D: {fileID: 0}
 --- !u!1 &1469855068
 GameObject:
   m_ObjectHideFlags: 0
@@ -29442,8 +29434,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 1490336279}
   _thisAnimator: {fileID: 300758799}
   _thisSpriteRenderer: {fileID: 1408005013}
-  _thisCollisionCollider2D: {fileID: 2079711926}
-  _thisInteractionCollider2D: {fileID: 944646110}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &1490336279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29457,7 +29449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &1493616386
 GameObject:
   m_ObjectHideFlags: 0
@@ -30837,8 +30829,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 1603705054}
   _thisAnimator: {fileID: 858837342}
   _thisSpriteRenderer: {fileID: 568579414}
-  _thisCollisionCollider2D: {fileID: 1700869493}
-  _thisInteractionCollider2D: {fileID: 1993135660}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &1603705054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30852,7 +30844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &1604101649
 GameObject:
   m_ObjectHideFlags: 0
@@ -31498,8 +31490,6 @@ MonoBehaviour:
   _cachedBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
   enemyBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
-  powerUpBrains: []
-  gravity: 9.8
   landMoveSpeed: 0.7
   landSprintSpeed: 4.2
   airMoveSpeed: 0.5
@@ -31593,23 +31583,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVelocity: {x: 5, y: 8}
-  isUpdateFaceAxisOnlyOnGround: 1
+  isUpdateFaceDirectionOnlyOnGround: 1
   isGroundCheckIncludeYVelocity: 1
-  directionalBoxCast:
+  _collisionCaster:
     boxCastInfos: []
+    boxCastMask: []
+    referenceCollider: {fileID: 0}
     layerMask:
       serializedVersion: 2
       m_Bits: 0
-    referenceCollider: {fileID: 0}
-    castMask: []
-  maxHitBufferSize: 20
+  _maxCasterHitBufferSize: 0
   _moveDirection: {x: 0, y: 0}
-  _faceAxis: {x: 0, y: 0}
+  _faceDirection: {x: 0, y: 0}
   _isGrounded: 0
   _thisGameObject: {fileID: 1640265003}
   _thisTransform: {fileID: 1640265007}
   _thisRigidbody2D: {fileID: 1640265006}
-  _thisBoxCollider2D: {fileID: 752707235}
+  _thisCollisionCollider2D: {fileID: 0}
 --- !u!50 &1640265006
 Rigidbody2D:
   serializedVersion: 4
@@ -31661,7 +31651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1001 &1641979798
 Prefab:
   m_ObjectHideFlags: 0
@@ -32002,8 +31992,6 @@ MonoBehaviour:
   _cachedBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
   enemyBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
-  powerUpBrains: []
-  gravity: 9.8
   landMoveSpeed: 0.7
   landSprintSpeed: 4.2
   airMoveSpeed: 0.5
@@ -32098,7 +32086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!114 &1653727799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32111,23 +32099,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVelocity: {x: 5, y: 8}
-  isUpdateFaceAxisOnlyOnGround: 1
+  isUpdateFaceDirectionOnlyOnGround: 1
   isGroundCheckIncludeYVelocity: 1
-  directionalBoxCast:
+  _collisionCaster:
     boxCastInfos: []
+    boxCastMask: []
+    referenceCollider: {fileID: 0}
     layerMask:
       serializedVersion: 2
       m_Bits: 0
-    referenceCollider: {fileID: 0}
-    castMask: []
-  maxHitBufferSize: 20
+  _maxCasterHitBufferSize: 0
   _moveDirection: {x: 0, y: 0}
-  _faceAxis: {x: 0, y: 0}
+  _faceDirection: {x: 0, y: 0}
   _isGrounded: 0
   _thisGameObject: {fileID: 1653727796}
   _thisTransform: {fileID: 1653727801}
   _thisRigidbody2D: {fileID: 1653727800}
-  _thisBoxCollider2D: {fileID: 1913490307}
+  _thisCollisionCollider2D: {fileID: 0}
 --- !u!50 &1653727800
 Rigidbody2D:
   serializedVersion: 4
@@ -33572,8 +33560,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 1734985995}
   _thisAnimator: {fileID: 470944018}
   _thisSpriteRenderer: {fileID: 1607433383}
-  _thisCollisionCollider2D: {fileID: 266243034}
-  _thisInteractionCollider2D: {fileID: 405913079}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &1734985995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33587,7 +33575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1001 &1735614274
 Prefab:
   m_ObjectHideFlags: 0
@@ -34913,8 +34901,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 1851663720}
   _thisAnimator: {fileID: 2031899339}
   _thisSpriteRenderer: {fileID: 48163264}
-  _thisCollisionCollider2D: {fileID: 1454914979}
-  _thisInteractionCollider2D: {fileID: 534233357}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &1851663720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34928,7 +34916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &1858465128
 GameObject:
   m_ObjectHideFlags: 0
@@ -35945,8 +35933,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 1927304838}
   _thisAnimator: {fileID: 1044192961}
   _thisSpriteRenderer: {fileID: 567763695}
-  _thisCollisionCollider2D: {fileID: 1335911990}
-  _thisInteractionCollider2D: {fileID: 986113385}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &1927304838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35960,7 +35948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &1929090378
 GameObject:
   m_ObjectHideFlags: 0
@@ -37635,8 +37623,8 @@ MonoBehaviour:
   _thisInteractable: {fileID: 2010925068}
   _thisAnimator: {fileID: 1296745377}
   _thisSpriteRenderer: {fileID: 1146822148}
-  _thisCollisionCollider2D: {fileID: 2102836783}
-  _thisInteractionCollider2D: {fileID: 1604101652}
+  _thisCollisionCollider: {fileID: 0}
+  _thisInteractionCollider: {fileID: 0}
 --- !u!114 &2010925068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37650,7 +37638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!1 &2011087058
 GameObject:
   m_ObjectHideFlags: 0
@@ -39667,8 +39655,6 @@ MonoBehaviour:
   _cachedBrain: {fileID: 11400000, guid: 879bc8767f3a9f347a0df2bc45376f23, type: 2}
   enemyBrains:
   - {fileID: 11400000, guid: 3e382175d551a66498afbc18d58bb244, type: 2}
-  powerUpBrains: []
-  gravity: 9.8
   landMoveSpeed: 0.7
   landSprintSpeed: 4.2
   airMoveSpeed: 0.5
@@ -39763,7 +39749,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfiniteInteract: 1
   maxInteractCount: 1
-  remainingInteractCount: 0
+  _remainingInteractCount: 0
 --- !u!114 &2120892554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39776,23 +39762,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVelocity: {x: 5, y: 8}
-  isUpdateFaceAxisOnlyOnGround: 1
+  isUpdateFaceDirectionOnlyOnGround: 1
   isGroundCheckIncludeYVelocity: 1
-  directionalBoxCast:
+  _collisionCaster:
     boxCastInfos: []
+    boxCastMask: []
+    referenceCollider: {fileID: 0}
     layerMask:
       serializedVersion: 2
       m_Bits: 0
-    referenceCollider: {fileID: 0}
-    castMask: []
-  maxHitBufferSize: 20
+  _maxCasterHitBufferSize: 0
   _moveDirection: {x: 0, y: 0}
-  _faceAxis: {x: 0, y: 0}
+  _faceDirection: {x: 0, y: 0}
   _isGrounded: 0
   _thisGameObject: {fileID: 2120892551}
   _thisTransform: {fileID: 2120892556}
   _thisRigidbody2D: {fileID: 2120892555}
-  _thisBoxCollider2D: {fileID: 320797061}
+  _thisCollisionCollider2D: {fileID: 0}
 --- !u!50 &2120892555
 Rigidbody2D:
   serializedVersion: 4

@@ -5,79 +5,90 @@ using WishfulDroplet.Extensions;
 
 
 public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
-	public Interactable thisInteractable {
+    [InspectorNote("Block Actor")]
+    [Header("Data")]
+    public ScriptableActorBrain[]					interactorBrains;
+    public GameObject								content;
+    public Sprite									filledSprite;
+    public Sprite									emptySprite;
+    public int										contentCount;
+    public AudioClip								hitSound;
+    public AudioClip								contentAppearSound;
+
+	[Header("References")]
+	[SerializeField] private Interactable			_thisInteractable;
+    [SerializeField] private Animator				_thisAnimator;
+    [SerializeField] private SpriteRenderer			_thisSpriteRenderer;
+    [SerializeField] private BoxCollider2D			_thisCollisionCollider;
+    [SerializeField] private BoxCollider2D			_thisInteractionCollider;
+
+	public Interactable								thisInteractable {
 		get { return _thisInteractable; }
 		private set { _thisInteractable = value; }
 	}
 
-	public Animator thisAnimator {
-        get { return _thisAnimator; }
-        private set { _thisAnimator = value; }
-    }
+	public Animator									thisAnimator {
+		get { return _thisAnimator; }
+		private set { _thisAnimator = value; }
+	}
 
-    public BoxCollider2D thisCollisionCollider2D {
-        get { return _thisCollisionCollider2D; }
-        private set { _thisCollisionCollider2D = value; }
-    }
+	public SpriteRenderer							thisSpriteRenderer {
+		get { return _thisSpriteRenderer; }
+		private set { _thisSpriteRenderer = value; }
+	}
 
-    public BoxCollider2D thisInteractionCollider2D {
-        get { return _thisInteractionCollider2D; }
-        private set { _thisInteractionCollider2D = value; }
-    }
+	public BoxCollider2D							thisCollisionCollider {
+		get { return _thisCollisionCollider; }
+		private set { _thisCollisionCollider = value; }
+	}
 
-    [InspectorNote("Block Actor")]
-    [Header("Data")]
-    public ScriptableActorBrain[] interactorBrains;
-    public GameObject content;
-    public Sprite filledSprite;
-    public Sprite emptySprite;
-    public int contentCount;
-    public AudioClip hitSound;
-    public AudioClip contentAppearSound;
-
-	[Header("References")]
-	[SerializeField] private Interactable _thisInteractable;
-    [SerializeField] private Animator _thisAnimator;
-    [SerializeField] private SpriteRenderer _thisSpriteRenderer;
-    [SerializeField] private BoxCollider2D _thisCollisionCollider2D;
-    [SerializeField] private BoxCollider2D _thisInteractionCollider2D;
+	public BoxCollider2D							thisInteractionCollider {
+		get { return _thisInteractionCollider; }
+		private set { _thisInteractionCollider = value; }
+	}
 
 
-    public bool IsBrainInteractor(ScriptableActorBrain brain) {
+	public bool IsBrainInteractor(ScriptableActorBrain brain) {
         return IsBrainOnSet(interactorBrains, brain);
     }
 
-	private bool OnInteract(GameObject interactor) {
+	private bool OnInteracted(GameObject interactor) {
 		if(brain) {
-			brain.DoInteract(this, interactor);
+			brain.DoInteracted(this, interactor);
 		}
 
 		return false;
 	}
 
 	private void OnEnable() {
-		thisInteractable.OnInteract += OnInteract;
+		thisInteractable.OnInteract += OnInteracted;
 	}
 
 	private void OnDisable() {
-		thisInteractable.OnInteract -= OnInteract;
+		thisInteractable.OnInteract -= OnInteracted;
 	}
 
     protected override void Reset() {
         base.Reset();
 
-        _thisAnimator = gameObject.GetComponentInChildren<Animator>(true);
+		// Set animator
+        thisAnimator = gameObject.GetComponentInChildren<Animator>(true);
 
-        _thisSpriteRenderer = _thisAnimator.GetComponentInChildren<SpriteRenderer>(true);
+		// Set sprite renderer
+        thisSpriteRenderer = _thisAnimator.GetComponentInChildren<SpriteRenderer>(true);
 
-        _thisCollisionCollider2D = gameObject.AddOrGetComponent<BoxCollider2D>();
+		// Set collision collider
+		thisCollisionCollider = Utilities.CreateObject("Collision", thisTransform).AddOrGetComponent<BoxCollider2D>();
+		thisCollisionCollider.size = thisSpriteRenderer ? thisSpriteRenderer.size * thisSpriteRenderer.GetComponent<Transform>().localScale :
+															thisCollisionCollider.size;
 
-        _thisInteractionCollider2D = Utilities.CreateObject("Interaction", thisTransform).AddOrGetComponent<BoxCollider2D>();
-        _thisInteractionCollider2D.isTrigger = true;
+		// Set interaction collider
+		thisInteractionCollider = Utilities.CreateObject("Interaction", thisTransform).AddOrGetComponent<BoxCollider2D>();
+        thisInteractionCollider.isTrigger = true;
     }
 
 
     public class BlockBrain : ActorBrain<BlockActor> {
-		public virtual bool DoInteract(BlockActor blockActor, GameObject interactor) { return false; }
+		public virtual bool DoInteracted(BlockActor blockActor, GameObject interactor) { return false; }
 	}
 }

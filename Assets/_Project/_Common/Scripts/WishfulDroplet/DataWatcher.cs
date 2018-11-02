@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 
 namespace WishfulDroplet {
+	/// <summary>
+	/// A powerful tool to decouple UI code from game code.
+	/// </summary>
 	public static class DataWatcher {
 		private static Dictionary<Type, IList<IList>> dataWatchers = new Dictionary<Type, IList<IList>>();
 

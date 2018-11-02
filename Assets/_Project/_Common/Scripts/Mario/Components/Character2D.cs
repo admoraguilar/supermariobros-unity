@@ -5,80 +5,80 @@ using WishfulDroplet;
 using WishfulDroplet.Extensions;
 
 
-[ExecuteInEditMode]
 public class Character2D : MonoBehaviour {
-	public event Action<Direction, RaycastHit2D, Collider2D> OnDirectionalBoxCastHit = delegate { };
+	public event Action<Direction, RaycastHit2D, Collider2D>		OnCasterHit = delegate { };
 
-	public Vector2 faceAxis {
-		get { return _faceAxis; }
-		private set { _faceAxis = value; }
-	}
+	public Vector2									maxVelocity = new Vector2(5f, 8f);
+	public bool										isUpdateFaceDirectionOnlyOnGround = true;
+	public bool										isGroundCheckIncludeYVelocity = true;
 
-	public bool isGrounded {
-		get { return _isGrounded; }
-	}
+	[Header("Collision Detection")]
+	[SerializeField] private DirectionalBoxCast2D	_collisionCaster = new DirectionalBoxCast2D();
+	[SerializeField] private int					_maxCasterHitBufferSize = 20;
 
-	public bool isChangingDirection {
+	[Header("Debug")]
+	[SerializeField] private Vector2				_moveDirection;
+	[SerializeField] private Vector2				_faceDirection;
+	[SerializeField] private bool					_isGrounded;
+
+	[Header("References")]
+	[SerializeField] private GameObject				_thisGameObject;
+	[SerializeField] private Transform				_thisTransform;
+	[SerializeField] private Rigidbody2D			_thisRigidbody2D;
+	[SerializeField] private BoxCollider2D			_thisCollisionCollider2D;
+
+	public bool										isChangingDirection {
 		get {
 			return (_thisRigidbody2D.velocity.x > 0f && IsFacing(Direction.Left)) ||
 				   (_thisRigidbody2D.velocity.x < 0f && IsFacing(Direction.Right));
 		}
 	}
 
-	public GameObject thisGameObject {
+	public Vector2									faceDirection {
+		get { return _faceDirection; }
+		private set { _faceDirection = value; }
+	}
+
+	public bool										isGrounded {
+		get { return _isGrounded; }
+		private set { _isGrounded = value; }
+	}
+
+	public GameObject								thisGameObject {
 		get { return _thisGameObject; }
 		private set { _thisGameObject = value; }
 	}
 
-	public Transform thisTransform {
+	public Transform								thisTransform {
 		get { return _thisTransform; }
 		private set { _thisTransform = value; }
 	}
 
-	public Rigidbody2D thisRigidbody2D {
+	public Rigidbody2D								thisRigidbody2D {
 		get { return _thisRigidbody2D; }
 		private set { _thisRigidbody2D = value; }
 	}
 
-	public BoxCollider2D thisBoxCollider2D {
-		get { return _thisBoxCollider2D; }
-		private set { _thisBoxCollider2D = value; }
+	public BoxCollider2D							thisCollisionCollider2D {
+		get { return _thisCollisionCollider2D; }
+		private set { _thisCollisionCollider2D = value; }
 	}
-
-	public Vector2 maxVelocity = new Vector2(5f, 8f);
-	public bool isUpdateFaceAxisOnlyOnGround = true;
-	public bool isGroundCheckIncludeYVelocity = true;
-
-	[Header("Collision Detector")]
-	[SerializeField] private DirectionalBoxCast2D directionalBoxCast = new DirectionalBoxCast2D();
-	[SerializeField] private int maxHitBufferSize = 20;
-
-	[Header("Debug")]
-	[SerializeField] private Vector2 _moveDirection;
-	[SerializeField] private Vector2 _faceAxis;
-	[SerializeField] private bool _isGrounded;
-
-	[Header("References")]
-	[SerializeField] private GameObject _thisGameObject;
-	[SerializeField] private Transform _thisTransform;
-	[SerializeField] private Rigidbody2D _thisRigidbody2D;
-	[SerializeField] private BoxCollider2D _thisBoxCollider2D;
 
 
 	public bool IsColliding(CollisionFilter filter) {
-		return directionalBoxCast.IsHittingAtAnyDirection(filter);
+		return _collisionCaster.IsHitAtAnyDirection(filter);
 	}
 
 	public bool IsColliding(Collider2D collider) {
-		return directionalBoxCast.IsHittingAtAnyDirection(collider);
+		return _collisionCaster.IsHitAtAnyDirection(collider);
 	}
 
 	public bool IsColliding(Direction direction, CollisionFilter filter) {
-		return directionalBoxCast.IsHittingAt(direction, filter);
+		return _collisionCaster.IsHitAt(direction, filter);
 	}
 
 	public bool IsColliding(Direction direction, Collider2D collider) {
-		return directionalBoxCast.IsHittingAt(direction, collider);
+		return _collisionCaster.IsHitAt(direction, collider);
 	}
 
 	public bool IsMoving() {
@@ -87,26 +87,26 @@ public class Character2D : MonoBehaviour {
 
 	public bool IsMoving(Direction direction) {
 		switch(direction) {
-			case Direction.Up: return thisRigidbody2D.velocity.y > 0f;
-			case Direction.Down: return thisRigidbody2D.velocity.y < 0f;
-			case Direction.Left: return thisRigidbody2D.velocity.x < 0f;
-			case Direction.Right: return thisRigidbody2D.velocity.x > 0f;
+			case Direction.Up:		return thisRigidbody2D.velocity.y > 0f;
+			case Direction.Down:	return thisRigidbody2D.velocity.y < 0f;
+			case Direction.Left:	return thisRigidbody2D.velocity.x < 0f;
+			case Direction.Right:	return thisRigidbody2D.velocity.x > 0f;
 			default: return false;
 		}
 	}
 
 	public bool IsFacing(Direction direction) {
 		switch(direction) {
-			case Direction.Up: return faceAxis.y > 0f;
-			case Direction.Down: return _faceAxis.y < 0f;
-			case Direction.Left: return _faceAxis.x < 0f;
-			case Direction.Right: return _faceAxis.x > 0f;
+			case Direction.Up:		return faceDirection.y > 0f;
+			case Direction.Down:	return faceDirection.y < 0f;
+			case Direction.Left:	return faceDirection.x < 0f;
+			case Direction.Right:	return faceDirection.x > 0f;
 			default: return true;
 		}
 	}
 
 	public List<Collider2D> GetHits(Direction direction) {
-		DirectionalBoxCast2D.BoxCastInfo info = directionalBoxCast.GetBoxCastInfo(direction);
+		DirectionalBoxCast2D.BoxCastInfo info = _collisionCaster.GetBoxCastInfo(direction);
 		if(info != null) {
 			return info.hits;
 		}
@@ -114,12 +114,7 @@ public class Character2D : MonoBehaviour {
 		return null;
 	}
 
-	public void SetVelocity(Vector2 velocity) {
-		thisRigidbody2D.velocity = velocity;
-	}
-
 	public void Move(Vector2 direction) {
-		// This could be optimized
 		if(IsColliding(Direction.Up, CollisionFilter.OnlyNonTrigger) && direction.y > 0) {
 			direction.y = 0f;
 		}
@@ -147,19 +142,15 @@ public class Character2D : MonoBehaviour {
 	}
 
 	private void Awake() {
-		directionalBoxCast.SetHitBufferSize(maxHitBufferSize);
+		_collisionCaster.SetHitBufferSize(_maxCasterHitBufferSize);
 	}
 
 	private void OnEnable() {
-		directionalBoxCast.OnHit += OnDirectionalBoxCastHit;
+		_collisionCaster.OnHit += OnCasterHit;
 	}
 
 	private void OnDisable() {
-		directionalBoxCast.OnHit -= OnDirectionalBoxCastHit;
-	}
-
-	private void DoDirectionalBoxCastHit(Direction direction, RaycastHit2D hit, Collider2D collider) {
-		OnDirectionalBoxCastHit(direction, hit, collider);
+		_collisionCaster.OnHit -= OnCasterHit;
 	}
 
 	private void Update() {
@@ -170,7 +161,6 @@ public class Character2D : MonoBehaviour {
 		// FIXED: It was not the code, but the composite collider issues, it seems to be 
 		//        a Unity bug where the vertex snapping leaves very small gaps that could
 		//        screw around with collisions
-		//isGrounded = IsColliding(Direction.Down) && thisRigidbody2D.velocity.y == 0f;
 		_isGrounded = IsColliding(Direction.Down, CollisionFilter.OnlyNonTrigger) && (isGroundCheckIncludeYVelocity ? _thisRigidbody2D.velocity.y == 0f : true);
 
 		// Debug
@@ -178,9 +168,9 @@ public class Character2D : MonoBehaviour {
 	}
 
 	private void FixedUpdate() {
-		if(isUpdateFaceAxisOnlyOnGround && _isGrounded) {
-			_faceAxis.x = _moveDirection.x < 0f ? -1f : _moveDirection.x > 0f ? 1f : _faceAxis.x;
-			_faceAxis.y = _moveDirection.y < 0f ? -1f : _moveDirection.y > 0f ? 1f : _faceAxis.y;
+		if(isUpdateFaceDirectionOnlyOnGround && _isGrounded) {
+			_faceDirection.x = _moveDirection.x < 0f ? -1f : _moveDirection.x > 0f ? 1f : faceDirection.x;
+			_faceDirection.y = _moveDirection.y < 0f ? -1f : _moveDirection.y > 0f ? 1f : faceDirection.y;
 		}
 
 		thisRigidbody2D.AddForce(_moveDirection, ForceMode2D.Force);
@@ -191,26 +181,27 @@ public class Character2D : MonoBehaviour {
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision) {
-		directionalBoxCast.UpdateHits();
+		_collisionCaster.UpdateHits();
 	}
 
 	private void OnCollisionStay2D(Collision2D collision) {
-		directionalBoxCast.UpdateHits();
+		_collisionCaster.UpdateHits();
 	}
 
 	private void OnCollisionExit2D(Collision2D collision) {
-		directionalBoxCast.UpdateHits();
+		_collisionCaster.UpdateHits();
 	}
 
 	private void OnDrawGizmos() {
+		// Draw gizmos for the collision caster
 		Gizmos.color = Color.red;
-		if(directionalBoxCast.boxCastInfos != null) {
-			for(int i = 0; i < directionalBoxCast.boxCastInfos.Count; i++) {
-				Gizmos.DrawWireCube(directionalBoxCast.boxCastInfos[i].origin,
-									directionalBoxCast.boxCastInfos[i].size);
+		if(_collisionCaster.boxCastInfos != null) {
+			for(int i = 0; i < _collisionCaster.boxCastInfos.Count; i++) {
+				Gizmos.DrawWireCube(_collisionCaster.boxCastInfos[i].origin,
+									_collisionCaster.boxCastInfos[i].size);
 
-				Gizmos.DrawRay(directionalBoxCast.boxCastInfos[i].origin,
-							   directionalBoxCast.boxCastInfos[i].castDirection * directionalBoxCast.boxCastInfos[i].distance);
+				Gizmos.DrawRay(_collisionCaster.boxCastInfos[i].origin,
+							   _collisionCaster.boxCastInfos[i].castDirection * _collisionCaster.boxCastInfos[i].distance);
 			}
 		}
 	}
@@ -221,36 +212,37 @@ public class Character2D : MonoBehaviour {
 		thisRigidbody2D = thisGameObject.AddOrGetComponent<Rigidbody2D>();
 
 		// Set collision collider
-		thisBoxCollider2D = Utilities.CreateObject("Collision", thisTransform).AddOrGetComponent<BoxCollider2D>();
+		thisCollisionCollider2D = Utilities.CreateObject("Collision", thisTransform).AddOrGetComponent<BoxCollider2D>();
 
 		// Set directional boxcast
-		directionalBoxCast.boxCastInfos = new List<DirectionalBoxCast2D.BoxCastInfo> {
+		_collisionCaster.boxCastInfos = new List<DirectionalBoxCast2D.BoxCastInfo> {
 			new DirectionalBoxCast2D.BoxCastInfo {
 				direction = Direction.Up,
-				directionSizeMultiplier = .02f,
 				referenceSizeMultiplier = .9f,
+				directionSizeMultiplier = .02f,
 				distance = .02f
 			},
 			new DirectionalBoxCast2D.BoxCastInfo {
 				direction = Direction.Down,
-				directionSizeMultiplier = .02f,
 				referenceSizeMultiplier = 1f,
-				distance = .1f
+				directionSizeMultiplier = .02f,
+				distance = .05f
 			},
 			new DirectionalBoxCast2D.BoxCastInfo {
 				direction = Direction.Left,
-				directionSizeMultiplier = .02f,
 				referenceSizeMultiplier = 1f,
+				directionSizeMultiplier = .02f,
 				distance = .02f
 			},
 			new DirectionalBoxCast2D.BoxCastInfo {
 				direction = Direction.Right,
-				directionSizeMultiplier = .02f,
 				referenceSizeMultiplier = 1f,
+				directionSizeMultiplier = .02f,
 				distance = .02f
 			}
 		};
-		directionalBoxCast.referenceCollider = thisBoxCollider2D;
-		directionalBoxCast.castMask = new List<Collider2D>(GetComponentsInChildren<Collider2D>(true));
+		_collisionCaster.boxCastMask = new List<Collider2D>(GetComponentsInChildren<Collider2D>(true));
+		_collisionCaster.referenceCollider = thisCollisionCollider2D;
+		_collisionCaster.layerMask = LayerMask.NameToLayer("Everything");
 	}
 }

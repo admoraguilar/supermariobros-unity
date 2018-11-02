@@ -5,7 +5,9 @@ using WishfulDroplet.Extensions;
 
 [CreateAssetMenu(menuName = "Actors/Blocks/Brains/Block")]
 public class BrickBlockBrain : BlockActor.BlockBrain {
-	public override bool DoInteract(BlockActor blockActor, GameObject interactor) {
+	public override bool DoInteracted(BlockActor blockActor, GameObject interactor) {
+		Debug.Log(string.Format("Interacted by: {0}.{1}", interactor.transform.root.name, interactor.name));
+
 		CharacterActor otherCharacterActor = interactor.GetComponent<CharacterActor>();
 		if(otherCharacterActor) {
 			Collider2D collision = otherCharacterActor.thisInteractionCollider2D;

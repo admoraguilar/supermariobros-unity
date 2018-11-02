@@ -7,16 +7,19 @@ public class MushroomPowerupBrain : PowerupActor.PowerupBrain {
 		actor.movementStateMachine.SetState(actor.moveMovementState);
 	}
 
-	public override void DoTriggerEnter2D(PowerupActor levelItemActor, Collider2D collision) {
-        CharacterActor otherCharacterActor = collision.transform.root.GetComponent<CharacterActor>();
-        if(otherCharacterActor) {
-            // Empower buffables upon contact
-            if(levelItemActor.IsBrainBuffable(otherCharacterActor.brain)) {
-                if(otherCharacterActor.formStateMachine.currentState == otherCharacterActor.smallFormState) {
-                    otherCharacterActor.SetForm(otherCharacterActor.bigFormState);
-                    Destroy(levelItemActor.gameObject);
-                }
-            }
-        }
-    }
+	public override bool DoInteracted(PowerupActor powerupActor, GameObject interactor) {
+		CharacterActor otherCharacterActor = interactor.transform.root.GetComponent<CharacterActor>();
+		if(otherCharacterActor) {
+			// Empower buffables upon contact
+			if(powerupActor.IsBrainBuffable(otherCharacterActor.brain)) {
+				if(otherCharacterActor.formStateMachine.currentState == otherCharacterActor.smallFormState) {
+					otherCharacterActor.SetForm(otherCharacterActor.bigFormState);
+					Destroy(powerupActor.gameObject);
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
 }

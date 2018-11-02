@@ -14,10 +14,10 @@ namespace WishfulDroplet {
 
 	[Flags]
 	public enum Direction {
-		Up = 0,
-		Down = 1,
-		Left = 2,
-		Right = 3,
+		Up			= 0,
+		Down		= 1,
+		Left		= 2,
+		Right		= 3,
 	}
 
 
@@ -28,58 +28,39 @@ namespace WishfulDroplet {
 	}
 
 
+	/// <summary>
+	/// Useful for detecting any colliders in a 4-directional way.
+	/// </summary>
 	[Serializable]
 	public class DirectionalBoxCast2D {
-		public event Action<Direction, RaycastHit2D, Collider2D> OnHit = delegate { };
+		public event Action<Direction, RaycastHit2D, Collider2D>		OnHit = delegate { };
 
-		public List<BoxCastInfo> boxCastInfos = new List<BoxCastInfo>();
-		public LayerMask layerMask;
-		public BoxCollider2D referenceCollider;
-		public List<Collider2D> castMask = new List<Collider2D>();
-
-		private RaycastHit2D[] _hitBuffer;
+		public List<BoxCastInfo>										boxCastInfos = new List<BoxCastInfo>();
+		public List<Collider2D>											boxCastMask = new List<Collider2D>();
+		public BoxCollider2D											referenceCollider;
+		public LayerMask												layerMask;
+		
+		private RaycastHit2D[]											_hitBuffer;
 
 
 		public DirectionalBoxCast2D(int hitBufferSize = 20) {
 			SetHitBufferSize(hitBufferSize);
 		}
 
-		public bool IsHittingAtAnyDirection(CollisionFilter filter) {
-			for(int i = 0; i < boxCastInfos.Count; i++) {
-				if(IsEvaluateHits(filter, boxCastInfos[i].hits)) {
-					return true;
-				}
-			}
-
-			return false;
+		public bool IsHitAtAnyDirection(CollisionFilter filter) {
+			return IsEvaluateHitsCollisionType(boxCastInfos, filter);
 		}
 
-		public bool IsHittingAtAnyDirection(Collider2D collider) {
-			for(int i = 0; i < boxCastInfos.Count; i++) {
-				if(boxCastInfos[i].hits.Contains(collider)) {
-					return true;
-				}
-			}
-
-			return false;
+		public bool IsHitAtAnyDirection(Collider2D collider) {
+			return IsHitsContainingCollider(boxCastInfos, collider);
 		}
 
-		public bool IsHittingAt(Direction direction, CollisionFilter filter) {
-			BoxCastInfo info = GetBoxCastInfo(direction);
-			if(info != null) {
-				return IsEvaluateHits(filter, info.hits);
-			}
-
-			return false;
+		public bool IsHitAt(Direction direction, CollisionFilter filter) {
+			return IsEvaluateHitsCollisionType(GetBoxCastInfo(direction), filter);
 		}
 
-		public bool IsHittingAt(Direction direction, Collider2D collider) {
-			BoxCastInfo info = GetBoxCastInfo(direction);
-			if(info != null) {
-				return info.hits.Contains(collider);
-			}
-
-			return false;
+		public bool IsHitAt(Direction direction, Collider2D collider) {
+			return IsHitsContainingCollider(GetBoxCastInfo(direction), collider);
 		}
 
 		public BoxCastInfo GetBoxCastInfo(Direction direction) {
@@ -92,76 +73,107 @@ namespace WishfulDroplet {
 			return null;
 		}
 
+		/// <summary>
+		/// Set how many hits each box cast could detect.
+		/// </summary>
+		/// <param name="size"></param>
 		public void SetHitBufferSize(int size) {
 			_hitBuffer = new RaycastHit2D[size];
 		}
 
+		/// <summary>
+		/// Cast the boxes, it is recommended to only update the hits when Unity events like OnCollisionEnter2D happens.
+		/// </summary>
 		public void UpdateHits() {
 			for(int i = 0; i < boxCastInfos.Count; i++) {
-				boxCastInfos[i].hits.Clear();
+				BoxCastInfo info = boxCastInfos[i];
+				//info.hits.Clear();
 
-				switch(boxCastInfos[i].direction) {
+				switch(info.direction) {
 					case Direction.Up:
-						boxCastInfos[i]._origin = new Vector2(referenceCollider.bounds.center.x, referenceCollider.bounds.max.y) + boxCastInfos[i]._offset;
-						boxCastInfos[i]._size = new Vector2(referenceCollider.size.x * boxCastInfos[i].referenceSizeMultiplier, 1f * boxCastInfos[i].directionSizeMultiplier);
-						boxCastInfos[i]._castDirection = Vector2.up;
+						info._origin			= new Vector2(referenceCollider.bounds.center.x, referenceCollider.bounds.max.y) + info.offset;
+						info._size				= new Vector2(referenceCollider.size.x * info.referenceSizeMultiplier, 1f * info.directionSizeMultiplier);
+						info._castDirection		= Vector2.up;
 						break;
 					case Direction.Down:
-						boxCastInfos[i]._origin = new Vector2(referenceCollider.bounds.center.x, referenceCollider.bounds.min.y) + boxCastInfos[i]._offset;
-						boxCastInfos[i]._size = new Vector2(referenceCollider.size.x * boxCastInfos[i].referenceSizeMultiplier, 1f * boxCastInfos[i].directionSizeMultiplier);
-						boxCastInfos[i]._castDirection = Vector2.down;
+						info._origin			= new Vector2(referenceCollider.bounds.center.x, referenceCollider.bounds.min.y) + info.offset;
+						info._size				= new Vector2(referenceCollider.size.x * info.referenceSizeMultiplier, 1f * info.directionSizeMultiplier);
+						info._castDirection		= Vector2.down;
 						break;
 					case Direction.Left:
-						boxCastInfos[i]._origin = new Vector2(referenceCollider.bounds.min.x, referenceCollider.bounds.center.y) + boxCastInfos[i]._offset;
-						boxCastInfos[i]._size = new Vector2(1f * boxCastInfos[i].directionSizeMultiplier * boxCastInfos[i].referenceSizeMultiplier, referenceCollider.size.y);
-						boxCastInfos[i]._castDirection = Vector2.left;
+						info._origin			= new Vector2(referenceCollider.bounds.min.x, referenceCollider.bounds.center.y) + info.offset;
+						info._size				= new Vector2(1f * info.directionSizeMultiplier * info.referenceSizeMultiplier, referenceCollider.size.y);
+						info._castDirection		= Vector2.left;
 						break;
 					case Direction.Right:
-						boxCastInfos[i]._origin = new Vector2(referenceCollider.bounds.max.x, referenceCollider.bounds.center.y) + boxCastInfos[i]._offset;
-						boxCastInfos[i]._size = new Vector2(1f * boxCastInfos[i].directionSizeMultiplier * boxCastInfos[i].referenceSizeMultiplier, referenceCollider.size.y);
-						boxCastInfos[i]._castDirection = Vector2.right;
+						info._origin			= new Vector2(referenceCollider.bounds.max.x, referenceCollider.bounds.center.y) + info.offset;
+						info._size				= new Vector2(1f * info.directionSizeMultiplier * info.referenceSizeMultiplier, referenceCollider.size.y);
+						info._castDirection		= Vector2.right;
 						break;
 				}
 
-				int hitCount = Physics2D.BoxCastNonAlloc(boxCastInfos[i].origin,
-														 boxCastInfos[i].size,
-														 0f,
-														 boxCastInfos[i].castDirection,
-														 _hitBuffer,
-														 boxCastInfos[i].distance,
+				int hitCount = Physics2D.BoxCastNonAlloc(info.origin, info.size, 0f,
+														 info.castDirection, _hitBuffer, info.distance,
 														 layerMask);
 
 				for(int a = 0; a < hitCount; a++) {
-					if(castMask.Contains(_hitBuffer[a].collider)) {
+					// Filter the hits here
+					if(boxCastMask.Contains(_hitBuffer[a].collider)) {
 						continue;
 					}
 
-					if(!boxCastInfos[i].hits.Contains(_hitBuffer[a].collider)) {
-						boxCastInfos[i].hits.Add(_hitBuffer[a].collider);
-						OnHit(boxCastInfos[i].direction, _hitBuffer[a], _hitBuffer[a].collider);
+					// Call hit callback
+					if(!info.hits.Contains(_hitBuffer[a].collider)) {
+						OnHit(info.direction, _hitBuffer[a], _hitBuffer[a].collider);
 					}
+				}
+
+				info.hits.Clear();
+
+				for(int a = 0; a < hitCount; a++) {
+					// Filter the hits here
+					if(boxCastMask.Contains(_hitBuffer[a].collider)) {
+						continue;
+					}
+
+					// Add the hit to the buffer
+					info.hits.Add(_hitBuffer[a].collider);
 				}
 			}
 		}
-		
-		private bool IsEvaluateHits(CollisionFilter filter, List<Collider2D> hits) {
-			switch(filter) {
-				case CollisionFilter.OnlyNonTrigger:
-					for(int i = 0; i < hits.Count; i++) {
-						if(!hits[i].isTrigger) {
-							return true;
-						}
-					}
-					break;
-				case CollisionFilter.OnlyTrigger:
-					for(int i = 0; i < hits.Count; i++) {
-						if(hits[i].isTrigger) {
-							return true;
-						}
-					}
-					break;
-				default:
-					return hits.Count != 0;
+
+		private bool IsEvaluateHitsCollisionType(List<BoxCastInfo> infos, CollisionFilter filter) {
+			for(int i = 0; i < infos.Count; i++) {
+				BoxCastInfo info = infos[i];
+				if(IsEvaluateHitsCollisionType(info, filter)) return true;
+			}
+
+			return false;
+		}
+
+		private bool IsEvaluateHitsCollisionType(BoxCastInfo info, CollisionFilter filter) {
+			for(int i = 0; i < info.hits.Count; i++) {
+				Collider2D hit = info.hits[i];
+				if(!hit.isTrigger && filter == CollisionFilter.OnlyNonTrigger) return true;
+				else if(hit.isTrigger && filter == CollisionFilter.OnlyTrigger) return true;
+				else if(filter == CollisionFilter.Both) return info.hits.Count != 0;
+			}
+
+			return false;
+		}
+
+		private bool IsHitsContainingCollider(List<BoxCastInfo> infos, Collider2D collider) {
+			for(int i = 0; i < infos.Count; i++) {
+				BoxCastInfo info = infos[i];
+				if(IsHitsContainingCollider(info, collider)) return true;
+			}
+
+			return false;
+		}
+
+		private bool IsHitsContainingCollider(BoxCastInfo info, Collider2D collider) {
+			for(int i = 0; i < info.hits.Count; i++) {
+				if(info.hits.Contains(collider)) return true;
 			}
 
 			return false;
@@ -170,21 +182,21 @@ namespace WishfulDroplet {
 
 		[Serializable]
 		public class BoxCastInfo {
-			public Vector2 origin { get { return _origin; } }
-			public Vector2 size { get { return _size; } }
-			public Vector2 castDirection { get { return _castDirection; } }
-			public List<Collider2D> hits { get { return _hits; } }
+			public Direction									direction;
+			public Vector2										offset = Vector2.zero;
+			public float										referenceSizeMultiplier = 1f;
+			public float										directionSizeMultiplier = 1f;
+			public float										distance = 1f;
 
-			public Direction direction;
-			public Vector2 _offset = Vector2.zero;
-			public float referenceSizeMultiplier = 1f;
-			public float directionSizeMultiplier = 1f;
-			public float distance = 1f;
+			[SerializeField] internal List<Collider2D>			_hits = new List<Collider2D>();
+			internal Vector2									_origin;
+			internal Vector2									_size;
+			internal Vector2									_castDirection;
 
-			[SerializeField] internal List<Collider2D> _hits = new List<Collider2D>();
-			internal Vector2 _origin;
-			internal Vector2 _size;
-			internal Vector2 _castDirection;
+			public List<Collider2D>								hits { get { return _hits; } }
+			public Vector2										origin { get { return _origin; } }
+			public Vector2										size { get { return _size; } }
+			public Vector2										castDirection { get { return _castDirection; } }
 		}
 	}
 
@@ -197,13 +209,11 @@ namespace WishfulDroplet {
 				string curPath = splitPath[i];
 
 				Transform child = parent ? parent.FindDeepChild(curPath, TransformExtensions.SearchType.BreadthFirst) : null;
-
 				if(!child) {
 					child = new GameObject(curPath).GetComponent<Transform>();
 					child.SetParent(parent, false);
 					child.localPosition = Vector3.zero;
 				}
-
 				parent = child;
 			}
 

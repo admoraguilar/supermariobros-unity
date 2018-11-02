@@ -4,17 +4,20 @@ using System.Linq;
 
 
 namespace WishfulDroplet {
+	/// <summary>
+	/// A scriptable object for setting singletons on the editor.
+	/// </summary>
 	[CreateAssetMenu(menuName = "WishfulDroplet/ScriptableObjects/SingletonConfig")]
 	public class SingletonConfig : ScriptableObject {
-		public SingletonSet[] SingletonSets;
+		public SingletonSet[] singletonSets;
 
 
 		[Serializable]
 		public class SingletonSet {
-			public string label;
-			public GameObject[] gameObjectSingletons = new GameObject[0];
-			public ScriptableObject[] scriptableObjectSingletons = new ScriptableObject[0];
-			public bool isEnabled = true;
+			public string					label;
+			public GameObject[]				gameObjectSingletons = new GameObject[0];
+			public ScriptableObject[]		scriptableObjectSingletons = new ScriptableObject[0];
+			public bool						isEnabled = true;
 		}
 
 
@@ -28,17 +31,18 @@ namespace WishfulDroplet {
 				return;
 			}
 
-			foreach(var singletonSet in config.SingletonSets) {
+			foreach(var singletonSet in config.singletonSets) {
 				if(!singletonSet.isEnabled) continue;
 
+				// Process GameObject singletons
 				foreach(var singleton in singletonSet.gameObjectSingletons) {
 					if(!singleton) continue;
 
 					GameObject go = singleton as GameObject;
 					if(go) {
-						go = UnityEngine.Object.Instantiate(go);
+						go = Instantiate(go);
 						go.name = singleton.name;
-						UnityEngine.Object.DontDestroyOnLoad(go);
+						DontDestroyOnLoad(go);
 
 						foreach(var mono in go.GetComponents<MonoBehaviour>()) {
 							Singleton.Add(mono.GetType(), mono);
@@ -46,6 +50,7 @@ namespace WishfulDroplet {
 					}
 				}
 
+				// Process ScriptableObjects singletons
 				foreach(var singleton in singletonSet.scriptableObjectSingletons) {
 					if(!singleton) continue;
 

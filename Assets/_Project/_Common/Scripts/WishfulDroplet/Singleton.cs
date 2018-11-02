@@ -6,18 +6,24 @@ using System.Collections.Generic;
 
 
 namespace WishfulDroplet {
+	/// <summary>
+	/// A Singleton manager.
+	/// </summary>
     public static class Singleton {
-        private static Dictionary<Type, object> singletons = new Dictionary<Type, object>();
+        private static Dictionary<Type, object> _singletons = new Dictionary<Type, object>();
 
 
         public static T Get<T>() where T : class {
 			Type type = typeof(T);
 			object value = null;
 
-			if(!singletons.TryGetValue(type, out value)) {
-				foreach(var singleton in singletons.Values) {
-					if(type.IsAssignableFrom(singleton.GetType())) {
-						value = singleton;
+			if(!_singletons.TryGetValue(type, out value)) {
+				// If we don't find any singleton of that type then
+				// we try to iterate the values if there are singletons 
+				// which are assignable to our type
+				foreach(var singleton in _singletons) {
+					if(type.IsAssignableFrom(singleton.Value.GetType())) {
+						value = singleton.Value;
 						Add(type, value);
 						break;
 					}
@@ -33,7 +39,7 @@ namespace WishfulDroplet {
 
 		public static void Add(Type type, object singleton) {
 			Assert.IsTrue(type.IsAssignableFrom(singleton.GetType()));
-			singletons[type] = singleton;
+			_singletons[type] = singleton;
 		}
 
 		public static void Remove<T>() where T : class {
@@ -41,7 +47,7 @@ namespace WishfulDroplet {
 		}
 
 		public static void Remove(Type type) {
-			singletons.Remove(type);
+			_singletons.Remove(type);
 		}
     }
 }

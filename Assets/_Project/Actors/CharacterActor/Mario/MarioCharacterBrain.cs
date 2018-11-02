@@ -7,7 +7,30 @@ using WishfulDroplet.Extensions;
 
 [CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/Mario")]
 public class MarioCharacterBrain : CharacterActor.CharacterBrain {
-	public override bool DoInteract(CharacterActor characterActor, GameObject interactor) {
+	public override void DoCollisionHit(CharacterActor characterActor, Direction direction, RaycastHit2D hit, Collider2D collider) {
+		switch(direction) {
+			case Direction.Up:
+				if(Mathf.Abs(characterActor.transform.position.x - collider.transform.position.x) < .7f) {
+					characterActor.movementStateMachine.SetState(characterActor.fallMovementState);
+				}
+				break;
+		}
+	}
+
+	public override void DoInteractionHit(CharacterActor characterActor, Direction direction, RaycastHit2D hit, Collider2D collider) {
+		switch(direction) {
+			case Direction.Up:
+				Interactable interactable = collider.transform.root.GetComponent<Interactable>();
+				if(interactable) {
+					//Debug.Log(string.Format("Mario interacting up: {0}.{1}", collider.transform.root.name, collider.name));
+					interactable.Interact(characterActor.gameObject);
+					//Debug.Log(string.Format("Found interactable: {0}.{1}", collider.transform.root.name, collider.name));
+				}
+				break;
+		}
+	}
+
+	public override bool DoInteracted(CharacterActor characterActor, GameObject interactor) {
 		CharacterActor otherCharacterActor = interactor.GetComponent<CharacterActor>();
 		if(otherCharacterActor) {
 			Collider2D collision = otherCharacterActor.thisInteractionCollider2D;
@@ -23,28 +46,6 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
 		}
 
 		return false;
-	}
-
-	public override void DoCollisionDirectionalBoxCastHit(CharacterActor characterActor, Direction direction, RaycastHit2D hit, Collider2D collider) {
-		switch(direction) {
-			case Direction.Up:
-				if(Mathf.Abs(characterActor.transform.position.x - collider.transform.position.x) < .7f) {
-					characterActor.movementStateMachine.SetState(characterActor.fallMovementState);
-				}
-				break;
-		}
-	}
-
-	public override void DoInteractionDirectionalBoxCastHit(CharacterActor characterActor, Direction direction, RaycastHit2D hit, Collider2D collider) {
-		switch(direction) {
-			case Direction.Up:
-				Interactable interactable = collider.transform.root.GetComponent<Interactable>();
-				if(interactable) {
-					//Debug.Log(string.Format("Mario interacting up: {0}.{1}", collider.transform.root.name, collider.name));
-					interactable.Interact(characterActor.gameObject);
-				}
-				break;
-		}
 	}
 
 	public override void DoStart(CharacterActor characterActor) {

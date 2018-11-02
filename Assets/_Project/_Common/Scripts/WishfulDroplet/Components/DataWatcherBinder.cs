@@ -2,6 +2,9 @@
 using WishfulDroplet;
 
 
+/// <summary>
+/// Binds data to the DataWatcher on Awake.
+/// </summary>
 public class DataWatcherBinder : MonoBehaviour {
 	[SerializeField] private Object[] toBinds;
 
