@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using WishfulDroplet;
 
 
 [CreateAssetMenu(menuName = "Actors/Powerup/Brains/Flower")]
 public class FlowerPowerupBrain : PowerupActor.PowerupBrain {
-	public override bool DoInteracted(PowerupActor powerupActor, GameObject interactor) {
+	public override bool DoInteracted(PowerupActor powerupActor, Direction direction, GameObject interactor) {
 		CharacterActor otherCharacterActor = interactor.transform.root.GetComponent<CharacterActor>();
 		if(otherCharacterActor) {
 			// Empower buffables upon contact

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using WishfulDroplet;
 
 
 [CreateAssetMenu(menuName = "Actors/Powerup/Brains/Mushroom")]
@@ -7,7 +8,7 @@ public class MushroomPowerupBrain : PowerupActor.PowerupBrain {
 		actor.movementStateMachine.SetState(actor.moveMovementState);
 	}
 
-	public override bool DoInteracted(PowerupActor powerupActor, GameObject interactor) {
+	public override bool DoInteracted(PowerupActor powerupActor, Direction direction, GameObject interactor) {
 		CharacterActor otherCharacterActor = interactor.transform.root.GetComponent<CharacterActor>();
 		if(otherCharacterActor) {
 			// Empower buffables upon contact

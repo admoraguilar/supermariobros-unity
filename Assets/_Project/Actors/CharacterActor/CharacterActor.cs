@@ -129,21 +129,21 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 		thisCharacterObject.localScale = characterFlip;
 	}
 
-	private void OnCollisionHit(Direction direction, RaycastHit2D hitDetails, Collider2D collider) {
+	private void OnCharacter2DCasterHit(Direction direction, RaycastHit2D hitDetails, Collider2D collider) {
 		if(brain) {
-			brain.DoCollisionHit(this, direction, hitDetails, collider);
+			brain.DoCharacter2DCasterHit(this, direction, hitDetails, collider);
 		}
 	}
 
-	private void OnInteractionHit(Direction direction, RaycastHit2D hitDetails, Collider2D collider) {
+	private void OnInteractorCasterHit(Direction direction, RaycastHit2D hitDetails, Collider2D collider) {
 		if(brain) {
-			brain.DoInteractionHit(this, direction, hitDetails, collider);
+			brain.DoInteractorCasterHit(this, direction, hitDetails, collider);
 		}
 	}
 
-	private bool OnInteracted(GameObject interactor) {
+	private bool OnInteracted(Direction direction, GameObject interactor) {
 		if(brain) {
-			return brain.DoInteracted(this, interactor);
+			return brain.DoInteracted(this, direction, interactor);
 		}
 
 		return false;
@@ -154,8 +154,8 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 			brain.DoOnEnable(this);
 		}
 
-		thisCharacter2D.OnCasterHit		+= OnCollisionHit;
-		thisInteractor.OnCasterHit		+= OnInteractionHit;
+		thisCharacter2D.OnCasterHit		+= OnCharacter2DCasterHit;
+		thisInteractor.OnCasterHit		+= OnInteractorCasterHit;
 		thisInteractable.OnInteract		+= OnInteracted;
 	}
 
@@ -164,8 +164,8 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 			brain.DoOnDisable(this);
 		}
 
-		thisCharacter2D.OnCasterHit		-= OnCollisionHit;
-		thisInteractor.OnCasterHit		-= OnInteractionHit;
+		thisCharacter2D.OnCasterHit		-= OnCharacter2DCasterHit;
+		thisInteractor.OnCasterHit		-= OnInteractorCasterHit;
 		thisInteractable.OnInteract		-= OnInteracted;
 	}
 
@@ -211,7 +211,7 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 		base.Reset();
 
 		// Setup Rigidbody2D
-		thisRigidbody2D = _thisGameObject.AddOrGetComponent<Rigidbody2D>();
+		thisRigidbody2D = thisGameObject.AddOrGetComponent<Rigidbody2D>();
 		thisRigidbody2D.bodyType = RigidbodyType2D.Dynamic;
 		thisRigidbody2D.sharedMaterial = new PhysicsMaterial2D("Slippery") {
 			friction = .05f
@@ -241,12 +241,12 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 		thisSpriteRenderer = thisCharacterObject.GetComponentInChildren<SpriteRenderer>(true);
 
 		// Setup collision collider
-		thisCollisionCollider2D = Utilities.CreateObject("Collision", thisTransform).AddOrGetComponent<BoxCollider2D>();
+		thisCollisionCollider2D = Utilities.CreateOrGetObject("Collision", thisTransform).AddOrGetComponent<BoxCollider2D>();
 		thisCollisionCollider2D.size = thisCharacterObject ? thisSpriteRenderer.size * thisSpriteRenderer.GetComponent<Transform>().localScale :
 															 thisCollisionCollider2D.size;
 
 		// Setup interaction collider
-		thisInteractionCollider2D = Utilities.CreateObject("Interaction", thisTransform).AddOrGetComponent<BoxCollider2D>();
+		thisInteractionCollider2D = Utilities.CreateOrGetObject("Interaction", thisTransform).AddOrGetComponent<BoxCollider2D>();
 		thisInteractionCollider2D.isTrigger = true;
 		thisInteractionCollider2D.size = thisCollisionCollider2D.size;
 	}
@@ -257,9 +257,9 @@ public class CharacterActor : Actor<CharacterActor, CharacterActor.CharacterBrai
 
 
 		public virtual void UpdateInput(CharacterActor characterActor) { }
-		public virtual bool DoInteracted(CharacterActor characterActor, GameObject interactor) { return false; }
-		public virtual void DoCollisionHit(CharacterActor characterActor, Direction direction, RaycastHit2D hitDetails, Collider2D collider) { }
-		public virtual void DoInteractionHit(CharacterActor characterActor, Direction direction, RaycastHit2D hitDetails, Collider2D collider) { }
+		public virtual bool DoInteracted(CharacterActor characterActor, Direction direction, GameObject interactor) { return false; }
+		public virtual void DoCharacter2DCasterHit(CharacterActor characterActor, Direction direction, RaycastHit2D hitDetails, Collider2D collider) { }
+		public virtual void DoInteractorCasterHit(CharacterActor characterActor, Direction direction, RaycastHit2D hitDetails, Collider2D collider) { }
 	}
 
 

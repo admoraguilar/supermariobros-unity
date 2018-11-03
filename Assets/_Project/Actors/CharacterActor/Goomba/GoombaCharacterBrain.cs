@@ -4,15 +4,27 @@ using WishfulDroplet;
 
 [CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/Goomba")]
 public class GoombaCharacterBrain : CharacterActor.CharacterBrain {
-	public override void DoInteractionHit(CharacterActor characterActor, Direction direction, RaycastHit2D hitDetails, Collider2D collider) {
-		Interactable interactable = collider.transform.root.GetComponent<Interactable>();
+	public override void DoInteractorCasterHit(CharacterActor characterActor, Direction direction, RaycastHit2D hitDetails, Collider2D collider) {
+		Interactable interactable = collider.GetComponent<Transform>().root.GetComponent<Interactable>();
 		if(interactable) {
-			//Debug.Log(string.Format("Mario interacting up: {0}.{1}", collider.transform.root.name, collider.name));
-			interactable.Interact(characterActor.gameObject);
+			switch(direction) {
+				case Direction.Up:
+					interactable.Interact(Direction.Down, characterActor.thisGameObject);
+					break;
+				case Direction.Down:
+					interactable.Interact(Direction.Up, characterActor.thisGameObject);
+					break;
+				case Direction.Left:
+					interactable.Interact(Direction.Right, characterActor.thisGameObject);
+					break;
+				case Direction.Right:
+					interactable.Interact(Direction.Left, characterActor.thisGameObject);
+					break;
+			}
 		}
 	}
 
-	public override bool DoInteracted(CharacterActor characterActor, GameObject interactor) {
+	public override bool DoInteracted(CharacterActor characterActor, Direction direction, GameObject interactor) {
 		CharacterActor otherCharacterActor = interactor.GetComponent<CharacterActor>();
 		if(otherCharacterActor) {
 			Collider2D collision = otherCharacterActor.thisInteractionCollider2D;

@@ -50,6 +50,10 @@ public class Interactor : MonoBehaviour {
 		_interactionCaster.UpdateHits();
 	}
 
+	//private void OnTriggerStay2D(Collider2D collision) {
+	//	_interactionCaster.UpdateHits();
+	//}
+
 	private void OnTriggerExit2D(Collider2D collision) {
 		_interactionCaster.UpdateHits();
 	}
@@ -73,7 +77,7 @@ public class Interactor : MonoBehaviour {
 		thisTransform = _thisGameObject.GetComponent<Transform>();
 
 		// Set interaction collider
-		thisInteractionCollider = Utilities.CreateObject("Collision", _thisTransform).AddOrGetComponent<BoxCollider2D>();
+		thisInteractionCollider = Utilities.CreateOrGetObject("Collision", _thisTransform).AddOrGetComponent<BoxCollider2D>();
 
 		// Set directional boxcast
 		_interactionCaster.boxCastInfos = new List<DirectionalBoxCast2D.BoxCastInfo> {
@@ -81,7 +85,7 @@ public class Interactor : MonoBehaviour {
 				direction = Direction.Up,
 				directionSizeMultiplier = .02f,
 				referenceSizeMultiplier = .9f,
-				distance = .02f
+				distance = .01f
 			},
 			new DirectionalBoxCast2D.BoxCastInfo {
 				direction = Direction.Down,

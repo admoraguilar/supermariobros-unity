@@ -1,20 +1,21 @@
 ﻿using UnityEngine;
 using System;
+using WishfulDroplet;
 
 
 public class Interactable : MonoBehaviour {
-	public event Func<GameObject, bool>		OnInteract = delegate (GameObject gameObject) { return false; };
+	public event Func<Direction, GameObject, bool>		OnInteract = delegate (Direction direction, GameObject gameObject) { return false; };
 
-	public bool								isInfiniteInteract = true;
-	public int								maxInteractCount = 1;
+	public bool											isInfiniteInteract = true;
+	public int											maxInteractCount = 1;
 
 	[Header("Debug")]
-	[SerializeField] private int			_remainingInteractCount;
+	[SerializeField] private int						_remainingInteractCount;
 
 
-	public void Interact(GameObject interactor) {
+	public void Interact(Direction direction, GameObject interactor) {
 		if(!isInfiniteInteract && _remainingInteractCount <= 0) return;
-		if(OnInteract(interactor)) {
+		if(OnInteract(direction, interactor)) {
 			_remainingInteractCount--;
 		}
 	}

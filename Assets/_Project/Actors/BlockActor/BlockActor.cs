@@ -52,19 +52,27 @@ public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
         return IsBrainOnSet(interactorBrains, brain);
     }
 
-	private bool OnInteracted(GameObject interactor) {
+	private bool OnInteracted(Direction direction, GameObject interactor) {
 		if(brain) {
-			brain.DoInteracted(this, interactor);
+			brain.DoInteracted(this, direction, interactor);
 		}
 
 		return false;
 	}
 
 	private void OnEnable() {
+		if(brain) {
+			brain.DoOnEnable(this);
+		}
+
 		thisInteractable.OnInteract += OnInteracted;
 	}
 
 	private void OnDisable() {
+		if(brain) {
+			brain.DoOnDisable(this);
+		}
+
 		thisInteractable.OnInteract -= OnInteracted;
 	}
 
@@ -78,17 +86,17 @@ public class BlockActor : Actor<BlockActor, BlockActor.BlockBrain> {
         thisSpriteRenderer = _thisAnimator.GetComponentInChildren<SpriteRenderer>(true);
 
 		// Set collision collider
-		thisCollisionCollider = Utilities.CreateObject("Collision", thisTransform).AddOrGetComponent<BoxCollider2D>();
+		thisCollisionCollider = Utilities.CreateOrGetObject("Collision", thisTransform).AddOrGetComponent<BoxCollider2D>();
 		thisCollisionCollider.size = thisSpriteRenderer ? thisSpriteRenderer.size * thisSpriteRenderer.GetComponent<Transform>().localScale :
 															thisCollisionCollider.size;
 
 		// Set interaction collider
-		thisInteractionCollider = Utilities.CreateObject("Interaction", thisTransform).AddOrGetComponent<BoxCollider2D>();
+		thisInteractionCollider = Utilities.CreateOrGetObject("Interaction", thisTransform).AddOrGetComponent<BoxCollider2D>();
         thisInteractionCollider.isTrigger = true;
     }
 
 
     public class BlockBrain : ActorBrain<BlockActor> {
-		public virtual bool DoInteracted(BlockActor blockActor, GameObject interactor) { return false; }
+		public virtual bool DoInteracted(BlockActor blockActor, Direction direction, GameObject interactor) { return false; }
 	}
 }

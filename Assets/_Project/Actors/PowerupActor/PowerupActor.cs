@@ -73,9 +73,9 @@ public class PowerupActor : Actor<PowerupActor, PowerupActor.PowerupBrain> {
 		return IsBrainOnSet(buffableBrains, brain);
 	}
 
-	private bool OnInteracted(GameObject interactor) {
+	private bool OnInteracted(Direction direction, GameObject interactor) {
 		if(brain) {
-			return brain.DoInteracted(this, interactor);
+			return brain.DoInteracted(this, direction, interactor);
 		}
 
 		return false;
@@ -131,7 +131,7 @@ public class PowerupActor : Actor<PowerupActor, PowerupActor.PowerupBrain> {
 		base.Reset();
 
 		// Setup Rigidbody2D
-		thisRigidbody2D = gameObject.AddOrGetComponent<Rigidbody2D>();
+		thisRigidbody2D = thisGameObject.AddOrGetComponent<Rigidbody2D>();
 		thisRigidbody2D.bodyType = RigidbodyType2D.Dynamic;
 		thisRigidbody2D.sharedMaterial = new PhysicsMaterial2D("Slippery") {
 			friction = .05f
@@ -143,7 +143,10 @@ public class PowerupActor : Actor<PowerupActor, PowerupActor.PowerupBrain> {
 		thisRigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
 
 		// Setup Character2D
-		thisCharacter2D = gameObject.AddOrGetComponent<Character2D>();
+		thisCharacter2D = thisGameObject.AddOrGetComponent<Character2D>();
+
+		// Setup Interactable
+		thisInteractable = thisGameObject.AddOrGetComponent<Interactable>();
 
 		// Setup Animator
 		thisAnimator = this.GetComponentInChildren<Animator>(true);
@@ -155,18 +158,18 @@ public class PowerupActor : Actor<PowerupActor, PowerupActor.PowerupBrain> {
 		thisSpriteRenderer = thisCharacterObject.GetComponentInChildren<SpriteRenderer>(true);
 
 		// Setup Collision Collider
-		thisCollisionCollider2D = Utilities.CreateObject("Collision", thisTransform).AddOrGetComponent<BoxCollider2D>();
+		thisCollisionCollider2D = Utilities.CreateOrGetObject("Collision", thisTransform).AddOrGetComponent<BoxCollider2D>();
 		thisCollisionCollider2D.size = thisCharacterObject ? thisSpriteRenderer.size * thisSpriteRenderer.GetComponent<Transform>().localScale :
 															 thisCollisionCollider2D.size;
 		
 		// Setup Interaction Collider
-		thisInteractionCollider2D = Utilities.CreateObject("Interaction", thisTransform).AddOrGetComponent<BoxCollider2D>();
+		thisInteractionCollider2D = Utilities.CreateOrGetObject("Interaction", thisTransform).AddOrGetComponent<BoxCollider2D>();
 		thisInteractionCollider2D.isTrigger = true;
 	}
 
 
 	public abstract class PowerupBrain : ActorBrain<PowerupActor> {
-		public virtual bool DoInteracted(PowerupActor powerupActor, GameObject interactor) { return false; }
+		public virtual bool DoInteracted(PowerupActor powerupActor, Direction direction, GameObject interactor) { return false; }
 	}
 
 

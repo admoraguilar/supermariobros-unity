@@ -19,7 +19,7 @@ public class AudioController : MonoBehaviour, IAudioController {
     private void Reset() {
         Transform tr = GetComponent<Transform>();
 
-        worldAudioSource = Utilities.CreateObject("WorldAudioSource", tr).AddOrGetComponent<AudioSource>();
+        worldAudioSource = Utilities.CreateOrGetObject("WorldAudioSource", tr).AddOrGetComponent<AudioSource>();
         worldAudioSource.playOnAwake = false;
         worldAudioSource.volume = .5f;
     }

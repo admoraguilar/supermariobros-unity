@@ -7,9 +7,10 @@ using WishfulDroplet.Extensions;
 
 [CreateAssetMenu(menuName = "Actors/CharacterActor/Brains/Mario")]
 public class MarioCharacterBrain : CharacterActor.CharacterBrain {
-	public override void DoCollisionHit(CharacterActor characterActor, Direction direction, RaycastHit2D hit, Collider2D collider) {
+	public override void DoCharacter2DCasterHit(CharacterActor characterActor, Direction direction, RaycastHit2D hit, Collider2D collider) {
 		switch(direction) {
 			case Direction.Up:
+				// Fall if we bump on something above 
 				if(Mathf.Abs(characterActor.transform.position.x - collider.transform.position.x) < .7f) {
 					characterActor.movementStateMachine.SetState(characterActor.fallMovementState);
 				}
@@ -17,26 +18,27 @@ public class MarioCharacterBrain : CharacterActor.CharacterBrain {
 		}
 	}
 
-	public override void DoInteractionHit(CharacterActor characterActor, Direction direction, RaycastHit2D hit, Collider2D collider) {
-		Interactable interactable = collider.transform.root.GetComponent<Interactable>();
-
-		switch(direction) {
-			case Direction.Up:
-				if(interactable) {
-					interactable.Interact(characterActor.gameObject);
-				}
-				break;
-			case Direction.Down:
-				if(interactable) {
-					interactable.Interact(characterActor.gameObject);
-				}
-				break;
+	public override void DoInteractorCasterHit(CharacterActor characterActor, Direction direction, RaycastHit2D hit, Collider2D collider) {
+		Interactable interactable = collider.GetComponentInParent<Interactable>();
+		if(interactable) {
+			switch(direction) {
+				case Direction.Up:
+					interactable.Interact(Direction.Down, characterActor.thisGameObject);
+					break;
+				case Direction.Down:
+					interactable.Interact(Direction.Up, characterActor.thisGameObject);
+					break;
+				case Direction.Left:
+					interactable.Interact(Direction.Right, characterActor.thisGameObject);
+					break;
+				case Direction.Right:
+					interactable.Interact(Direction.Left, characterActor.thisGameObject);
+					break;
+			}
 		}
-
-		
 	}
 
-	public override bool DoInteracted(CharacterActor characterActor, GameObject interactor) {
+	public override bool DoInteracted(CharacterActor characterActor, Direction direction, GameObject interactor) {
 		CharacterActor otherCharacterActor = interactor.GetComponent<CharacterActor>();
 		if(otherCharacterActor) {
 			Collider2D collision = otherCharacterActor.thisInteractionCollider2D;

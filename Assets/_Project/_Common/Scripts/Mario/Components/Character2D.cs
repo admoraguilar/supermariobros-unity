@@ -212,7 +212,7 @@ public class Character2D : MonoBehaviour {
 		thisRigidbody2D = thisGameObject.AddOrGetComponent<Rigidbody2D>();
 
 		// Set collision collider
-		thisCollisionCollider2D = Utilities.CreateObject("Collision", thisTransform).AddOrGetComponent<BoxCollider2D>();
+		thisCollisionCollider2D = Utilities.CreateOrGetObject("Collision", thisTransform).AddOrGetComponent<BoxCollider2D>();
 
 		// Set directional boxcast
 		_collisionCaster.boxCastInfos = new List<DirectionalBoxCast2D.BoxCastInfo> {

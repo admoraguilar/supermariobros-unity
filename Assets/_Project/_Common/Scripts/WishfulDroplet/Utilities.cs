@@ -202,7 +202,7 @@ namespace WishfulDroplet {
 
 
 	public class Utilities {
-		public static GameObject CreateObject(string path, Transform parent = null) {
+		public static GameObject CreateOrGetObject(string path, Transform parent = null) {
 			string[] splitPath = path.Split('/');
 
 			for(int i = 0; i < splitPath.Length; i++) {
