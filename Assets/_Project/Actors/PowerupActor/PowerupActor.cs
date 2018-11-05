@@ -188,6 +188,11 @@ public class PowerupActor : Actor<PowerupActor, PowerupActor.PowerupBrain> {
 		public class Move : PowerupState {
 			public override void DoFixedUpdate(PowerupActor owner) {
 				//owner.thisRigidbody2D.AddForce(owner.moveDirection * owner.moveSpeed * Time.fixedDeltaTime);
+
+				if(owner.thisCharacter2D.isChangingDirection) {
+					owner.thisRigidbody2D.velocity = new Vector2(0f, owner.thisRigidbody2D.velocity.y);
+				}
+
 				owner.thisCharacter2D.Move(owner.moveDirection * owner.moveSpeed * Time.fixedDeltaTime);
 			}
 		}

@@ -23,6 +23,7 @@ namespace WishfulDroplet {
 		#region CONVENIENCE PRIVATE METHODS
 
 		private static IEnumerator RoutineRunActionAfterSeconds(float seconds, Action action) {
+			// We do this to avoid "new WaitForSeconds()" GC allocation
 			float timer = 0f;
 
 			while(timer < seconds) {

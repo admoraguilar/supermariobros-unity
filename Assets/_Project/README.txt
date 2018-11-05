@@ -36,9 +36,9 @@ WORKFLOW:
 BUGS:
 * Transitioning from small to big, when picking up a mushroom timescale stop and animation doesn't work.
 * PowerupActor movement slows down when changing move direction. 
-* Mario can interact with the side of a BlockActor which can lead to different problems
-   * Mario's Character2D touched colliders could malfunction hence making Mario not be able to move on certain directions
-   * Mario falls down when jumping on stacks of bricks
+v Mario can interact with the side of a BlockActor which can lead to different problems
+   v Mario's Character2D touched colliders could malfunction hence making Mario not be able to move on certain directions
+   v Mario falls down when jumping on stacks of bricks
 
 =========================================
 
